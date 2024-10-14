@@ -1,0 +1,242 @@
+{
+    "Code": 1,
+    "Message": "OK(DATA_HUB)",
+    "RequestId": "cbd03b9182b541bfb95fe38517d8a8e1",
+    "Bizid": "74bf174f0c2141888489d1a0dcf2f2bb",
+    "Result": [
+        {
+            "BEGIN_DATE": "20010129",
+            "END_DATE": "20040604",
+            "TITLE": "助理工程師",
+            "COMPANY": "華邦電子（股）公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "0405083"
+        },
+        {
+            "BEGIN_DATE": "19970203",
+            "END_DATE": "20010129",
+            "TITLE": "工程師",
+            "COMPANY": "新企工程（股）公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "0405083"
+        },
+        {
+            "BEGIN_DATE": "19960715",
+            "END_DATE": "19970203",
+            "TITLE": "助理工程師",
+            "COMPANY": "樂士電機（股）公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "0405083"
+        },
+        {
+            "BEGIN_DATE": "20011126",
+            "END_DATE": "20090331",
+            "TITLE": "高級工程師",
+            "COMPANY": "友達光電",
+            "PRO_YEAR": "7.35",
+            "PERCENTAGE": "10.00",
+            "EMP_NO": "1206034"
+        },
+        {
+            "BEGIN_DATE": "20090401",
+            "END_DATE": "20120531",
+            "TITLE": "工程副理",
+            "COMPANY": "景智電子",
+            "PRO_YEAR": "3.17",
+            "PERCENTAGE": "10.00",
+            "EMP_NO": "1206034"
+        },
+        {
+            "BEGIN_DATE": "19990614",
+            "END_DATE": "20011126",
+            "TITLE": "設備工程師",
+            "COMPANY": "耀文電子",
+            "PRO_YEAR": "2.45",
+            "PERCENTAGE": "10.00",
+            "EMP_NO": "1206034"
+        },
+        {
+            "BEGIN_DATE": "20220401",
+            "END_DATE": "20231130",
+            "TITLE": "SQE",
+            "COMPANY": "ALPHA NETWORKS VIETNAM LTD CO.,",
+            "PRO_YEAR": "1.60",
+            "PERCENTAGE": "100.00",
+            "EMP_NO": "V2352006"
+        },
+        {
+            "BEGIN_DATE": "20190301",
+            "END_DATE": "20200131",
+            "TITLE": "IQC",
+            "COMPANY": "JMIH VIETNAM LTD CO.,",
+            "PRO_YEAR": "0.83",
+            "PERCENTAGE": "100.00",
+            "EMP_NO": "V2352006"
+        },
+        {
+            "BEGIN_DATE": "20200201",
+            "END_DATE": "20220201",
+            "TITLE": "SQE",
+            "COMPANY": "VIETNAM QISDA LTD CO.,",
+            "PRO_YEAR": "2.00",
+            "PERCENTAGE": "100.00",
+            "EMP_NO": "V2352006"
+        },
+        {
+            "BEGIN_DATE": "20210901",
+            "END_DATE": "20231130",
+            "TITLE": "LOGISTIC",
+            "COMPANY": "ALPHA NETWORKS VIETNAM LTD CO.,",
+            "PRO_YEAR": "2.25",
+            "PERCENTAGE": "100.00",
+            "EMP_NO": "V2352007"
+        },
+        {
+            "BEGIN_DATE": "20181201",
+            "END_DATE": "20240218",
+            "TITLE": "WAREHOUSE MANAGER",
+            "COMPANY": "CT TNHH GEMTEK VIETNAM",
+            "PRO_YEAR": "6.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "V2442007"
+        },
+        {
+            "BEGIN_DATE": "20201019",
+            "END_DATE": "20230228",
+            "TITLE": "處長",
+            "COMPANY": "ACC",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "2303003"
+        },
+        {
+            "BEGIN_DATE": "20000724",
+            "END_DATE": "20201018",
+            "TITLE": "會計經理",
+            "COMPANY": "友達光電股份有限公司",
+            "PRO_YEAR": "20.25",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2303003"
+        },
+        {
+            "BEGIN_DATE": "19940718",
+            "END_DATE": "19980430",
+            "TITLE": "會計",
+            "COMPANY": "台灣科華(股)公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "2303003"
+        },
+        {
+            "BEGIN_DATE": "19980504",
+            "END_DATE": "20000724",
+            "TITLE": "會計",
+            "COMPANY": "華隆微電子(股)公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "2303003"
+        },
+        {
+            "BEGIN_DATE": "20180301",
+            "END_DATE": "20230401",
+            "TITLE": "資深處長",
+            "COMPANY": "仁寶",
+            "PRO_YEAR": "5.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2305001"
+        },
+        {
+            "BEGIN_DATE": "19960101",
+            "END_DATE": "20180228",
+            "TITLE": "協理",
+            "COMPANY": "廣達",
+            "PRO_YEAR": "22.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2305001"
+        },
+        {
+            "BEGIN_DATE": "20020429",
+            "END_DATE": "20030131",
+            "TITLE": "設計師",
+            "COMPANY": "合圃股份有限公司",
+            "PRO_YEAR": "0.08",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "0609190"
+        },
+        {
+            "BEGIN_DATE": "20030203",
+            "END_DATE": "20040531",
+            "TITLE": "設計師兼任組長",
+            "COMPANY": "高野景觀工程公司",
+            "PRO_YEAR": "0.26",
+            "PERCENTAGE": "0.20",
+            "EMP_NO": "0609190"
+        },
+        {
+            "BEGIN_DATE": "20080303",
+            "END_DATE": "20090803",
+            "TITLE": "業務",
+            "COMPANY": "恆祥龍",
+            "PRO_YEAR": "0.21",
+            "PERCENTAGE": "0.15",
+            "EMP_NO": "1108052"
+        },
+        {
+            "BEGIN_DATE": "20061120",
+            "END_DATE": "20130222",
+            "TITLE": "系統工程師",
+            "COMPANY": "漢翔航空工業股份有限公司",
+            "PRO_YEAR": "1.88",
+            "PERCENTAGE": "0.30",
+            "EMP_NO": "1305431"
+        },
+        {
+            "BEGIN_DATE": "20200217",
+            "END_DATE": "20200816",
+            "TITLE": "助理辦事員",
+            "COMPANY": "台灣土地銀行",
+            "PRO_YEAR": "0.49",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2009091"
+        },
+        {
+            "BEGIN_DATE": "20141127",
+            "END_DATE": "20190527",
+            "TITLE": "高級工程師",
+            "COMPANY": "中華映管",
+            "PRO_YEAR": "3.15",
+            "PERCENTAGE": "0.70",
+            "EMP_NO": "2108169"
+        },
+        {
+            "BEGIN_DATE": "20190617",
+            "END_DATE": "20210701",
+            "TITLE": "主任工程師",
+            "COMPANY": "冠捷科技",
+            "PRO_YEAR": "2.04",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2108169"
+        },
+        {
+            "BEGIN_DATE": "19980901",
+            "END_DATE": "20130604",
+            "TITLE": "經理/廠長",
+            "COMPANY": "友達光電",
+            "PRO_YEAR": "14.77",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2109004"
+        },
+        {
+            "BEGIN_DATE": "20130701",
+            "END_DATE": "20210601",
+            "TITLE": "協理",
+            "COMPANY": "達運精密",
+            "PRO_YEAR": "7.92",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2109004"
+        }
+    ]
+}

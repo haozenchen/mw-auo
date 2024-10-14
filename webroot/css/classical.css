@@ -1,0 +1,26 @@
+table.Classical {
+	border-collapse:collapse;
+	border-spacing:0;
+	font-size:12px;
+	color:#333333;
+}
+
+.Classical th {
+	padding:3px;
+	border-left:1px solid #FFFFFF;
+	border-bottom:1px solid #FFFFFF;
+	background-color:#CACAFF;
+}
+
+.Classical .title {
+	width:18%;
+	padding:6px;
+	border-bottom:1px solid #FFFFFF;
+	background-color:#BEDDED;
+}
+
+.Classical .content {
+	padding:6px;
+	border-bottom:1px solid #FFFFFF;
+	background-color:#eef4f9;
+}

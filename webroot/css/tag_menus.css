@@ -1,0 +1,140 @@
+#content {
+	MARGIN-TOP: 10px; OVERFLOW: hidden
+}
+
+#content #tag_main {
+	BACKGROUND-COLOR: #FFFFFF; WIDTH: 500px; FLOAT: left; MARGIN-RIGHT: 10px
+}
+
+#tag_menu {
+	BACKGROUND-COLOR: #FFFFFF; WIDTH: 100%; MARGIN-BOTTOM: 5px; FONT-SIZE: 0.75em; OVERFLOW: hidden
+}
+#tag_menu #td_height {
+	height:400px; vertical-align:top;
+}
+#tag_menu #head {
+	Z-INDEX: 2; POSITION: relative; WIDTH: 100%; HEIGHT: 30px; OVERFLOW: hidden
+}
+
+#tag_menu #head div {
+	FLOAT: left; MARGIN-LEFT: -1px; FONT-SIZE: 0.9em
+}
+#tag_menu #head #title {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; COLOR: #666666; FONT-SIZE: 1.6em; PADDING-TOP: 5px
+}
+
+.tag1 {
+	CURSOR: pointer; font-size:13px; BORDER-BOTTOM: #6699CC 1px solid; BORDER-LEFT: #6699CC 1px solid; PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #E5E8A5; MARGIN-TOP: 3px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; HEIGHT: 27px; BORDER-TOP: #6699CC 1px solid; BORDER-RIGHT: #6699CC 1px solid; PADDING-TOP: 5px
+}
+
+.tag2 {
+	CURSOR: pointer; font-size:13px; BORDER-BOTTOM: #6699CC 1px solid; BORDER-LEFT: #6699CC 1px solid; PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #EEEFFF; MARGIN-TOP: 3px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; HEIGHT: 30px; BORDER-TOP: #6699CC 1px solid; BORDER-RIGHT: #6699CC 1px solid; PADDING-TOP: 5px
+}
+
+.tag3 {
+	font-size:13px; BORDER-BOTTOM: #EEEFFF 1px solid; BORDER-LEFT: #6699CC 1px solid; PADDING-BOTTOM: 3px; BACKGROUND-COLOR: #EEEFFF; MARGIN-TOP: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; HEIGHT: 30px; BORDER-TOP: #6699CC 1px solid; CURSOR: pointer; BORDER-RIGHT: #6699CC 1px solid; PADDING-TOP: 7px
+}
+
+#tag_menu #body {
+	 OVERFLOW: hidden; BACKGROUND-COLOR: #EEEFFF; Z-INDEX: 1; BORDER-BOTTOM: #6699CC 1px solid; POSITION: relative; BORDER-LEFT: #6699CC 1px solid; PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px;  BORDER-TOP: #6699CC 1px solid; TOP: -1px; BORDER-RIGHT: #6699CC 1px solid; PADDING-TOP: 5px; LEFT: 0px;
+}
+
+#flow_main {
+	WIDTH: 100%; MARGIN-BOTTOM: 5px; FONT-SIZE: 0.75em; OVERFLOW: hidden
+}
+
+#flow_main #title {
+	COLOR: #000000; FONT-SIZE:13px; BORDER-BOTTOM: #6699CC 1px solid; BORDER-LEFT: #6699CC 1px solid; PADDING-BOTTOM: 3px; BACKGROUND-COLOR: #EEEFFF; MARGIN-TOP: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; HEIGHT: 19px; BORDER-TOP: #6699CC 1px solid; BORDER-RIGHT: #6699CC 1px solid; PADDING-TOP: 7px
+}
+
+#flow_main #hide_title {
+	COLOR: #555555; FONT-SIZE:13px; BORDER-BOTTOM: #EEEEEE 1px solid; BORDER-LEFT: #EEEEEE 1px solid; PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #DDDDDD; MARGIN-TOP: 3px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; HEIGHT: 15px; BORDER-TOP: #EEEEEE 1px solid; BORDER-RIGHT: #EEEEEE 1px solid; PADDING-TOP: 5px
+}
+
+#flow_main #ok_title {
+	COLOR: #000000; FONT-SIZE:13px; BORDER-BOTTOM: #EEEEEE 1px solid; BORDER-LEFT: #EEEEEE 1px solid; PADDING-BOTTOM: 3px; BACKGROUND-COLOR: #EEEFFF; MARGIN-TOP: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; HEIGHT: 19px; BORDER-TOP: #EEEEEE 1px solid; BORDER-RIGHT: #EEEEEE 1px solid; PADDING-TOP: 7px
+}
+
+#formTr { TEXT-ALIGN:left; HEIGHT:30px; }
+
+.formTitle01 { FONT-SIZE: 13px; COLOR: #000099;  HEIGHT: 20px; FONT-WEIGHT: bold}
+.formText01 { FONT-SIZE: 13px; COLOR: #000099; BACKGROUND-COLOR: #FFFFFF; BORDER: 1px solid; BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; BORDER-LEFT: black 1px solid; BORDER-BOTTOM: black 1px solid; HEIGHT: 15px}
+.formTextarea01 { FONT-SIZE: 12px; COLOR: #000099; BACKGROUND-COLOR: #FFFFFF; BORDER: 1px solid; BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; BORDER-LEFT: black 1px solid; BORDER-BOTTOM: black 1px solid;}
+.formText02 { FONT-SIZE: 13px; COLOR: #000099; BACKGROUND-COLOR: #EEEEEE; BORDER: 1px solid; BORDER-RIGHT: #E9E9E9 1px solid; BORDER-TOP: #E9E9E9 1px solid; BORDER-LEFT: #E9E9E9 1px solid; BORDER-BOTTOM: #E9E9E9 1px solid; HEIGHT: 15px}
+.formSelect01 {BACKGROUND-COLOR:#FFFFFF;  FONT-SIZE: 12px;  COLOR: #003399; BORDER:1px solid #666666}
+
+.itemLine {	MARGIN:10px; TEXT-ALIGN:left;	HEIGHT:20px; }
+.itemLeft {	MARGIN:10px; TEXT-ALIGN:left; }
+hr { WIDTH:90%; MARGIN:10px; BORDER:1px dotted #3366CC; }
+.UserPhoto {
+	border:1px solid #DDDDDD;
+	background:#FFFFDD;
+	width:105px;
+	height:135px;
+}
+.UserPhotoUpload {
+	top:50%;
+	left:50%;
+	width:300px;
+	height:60px;
+	margin-left:-150px;
+	margin-top:-50px;
+	text-align:left;
+	padding-left:20px;
+	padding-top:38px;
+	background-color:#FFFF99;
+	border:2px solid #FF9933;
+	font-size:13px;
+	z-index:99;
+}
+
+.UserPhotoUploadTitle {
+	position:absolute;
+	top:0;
+	left:0;
+	padding-top:5px;
+	font-weight:bold;
+	text-align:center;
+	width:100%;
+}
+
+.UserPhotoUploadStatus {
+	padding-top:5px;
+	color:#990000;
+}
+
+#upload_personal_photo {
+	position:absolute;
+	overflow:display;/*must have*/
+	width:300px;/*must have for any value*/;
+}
+
+#upload_personal_photo iframe
+{
+	display:none;/*sorry for IE5*/
+	display/**/:block;/*sorry for IE5*/
+	position:absolute;/*must have*/
+	top:-2px;/*must have*/
+	left:-2px;/*must have*/
+	z-index:-1;/*must have*/
+	filter:mask();/*must have*/
+	width:100%;/*must have for any big value*/
+	height:100%;/*must have for any big value*/
+}
+
+.UserInnerTrHead {
+  text-align:center;
+  background-color:#DDDDDD;
+}
+
+.flow_main .title {
+	COLOR: #000000; FONT-SIZE:13px; BORDER-BOTTOM: #6699CC 1px solid; BORDER-LEFT: #6699CC 1px solid; PADDING-BOTTOM: 3px; BACKGROUND-COLOR: #EEEFFF; MARGIN-TOP: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; HEIGHT: 19px; BORDER-TOP: #6699CC 1px solid; BORDER-RIGHT: #6699CC 1px solid; PADDING-TOP: 7px
+}
+
+.flow_main .hide_title {
+	COLOR: #555555; FONT-SIZE:13px; BORDER-BOTTOM: #EEEEEE 1px solid; BORDER-LEFT: #EEEEEE 1px solid; PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #DDDDDD; MARGIN-TOP: 3px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; HEIGHT: 15px; BORDER-TOP: #EEEEEE 1px solid; BORDER-RIGHT: #EEEEEE 1px solid; PADDING-TOP: 5px
+}
+
+.flow_main .ok_title {
+	COLOR: #000000; FONT-SIZE:13px; BORDER-BOTTOM: #EEEEEE 1px solid; BORDER-LEFT: #EEEEEE 1px solid; PADDING-BOTTOM: 3px; BACKGROUND-COLOR: #EEEFFF; MARGIN-TOP: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; HEIGHT: 19px; BORDER-TOP: #EEEEEE 1px solid; BORDER-RIGHT: #EEEEEE 1px solid; PADDING-TOP: 7px
+}

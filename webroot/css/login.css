@@ -1,0 +1,551 @@
+html {
+    min-height: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background: #D9F7FF 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+/*#region 主要樣式*/
+
+.loginForm {
+    border-radius: 20px;
+    max-width: 100%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-text-fill-color: #000000;
+    background: transparent;
+    border: 1px solid #D9D9D9;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.userInput {
+    background: #FAFAFA 0% 0% no-repeat padding-box !important;
+    border: 1px solid #D9D9D9 !important;
+    border-radius: 5px !important;
+    opacity: 1 !important;
+    font-size: 15px !important;
+    width: 252px;
+    height: 44px;
+}
+
+.mafInput {
+    background: #FAFAFA 0% 0% no-repeat padding-box !important;
+    border: 1px solid #D9D9D9 !important;
+    border-radius: 5px !important;
+    opacity: 1 !important;
+    font-size: 15px;
+    width: 252px;
+    height: 44px;
+}
+
+.userInput:focus-visible {
+    outline: 1px solid #2565CE;
+    box-shadow: 0px 0px 2px #2565CE;
+    background: #FFFFFF !important;
+}
+
+.mafInput:focus-visible {
+    outline: 1px solid #2565CE;
+    box-shadow: 0px 0px 2px #2565CE;
+    background: #FFFFFF !important;
+}
+
+.mainImg {
+    padding-left: 10%;
+}
+
+.loginBox {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 50px #3064BF4D;
+    border-radius: 20px;
+    opacity: 1;
+    width: 420px;
+    height: 100%;
+    padding-top: 48px;
+    padding-left: 32px;
+    padding-right: 73px;
+    padding-bottom: 40px;
+}
+
+.mfaBox {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 50px #3064BF4D;
+    border-radius: 20px;
+    opacity: 1;
+    width: 420px;
+    height: 100%;
+    padding-top: 48px;
+    padding-left: 32px;
+    padding-right: 73px;
+    padding-bottom: 40px;
+}
+
+.imgBox {
+    margin-bottom: 6px;
+    width: 106px;
+}
+
+.mfaImgBox {
+    margin-bottom: 6px;
+    width: 224px;
+}
+
+.comName {
+    color: #333333;
+    line-height: 36px;
+    font-weight: bold;
+    margin-top: 8px;
+    font-size: 24px;
+}
+
+.dealerName {
+    text-align: left;
+    font: normal normal bold 28px/38px Microsoft JhengHei;
+    letter-spacing: 0px;
+    color: #2953CF;
+    opacity: 1;
+    margin-bottom: 34px;
+}
+
+.labelStyle {
+    text-align: left;
+    font: normal normal normal 15px/17px Microsoft Sans Serif;
+    letter-spacing: 0px;
+    color: #4D4D4D;
+    opacity: 1;
+}
+
+.deaCodeLabel {
+    white-space: nowrap;
+}
+
+label {
+    display: initial;
+    margin-bottom: 0;
+}
+
+.row-span {
+    margin-bottom: 12px;
+    align-items: center;
+}
+
+.mfa-row {
+    margin-bottom: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-group {
+    align-items: center;
+    width: 123%;
+}
+
+.mafLabel {
+    text-align: left;
+    font: normal normal normal 15px/17px Microsoft Sans Serif;
+    white-space: nowrap;
+    letter-spacing: 0px;
+    color: #4D4D4D;
+    opacity: 1;
+}
+
+.colLabel {
+    display: flex;
+    align-items: center;
+    width: 75px;
+}
+
+.colInput {
+    width: 210px;
+}
+
+.remember-group {
+    display: flex;
+    align-items: center;
+}
+
+.rememberCheckbox {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    opacity: 1;
+}
+
+input[type=checkbox]:checked {
+    background: #3A80F3 !important;
+    display: inline;
+}
+
+.remLab {
+    text-align: right;
+    font: normal normal normal 13px/15px Microsoft Sans Serif;
+    letter-spacing: 0px;
+    color: #4D4D4D;
+    opacity: 1;
+    margin-right: 16px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.span-space {
+    margin-bottom: 68px;
+}
+
+.maf-space {
+    margin-bottom: 59px;
+}
+
+.submitBtn {
+    background: #2565CE 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+    width: 252px;
+    padding: 11.5px 0;
+    text-align: center;
+    font: normal normal bold 15px/20px Microsoft JhengHei;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.mafBtn {
+    text-align: center;
+    font: normal normal bold 15px/20px Microsoft JhengHei;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    width: 252px;
+    height: 44px;
+    background: #2565CE 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+.clearBtn {
+    width: 88px;
+    padding: 11.5px 0;
+    background: #D9E7FF 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+    text-align: center;
+    font: normal normal bold 15px/20px Microsoft JhengHei;
+    letter-spacing: 0px;
+    color: #2565CE;
+    opacity: 1;
+}
+
+.submitBtn:hover {
+    transition: 0.3s;
+    color: #FFFFFF;
+    background: #1c4fa1 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.mafBtn:hover {
+    transition: 0.3s;
+    color: #FFFFFF;
+    background: #1c4fa1 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.clearBtn:hover {
+    transition: 0.3s;
+    background: #abb7ca 0% 0% no-repeat padding-box;
+    color: #2565CE;
+    border-radius: 5px;
+    opacity: .9;
+}
+
+#flashMessage {
+    text-align: left;
+    font: normal normal bold 15px Microsoft JhengHei;
+    letter-spacing: 0px;
+    color: #3991C3;
+    opacity: 1;
+}
+
+.error {
+    text-align: left;
+    font: normal normal bold 15px Microsoft JhengHei;
+    letter-spacing: 0px;
+    color: #B3001E !important;
+    opacity: 1;
+    width: 252px;
+}
+
+/*#endregion 主要樣式*/
+
+/*#region 行動裝置*/
+@media screen and (max-width:750px) {
+
+    html {
+        display: block;
+    }
+
+    .direct_msg {
+        margin-top: 0 ;
+        margin-bottom: 8px ;
+    }
+
+    .loginBox {
+        height: 100%;
+        max-width: 100%;
+        padding-top: 26px;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 16px;
+    }
+
+    .loginForm {
+        border-radius: 20px;
+        max-width: 100%;
+    }
+
+    .imgBox {
+        margin-bottom: 8px;
+        width: 106px;
+    }
+
+    .comName {
+        line-height: 24px;
+        font-weight: bold;
+        font-size: 28px;
+    }
+
+    .dealerName {
+        text-align: left;
+        font: normal normal bold 28px/38px Microsoft JhengHei;
+        letter-spacing: 0px;
+        color: #2953CF;
+        opacity: 1;
+        margin-bottom: 32px;
+    }
+
+    .rememberCheckbox {
+        width: 20px;
+        height: 20px;
+        margin-right: 4px;
+    }
+
+    .row-span {
+        margin-top: 0%;
+        margin-bottom: 12px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .row-phone {
+        height: auto;
+        margin-top: 0%;
+        margin-bottom: 0%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .colLabel {
+        align-items: center;
+        width: 100%;
+        margin-top: 0%;
+        margin-bottom: 0%;
+    }
+
+    .colInput {
+        width: 100%;
+        font-size: 15px;
+        margin-top: 0%;
+        margin-bottom: 0%;
+    }
+
+    .userInput {
+        background: #FAFAFA 0% 0% no-repeat padding-box;
+        border: 1px solid #D9D9D9;
+        border-radius: 5px;
+        opacity: 1;
+        font-size: 15px !important;
+        width: 100%;
+        height: 48px;
+    }
+
+    .labelStyle {
+        font-size: 15px;
+        text-align: left;
+        letter-spacing: 0px;
+        color: #4D4D4D;
+        opacity: 1;
+        width: 100%;
+        height: 21px;
+    }
+
+    .remember-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .col-4, .col-7 {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #flashMessage {
+        text-align: left;
+        font: normal normal bold 15px Microsoft JhengHei;
+        letter-spacing: 0px;
+        color: #3991C3;
+        opacity: 1;
+    }
+
+    .errMsg {
+        font-size: 15px;
+        height: 100%;
+    }
+
+    .span-space {
+        margin-bottom: 35px;
+    }
+
+    .btn-groups {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .submitBtn {
+        text-align: center;
+        font: normal normal bold 15px/20px Microsoft JhengHei;
+        letter-spacing: 0px;
+        color: #FFFFFF;
+        opacity: 1;
+
+        width: 100%;
+        height: 48px;
+        background: #2565CE 0% 0% no-repeat padding-box;
+        border-radius: 5px;
+        opacity: 1;
+    }
+
+    .clearBtn {
+        text-align: center;
+        font: normal normal bold 15px/20px Microsoft JhengHei;
+        letter-spacing: 0px;
+        color: #2565CE;
+        opacity: 1;
+        margin-top: 20px;
+        width: 100%;
+        height: 48px;
+        background: #D9E7FF 0% 0% no-repeat padding-box;
+        border-radius: 5px;
+        opacity: 1;
+    }
+
+    .row {
+        display: block;
+    }
+
+    .row-btn {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .btn-submit-groups {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .mfaBox {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 50px #3064BF4D;
+        border-radius: 20px;
+        opacity: 1;
+        max-width: 100%;
+        height: 100%;
+        padding-top: 26px;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 16px;
+    }
+
+    .mfaImgBox {
+        width: 224px;
+        max-width: 100%;
+    }
+
+    .mfa-row {
+        margin-bottom: 27px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mfa-row-span {
+        height: 135px;
+        margin-top: 0%;
+        margin-bottom: 14px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mfa-col-ctrl {
+        max-width: max-content;
+    }
+
+    .mafInput {
+        background: #FAFAFA 0% 0% no-repeat padding-box;
+        border: 1px solid #D9D9D9;
+        border-radius: 5px;
+        opacity: 1;
+        width: 100%;
+        height: 44px;
+    }
+
+    .mafLabel {
+        text-align: left;
+        font: normal normal normal 15px/17px Microsoft Sans Serif;
+        white-space: nowrap;
+        letter-spacing: 0px;
+        color: #4D4D4D;
+        opacity: 1;
+        margin-bottom: 4px;
+    }
+
+    .mafBtn {
+        text-align: center;
+        font: normal normal bold 15px/20px Microsoft JhengHei;
+        letter-spacing: 0px;
+        color: #FFFFFF;
+        opacity: 1;
+        width: 100%;
+        height: 48px;
+        background: #2565CE 0% 0% no-repeat padding-box;
+        border-radius: 5px;
+        opacity: 1;
+    }
+
+    .maf-space {
+        margin-bottom: 50px;
+    }
+}
+
+@media screen and (max-width:245px) {
+    .remember-group {
+        flex-wrap: wrap;
+    }
+
+    .remember-group>.rememberSet {
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+}
+
+/*#endregion RegionName*/
