@@ -391,27 +391,15 @@ class SaasAdminsController extends AppController
                     $result = 'fail';
                     $msg = __('原始密碼不正確，更新失敗', true);
                 }else{
-                    $result = 'success';
-                    $msg = __('已更新密碼', true);
+                    $salt = substr(sha1((string)time()), 0, 16);
+                    $newPass = $this->request->getData('new_passwd');
+                    $saasAdmin['passwd'] = $this->othAuth->_getHashOf($newPass, $salt);
+                    if($this->SaasAdmins->save($saasAdmin)){
+                        $result = 'success';
+                        $msg = __('已更新密碼', true);
+                    }
                 }
             }
-            // if(!empty($this->data['SaasAdmin']['orig_passwd']) || !empty($this->data['SaasAdmin']['new_passwd']) || !empty($this->data['SaasAdmin']['confirm_new_passwd'])){
-            //     if(!$this->othAuth->_passwdCompare($this->data['SaasAdmin']['orig_passwd'], $orgAccountPw['SaasAdmin']['passwd'])){
-            //         $result = 'fail';
-            //         $msg = __('原始密碼不正確，更新失敗', true);
-            //     }else{
-            //         $salt = substr(sha1(time()), 0, 16);
-            //         $newPass = $this->data['SaasAdmin']['new_passwd'];
-            //         unset($this->data);
-            //         $this->data['SaasAdmin']['id'] = $this->emUid;
-            //         $this->data['SaasAdmin']['passwd'] = $this->othAuth->_getHashOf($newPass, $salt);
-
-            //         if($this->SaasAdmin->save($this->data['SaasAdmin'])){
-            //             $result = 'success';
-            //             $msg = __('已更新密碼', true);
-            //         }
-            //     }
-            // }
 
             $this->set('jsonData', array('status' => $result, 'msg' => $msg));
             $this->viewBuilder()->setLayout('txt');

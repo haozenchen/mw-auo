@@ -84,10 +84,9 @@ class SaasSettingsController extends AppController
                 'Authorization' => $token,  // 添加你的 token
                 'Content-Type' => 'application/json'        // 設定內容類型
             ];
-
-            $response = $http->get($url, [], ['headers' => $headers]);
+            $response = $http->post($url, json_encode([]), ['headers' => $headers]);
             $res = array();
-
+            $this->log(var_export($response, true));
             if ($response->isOk()) {
                 $res['data'] = $response->getJson();
                 $res['status'] = 'ok';

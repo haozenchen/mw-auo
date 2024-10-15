@@ -66,4 +66,30 @@ class SaasSettingsTable extends Table
 
         return $validator;
     }
+
+    public function getSys($key) {
+        return $this->_doGet($key, array('type' => 'S'));
+    }
+
+    public function _doGet($key, $params = null) {
+        $cond = array('`key`' => $key);
+        $condkey = '';
+        $cache = true;
+        if (isset($params['type'])) {
+            $type = $params['type'];
+        } else {
+            $type = 'S';
+        }
+
+        $data = $this->find()
+                ->where($cond)
+                ->first();
+        if (!empty($data)) {
+            $return = $data['value'];
+
+            return $return;
+        } else {
+            return null;
+        }
+    }
 }

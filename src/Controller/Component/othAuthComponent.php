@@ -398,7 +398,6 @@ class OthAuthComponent extends Component
 				}
 
 				$row['advancePermission'] = $this->_advPermission($adminGroups);
-				$this->log(var_export($row['advancePermission'], true));
 			}
 			$this->_saveSession($row);
 			$back = isset($this->controller->params['url']['url'][$this->auth_url_redirect_var]);
