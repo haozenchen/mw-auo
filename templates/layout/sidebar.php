@@ -7,13 +7,13 @@
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 
 <?php echo $this->Html->meta('charset', 'UTF-8'); ?>
-<?php echo $this->Html->css('emma.default') ?>
 <?php echo $this->Html->css('jquery-ui-min/jquery-ui.min') ?>
 <?php echo $this->Html->css('w2ui-1.5.rc1') ?>
 <?php echo $this->Html->css('w3') ?>
 <?php echo $this->Html->css('bootstrap') ?>
 
 <?php echo $this->Html->css('toastr.min') ?>
+<?php echo $this->Html->css('fontawesome-free-5.13.1-web/css/all.css?123'); ?>
 <?php echo $this->Html->script('prototype') ?>
 <?php echo $this->Html->script('scriptaculous') ?>
 <?php echo $this->Html->script('cookie') ?>
@@ -25,8 +25,6 @@
 <?php echo $this->Html->script('menu') ?>
 <?php echo $this->Html->script('toastr.min') ?>
 <?php echo $this->Html->script('w2ui-1.5.rc1') ?>
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <script>
 	<?php if(!empty($mfaAlert)){
 		echo 'alert("'.$mfaAlert.'");';
@@ -205,6 +203,12 @@ label{
 	margin-bottom: 0px;
 	margin-right: 10px
 }
+
+.rightBtn {
+	position:absolute;
+	top:7px;
+	right:30px;
+	}
 </style>
 
 <div id="popup" style="display:none;">

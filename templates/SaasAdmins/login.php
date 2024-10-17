@@ -10,7 +10,6 @@
 ?>
 
 <script language="JavaScript">
-    var isLoginMfa = '<?= h($mfaSetting->value)?>';
     var isForceMfa = '<?= h($forceMfa->value) ?>';
 
     function clear_login() {
@@ -43,7 +42,7 @@
         if ($('user_username').value == "" || $('user_passwd').value == "") {
             jQuery('#flashMessage').append('<div class="errMsg">請勿輸入空值</div>');
             return false;
-        } else if (isLoginMfa == 1 || isForceMfa == 1) {
+        } else if (isForceMfa == 1) {
             jQuery.ajax({
                 data: jQuery('#login').serialize(),
                 type: 'POST',

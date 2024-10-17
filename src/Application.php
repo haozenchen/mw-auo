@@ -27,6 +27,8 @@ use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
+use Cake\Console\CommandCollection;
+use App\Command\SyncRecordsCommand;
 
 /**
  * Application setup class.
@@ -116,6 +118,12 @@ class Application extends BaseApplication
     {
     }
 
+
+    public function console(CommandCollection $commands): CommandCollection
+    {
+        $commands->add('sync_records', SyncRecordsCommand::class);
+        return $commands;
+    }
     /**
      * Bootstrapping for CLI application.
      *

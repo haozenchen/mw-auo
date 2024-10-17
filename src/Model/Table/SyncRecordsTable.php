@@ -50,6 +50,10 @@ class SyncRecordsTable extends Table
         $this->belongsTo('SaasAdmins', [
             'foreignKey' => 'saas_admin_id',
         ]);
+
+        $this->hasMany('SyncLogs', [
+            'foreignKey' => 'sync_record_id', // 根據你的資料表結構調整
+        ]);
     }
 
     /**

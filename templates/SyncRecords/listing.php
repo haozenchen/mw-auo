@@ -55,12 +55,15 @@ td div.w2ui-col-sorted {
 	        toolbar:{
 	        	items: [
 	        		<?php if(!empty($advancePermission['add'])|| $advancePermission =='grant_all'){ ?>
-		            { type: 'button', id: 'add', text: '手動執行同步作業', icon: 'w2ui-icon-plus' },
+		            { type: 'button', id: 'sync', text: '手動執行同步作業', icon: 'w2ui-icon-plus' },
 		        	<?php }?>
 		        ],
 	        	onClick: function (target, data) {
 					if(target == 'add'){
                         add();
+					}
+					if(target == 'sync'){
+                        sync();
 					}
 				}
 	        },
@@ -99,8 +102,6 @@ td div.w2ui-col-sorted {
 			}
         })
 
-
-
         function openMainLayout(){
             w2ui['layout'].load('main', "<?php echo $this->Url->build(['controller' => 'SyncRecords', 'action' => 'log_listing']); ?>/" + currentId);
             if(child_grid){
@@ -114,26 +115,8 @@ td div.w2ui-col-sorted {
 			child_grid = true;
 		}
 
-
-		
-		function add(){
-			w2utils.lock('body', '同步中，請稍後...', true);
-	        jQuery.ajax({
-				url: '<?php echo $this->Url->build(['controller' => 'SyncRecords', 'action' => 'do_sync']); ?>',
-				type: 'POST',
-				success: function(data) {
-					w2utils.unlock('body');
-					var res = JSON.parse(data);
-	                if(res.status == 'ok'){
-	                	toastr.success('同步結束');
-	                    w2ui['grid'].reload();
-					}
-	                else{
-	                    w2alert(data.status);
-	                }
-				},
-
-			});
-	    }
+	    function sync(){
+			w2popup.load({width: 400, height: 250, showMax:true, title: '同步設定 ', url: "<?php echo $this->Url->build(['controller' => 'SyncRecords', 'action' => 'sync_setting']); ?>",  buttons: '<button class="w2ui-btn" name="save" onclick="add();">開始同步</button>'});
+		}
     })
 </script>

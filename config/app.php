@@ -6,6 +6,7 @@ use Cake\Database\Driver\Mysql;
 use Cake\Log\Engine\FileLog;
 use Cake\Mailer\Transport\MailTransport;
 
+date_default_timezone_set('Asia/Taipei');
 return [
     /*
      * Debug Level:
@@ -353,25 +354,7 @@ return [
     /*
      * Configures logging options
      */
-    'Log' => [
-        'error' => [
-            'className' => FileLog::class,
-            'path' => LOGS,
-            'file' => 'error',
-            'url' => env('LOG_ERROR_URL', null),
-            'scopes' => false,
-            'levels' => ['error'],
-        ]
-    ],
     // 'Log' => [
-    //     'debug' => [
-    //         'className' => FileLog::class,
-    //         'path' => LOGS,
-    //         'file' => 'debug',
-    //         'url' => env('LOG_DEBUG_URL', null),
-    //         'scopes' => false,
-    //         'levels' => [],
-    //     ],
     //     'error' => [
     //         'className' => FileLog::class,
     //         'path' => LOGS,
@@ -379,16 +362,34 @@ return [
     //         'url' => env('LOG_ERROR_URL', null),
     //         'scopes' => false,
     //         'levels' => ['error'],
-    //     ],
-    //     // To enable this dedicated query log, you need set your datasource's log flag to true
-    //     'queries' => [
-    //         'className' => FileLog::class,
-    //         'path' => LOGS,
-    //         'file' => 'queries',
-    //         'url' => env('LOG_QUERIES_URL', null),
-    //         'scopes' => [],
-    //     ],
+    //     ]
     // ],
+    'Log' => [
+        'debug' => [
+            'className' => FileLog::class,
+            'path' => LOGS,
+            'file' => 'debug_'.date('Y-m-d'),
+            'url' => env('LOG_DEBUG_URL', null),
+            'scopes' => false,
+            'levels' => ['notice', 'info', 'debug'],
+        ],
+        'error' => [
+            'className' => FileLog::class,
+            'path' => LOGS,
+            'file' => 'error_'.date('Y-m-d'),
+            'url' => env('LOG_ERROR_URL', null),
+            'scopes' => false,
+            'levels' => ['error'],
+        ],
+        // To enable this dedicated query log, you need set your datasource's log flag to true
+        'queries' => [
+            'className' => FileLog::class,
+            'path' => LOGS,
+            'file' => 'queries_'.date('Y-m-d'),
+            'url' => env('LOG_QUERIES_URL', null),
+            'scopes' => ['queriesLog'],
+        ],
+    ],
 
     /*
      * Session configuration.

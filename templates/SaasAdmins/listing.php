@@ -17,8 +17,7 @@ td[col="5"] div.w2ui-col-sorted {
 		background-color: #ffecc1 !important;
 }
 </style>
-<script type="text/javascript">    
-    var mfa = '<?= h($mfaSetting->value)?>';
+<script type="text/javascript">
 	var wh = jQuery(window).height() - 70;
 	jQuery('#layout').height(wh);
 	var whc = wh - 15;
@@ -63,7 +62,6 @@ td[col="5"] div.w2ui-col-sorted {
 			},
             toolbar: {
 				items: [
-                    // { type: 'button', id: 'mfasetting', icon: 'fas fa-user-circle', caption: '兩階段驗證', tooltip: '兩階段驗證' },
 					{ type: 'spacer' },
 					<?php if(!empty($advancePermission['add'])|| $advancePermission =='grant_all'){ ?>
 						{ type: 'button', id: 'add', icon: 'fas fa-plus', caption: '新增', tooltip: '新增' },
@@ -137,9 +135,6 @@ td[col="5"] div.w2ui-col-sorted {
 						w2ui['grid_toolbar'].disable('delete');
 					}
 				}, 700);
-				if(mfa == 0){
-					w2ui['grid_toolbar'].disable('mfasetting');
-				}
 			}
         });
         w2ui['grid'].hideColumn('recid', 'accid');

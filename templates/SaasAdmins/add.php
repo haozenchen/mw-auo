@@ -97,8 +97,8 @@
 <div class="w2ui-buttons" style="margin: 10px 0px">
     <button class="w2ui-btn" name="save" onclick="add();">確定新增</button>
 </div>
+<?php }?>
 <script>
-	<?php }?>
     function add(){
         jQuery.ajax({
 			url: 'add',

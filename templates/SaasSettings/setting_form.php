@@ -6,7 +6,7 @@
     $tagMenus[0] = array('name'=> '同步設定', 'divname' => 'sync_setting');
     $tagMenus[1] = array('name'=> 'API設定', 'divname' => 'sys_api');
     $tagMenus[2] = array('name'=> '系統設定', 'divname' => 'sys_setting');
-    $tagMenus[3] = array('name'=> '兩階段驗證(MFA)設定', 'divname' => 'mfa_setting');
+    // $tagMenus[3] = array('name'=> '兩階段驗證(MFA)設定', 'divname' => 'mfa_setting');
     $ajaxSubmit = array(
         'update' => 'listing',
         'url' => array('action' => 'setting_form'),
@@ -210,13 +210,19 @@
                     <tr>
                         <td class="title right"><?php echo __('閒置登出設定', true); ?></td>
                         <td class="content left">
-                            <?php echo $this->Form->control('SaasSetting.LoginLifeTime', ['label'=> __('閒置幾秒自動登出', true).'：', 'type'=>'text', 'default'=> 1440, 'size' => 6, 'value' => $SaasSetting['LoginLifeTime'], 'after'=> '&nbsp;'.__('秒', true)]); ?>
+                            <div class=" d-flex align-items-center">
+                                <?php echo $this->Form->control('SaasSetting.LoginLifeTime', ['label'=> __('閒置幾秒自動登出', true).'：', 'type'=>'text', 'default'=> 1440, 'size' => 6, 'value' => $SaasSetting['LoginLifeTime']]); ?>
+                                <div class="ml-2"><?php echo __('秒', true)?></div>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="title right"><?php echo __('紀錄保留時間', true); ?></td>
                         <td class="content left">
-                            <input type="text" size="3" value="90" /> 天
+                            <div class=" d-flex align-items-center">
+                                <?php echo $this->Form->control('SaasSetting.LogExpired', ['label'=> false, 'type'=>'text', 'default'=> 90, 'size' => 6, 'value' => $SaasSetting['LogExpired']]); ?>
+                                <div class="ml-2"><?php echo __('天', true)?></div>
+                            </div>
                         </td>
                     </tr>
                 </table>
