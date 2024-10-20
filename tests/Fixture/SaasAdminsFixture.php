@@ -27,14 +27,15 @@ class SaasAdminsFixture extends TestFixture
                 'is_km_edit' => 1,
                 'is_km_del' => 1,
                 'is_km_eff' => 1,
-                'last_visit' => '2024-10-01 00:59:56',
+                'last_visit' => '2024-10-19 13:10:35',
                 'last_visit_from' => 'Lorem ipsum dolor sit amet',
                 'dashboard_setting' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'sys_auth' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-                'created' => '2024-10-01 00:59:56',
-                'modified' => '2024-10-01 00:59:56',
+                'created' => '2024-10-19 13:10:35',
+                'modified' => '2024-10-19 13:10:35',
                 'is_mfa' => 1,
                 'mfa_key' => 'Lorem ipsum dolor sit amet',
+                'pwd_expired' => '2024-10-19',
             ],
         ];
         parent::init();

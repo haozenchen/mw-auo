@@ -10,9 +10,11 @@
 <?php echo $this->Html->meta('charset', 'UTF-8'); ?>
 <?php echo $this->Html->css('bootstrap') ?>
 <?php echo $this->Html->css('login') ?>
+<?php echo $this->Html->css('toastr.min') ?>
 <?php echo $this->Html->script('jquery-2.1.0') ?>
 <?php echo $this->Html->script('prototype') ?>
 <?php echo $this->Html->script('bootstrap-typeahead') ?>
+<?php echo $this->Html->script('toastr.min') ?>
 
 <style type="text/css">
 	body {
@@ -41,23 +43,3 @@
 ?>
 </body>
 </html>
-
-<script type="text/javascript">
-	function initial() {
-        if ($('user_username').value == "") {
-            var uid = Cookie.get('femasUid');
-            if (uid != null) {
-                $('user_username').value = uid;
-                $('user_passwd').focus();
-            } else {
-                $('user_username').focus();
-            }
-        } else {
-            $('user_username').focus();
-        }
-
-        if (Cookie.get('femasRem') == 1) {
-            $('remember').checked = true;
-        }
-    }
-</script>

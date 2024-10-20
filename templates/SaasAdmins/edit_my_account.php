@@ -50,6 +50,7 @@
 						<?php echo __('請遵守密碼建立原則：', true);?>
 						<ol>
 							<li><?php echo __('長度至少12位以上', true);?></li>
+							<li><?php echo __('不得與前兩次密碼相同', true);?></li>
 							<li><?php echo __('密碼必須包含以下四種符號其中三種組成，英文字母大寫﹑小寫﹑數字﹑特殊符號(@﹑$﹑$﹑~...)', true);?></li>
 						</ol>
 					</div>
@@ -57,7 +58,7 @@
 				        echo $this->Form->control('orig_passwd',['label'=>false, 'class'=>'textBlack', 'size'=>'30', 'maxlength'=>'32','placeholder' => __('請輸入原始密碼', true), 'type' => 'password']);
 				    ?>
 					<?php
-				        echo $this->Form->control('new_passwd',['label'=>false, 'class'=>'textBlack', 'size'=>'30', 'maxlength'=>'32','placeholder' => __('請輸入新密碼', true), 'type' => 'password']);
+				        echo $this->Form->control('new_passwd',['label'=>false, 'class'=>'textBlack my-3', 'size'=>'30', 'maxlength'=>'32','placeholder' => __('請輸入新密碼', true), 'type' => 'password']);
 				    ?>
 				    <?php
 				        echo $this->Form->control('confirm_new_passwd',['label'=>false, 'class'=>'textBlack', 'size'=>'30', 'maxlength'=>'32','placeholder' => __('請再次確認新密碼', true), 'type' => 'password']);
@@ -120,13 +121,12 @@
 <script>
 
 	function edit(){
-		console.log(jQuery('#new-passwd').val());
-		if(passRegCheck(jQuery('#new-passwd').val()) == false){
-			w2alert('密碼未遵守密碼建立原則');
-		}else if(jQuery('#confirm-new-passwd').val() != jQuery('#new-passwd').val()){
-			w2alert('請再次確認新密碼是否正確');
-		}else if(jQuery('#confirm-new-passwd').val() == '' || jQuery('#new-passwd').val() == '' || jQuery('#orig-passwd').val() == ''){
+		if(jQuery('#confirm-new-passwd').val() == '' || jQuery('#new-passwd').val() == '' || jQuery('#orig-passwd').val() == ''){
 			w2alert('請填寫所有必要欄位');
+		}else if(jQuery('#confirm-new-passwd').val() != jQuery('#new-passwd').val()){
+			w2alert('再次確認新密碼錯誤');
+		}else if(passRegCheck(jQuery('#new-passwd').val()) == false){
+			w2alert('密碼未遵守密碼建立原則');
 		}else{
 			jQuery.ajax({
 				url: 'edit_my_account',
@@ -161,7 +161,6 @@
 		let regexList = ['.{12,}', '[a-z]{1,}', '[A-Z]{1,}', '[0-9]{1,}', '[^\\w]{1,}'];
 		const isMatch = regexList.every(function(rx) {
 				let regex = new RegExp(rx);
-				console.log([rx,regex.test(password)]);
 				return regex.test(password);
 			});
 		return isMatch;

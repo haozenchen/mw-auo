@@ -20,19 +20,25 @@ class DeleteLog
 		$this->del_record($daysToKeep);
 	}
 	public function del_record($daysToKeep){
-		$SyncRecords = TableRegistry::getTableLocator()->get('SyncRecords');
 		$SyncLogs = TableRegistry::getTableLocator()->get('SyncLogs');
-	    $dateThreshold = (new FrozenDate())->subDays($daysToKeep);
-	    // Log::error(var_export($dateThreshold, true));
-	    $deletedRows = $SyncRecords->deleteAll(['created <' => $dateThreshold]);
+		$SyncRecords = TableRegistry::getTableLocator()->get('SyncRecords');
+		$SaasLoginRecords = TableRegistry::getTableLocator()->get('SaasLoginRecords');
 
-	    // 你可以選擇在這裡進行一些反饋
+	    $dateThreshold = (new FrozenDate())->subDays($daysToKeep);
+
+	    $deletedRows = $SyncRecords->deleteAll(['created <' => $dateThreshold]);
 	    if ($deletedRows > 0) {
-	    	echo "已刪除檔案: " . __('成功刪除 {0} 筆資料。', $deletedRows) . "\n";
+	    	echo "已刪除同步紀錄: " . __('成功刪除 {0} 筆資料。', $deletedRows) . "\n";
 	    }
+
 	    $deletedRows = $SyncLogs->deleteAll(['created <' => $dateThreshold]);
 	    if ($deletedRows > 0) {
-	    	echo "已刪除檔案: " . __('成功刪除 {0} 筆資料。', $deletedRows) . "\n";
+	    	echo "已刪除同步紀錄log: " . __('成功刪除 {0} 筆資料。', $deletedRows) . "\n";
+	    }
+
+	    $deletedRows = $SaasLoginRecords->deleteAll(['created <' => $dateThreshold]);
+	    if ($deletedRows > 0) {
+	    	echo "已刪除登入紀錄: " . __('成功刪除 {0} 筆資料。', $deletedRows) . "\n";
 	    }
 	}
 

@@ -59,12 +59,17 @@ class SaasAdminsTable extends Table
         $this->hasMany('SaasAdminAuthGroups', [
             'foreignKey' => 'saas_admin_id',
         ]);
+        $this->hasMany('SaasAdminPasswds', [
+            'foreignKey' => 'saas_admin_id',
+        ]);
         $this->hasMany('SaasLoginRecords', [
             'foreignKey' => 'saas_admin_id',
         ]);
         $this->hasMany('SyncRecords', [
             'foreignKey' => 'saas_admin_id',
         ]);
+
+        
     }
 
     /**
@@ -134,6 +139,10 @@ class SaasAdminsTable extends Table
             ->scalar('mfa_key')
             ->maxLength('mfa_key', 30)
             ->allowEmptyString('mfa_key');
+
+        $validator
+            ->date('pwd_expired')
+            ->allowEmptyDate('pwd_expired');
 
         return $validator;
     }

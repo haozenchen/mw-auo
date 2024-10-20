@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\SaasAdminsTable;
+use App\Model\Table\SaasAdminPasswdTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\SaasAdminsTable Test Case
+ * App\Model\Table\SaasAdminPasswdTable Test Case
  */
-class SaasAdminsTableTest extends TestCase
+class SaasAdminPasswdTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\SaasAdminsTable
+     * @var \App\Model\Table\SaasAdminPasswdTable
      */
-    protected $SaasAdmins;
+    protected $SaasAdminPasswd;
 
     /**
      * Fixtures
@@ -24,11 +24,8 @@ class SaasAdminsTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
+        'app.SaasAdminPasswd',
         'app.SaasAdmins',
-        'app.MfaBackupCodes',
-        'app.SaasAdminAuthGroups',
-        'app.SaasLoginRecords',
-        'app.SyncRecords',
     ];
 
     /**
@@ -39,8 +36,8 @@ class SaasAdminsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('SaasAdmins') ? [] : ['className' => SaasAdminsTable::class];
-        $this->SaasAdmins = $this->getTableLocator()->get('SaasAdmins', $config);
+        $config = $this->getTableLocator()->exists('SaasAdminPasswd') ? [] : ['className' => SaasAdminPasswdTable::class];
+        $this->SaasAdminPasswd = $this->getTableLocator()->get('SaasAdminPasswd', $config);
     }
 
     /**
@@ -50,7 +47,7 @@ class SaasAdminsTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->SaasAdmins);
+        unset($this->SaasAdminPasswd);
 
         parent::tearDown();
     }
@@ -59,20 +56,9 @@ class SaasAdminsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\SaasAdminsTable::validationDefault()
+     * @uses \App\Model\Table\SaasAdminPasswdTable::validationDefault()
      */
     public function testValidationDefault(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test beforeFind method
-     *
-     * @return void
-     * @uses \App\Model\Table\SaasAdminsTable::beforeFind()
-     */
-    public function testBeforeFind(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
@@ -81,7 +67,7 @@ class SaasAdminsTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\SaasAdminsTable::buildRules()
+     * @uses \App\Model\Table\SaasAdminPasswdTable::buildRules()
      */
     public function testBuildRules(): void
     {

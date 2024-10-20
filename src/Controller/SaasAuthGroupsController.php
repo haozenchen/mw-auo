@@ -112,28 +112,33 @@ class SaasAuthGroupsController extends AppController
         if(!empty($this->request->getData())) {
             $saasAuthGroup = $this->SaasAuthGroups->patchEntity($saasAuthGroup, $this->request->getData());
             $saasAuthGroup['advance_permission'] = json_encode($this->request->getData('advance'), JSON_PRETTY_PRINT);
-            if($this->SaasAuthGroups->save($saasAuthGroup)) {   
-                $groupId = $saasAuthGroup->id;
-                if(!empty($this->request->getData('action'))){
+            $reap_message = $this->reap(false);
+            if(!empty($reap_message)) {
+                $result = $reap_message;
+            }else{
+                if($this->SaasAuthGroups->save($saasAuthGroup)) {   
+                    $groupId = $saasAuthGroup->id;
+                    if(!empty($this->request->getData('action'))){
 
-                    $checkedActions = array();
-                    foreach ($this->request->getData('action') as $k => $v) {
-                        if(!empty($v)){
-                            $checkedActions[] = $v;
+                        $checkedActions = array();
+                        foreach ($this->request->getData('action') as $k => $v) {
+                            if(!empty($v)){
+                                $checkedActions[] = $v;
+                            }
+                        }
+                        if(!empty($checkedActions)){
+                            foreach ($checkedActions as $v) {
+                                $saveData = $this->SaasAuthGroupPermissions->newEmptyEntity();
+                                $saveData['saas_auth_group_id'] = $groupId;
+                                $saveData['action'] = $v;
+                                $this->SaasAuthGroupPermissions->save($saveData);
+                            }
                         }
                     }
-                    if(!empty($checkedActions)){
-                        foreach ($checkedActions as $v) {
-                            $saveData = $this->SaasAuthGroupPermissions->newEmptyEntity();
-                            $saveData['saas_auth_group_id'] = $groupId;
-                            $saveData['action'] = $v;
-                            $this->SaasAuthGroupPermissions->save($saveData);
-                        }
-                    }
+                    $result="ok";
+                } else {
+                    $result=__("資料儲存失敗", true);
                 }
-                $result="ok";
-            } else {
-                $result=__("資料儲存失敗", true);
             }
             $this->set('jsonData', array('status' => $result));
             $this->layout = 'txt';
@@ -157,50 +162,55 @@ class SaasAuthGroupsController extends AppController
         if(!empty($this->request->getData())) {
             $saasAuthGroup = $this->SaasAuthGroups->patchEntity($saasAuthGroup, $this->request->getData());
             $saasAuthGroup['advance_permission'] = json_encode($this->request->getData('advance'), JSON_PRETTY_PRINT);
-            if($this->SaasAuthGroups->save($saasAuthGroup)) {   
-                $groupId = $saasAuthGroup->id;
-                if(!empty($this->request->getData('action'))){
-                    $existActions = $this->SaasAuthGroupPermissions->find('list', [
-                        'keyField' => 'id',
-                        'valueField' => 'action'
-                    ])
-                    ->where(['saas_auth_group_id'=>$groupId])
-                    ->toArray();
+            
+            $reap_message = $this->reap($id);
+            if(!empty($reap_message)) {
+                $result = $reap_message;
+            }else{
+                if($this->SaasAuthGroups->save($saasAuthGroup)) {   
+                    $groupId = $saasAuthGroup->id;
+                    if(!empty($this->request->getData('action'))){
+                        $existActions = $this->SaasAuthGroupPermissions->find('list', [
+                            'keyField' => 'id',
+                            'valueField' => 'action'
+                        ])
+                        ->where(['saas_auth_group_id'=>$groupId])
+                        ->toArray();
 
-                    $checkedActions = array();
-                    foreach ($this->request->getData('action') as $k => $v) {
-                        if(!empty($v)){
-                            $checkedActions[] = $v;
+                        $checkedActions = array();
+                        foreach ($this->request->getData('action') as $k => $v) {
+                            if(!empty($v)){
+                                $checkedActions[] = $v;
+                            }
+                        }
+                        
+                        $addActions = array_diff($checkedActions, $existActions);
+                        $delActions = array_diff($existActions, $checkedActions);
+
+                        if(!empty($addActions)){
+                            foreach ($addActions as $v) {
+                                $saveData = $this->SaasAuthGroupPermissions->newEmptyEntity();
+                                $saveData['saas_auth_group_id'] = $groupId;
+                                $saveData['action'] = $v;
+                                $this->SaasAuthGroupPermissions->save($saveData);
+                            }
+                        }
+                        
+                        if(!empty($delActions)){
+                            foreach ($delActions as $v) {
+                                $this->SaasAuthGroupPermissions->deleteAll([
+                                    'saas_auth_group_id' => $groupId,
+                                    'action' => $v
+                                ]);
+                            }
                         }
                     }
-                    
-                    $addActions = array_diff($checkedActions, $existActions);
-                    $delActions = array_diff($existActions, $checkedActions);
-
-                    
-
-                    if(!empty($addActions)){
-                        foreach ($addActions as $v) {
-                            $saveData = $this->SaasAuthGroupPermissions->newEmptyEntity();
-                            $saveData['saas_auth_group_id'] = $groupId;
-                            $saveData['action'] = $v;
-                            $this->SaasAuthGroupPermissions->save($saveData);
-                        }
-                    }
-                    
-                    if(!empty($delActions)){
-                        foreach ($delActions as $v) {
-                            $this->SaasAuthGroupPermissions->deleteAll([
-                                'saas_auth_group_id' => $groupId,
-                                'action' => $v
-                            ]);
-                        }
-                    }
+                    $result="ok";
+                } else {
+                    $result=__("資料儲存失敗", true);
                 }
-                $result="ok";
-            } else {
-                $result=__("資料儲存失敗", true);
             }
+            
             $this->set('jsonData', array('status' => $result));
             $this->layout = 'txt';
             $this->render('/element/in_json');
@@ -221,9 +231,42 @@ class SaasAuthGroupsController extends AppController
         }
     }
 
+
+    public function reap($id = false) {
+        if(!empty($id)) {
+            $conditions = ['id !=' => $id, 'name' => $this->request->getData('name')];
+        } else {
+            $conditions = ['name' => $this->request->getData('name')];
+        }
+        $DuplicateCount = $this->SaasAuthGroups->find()
+        ->where($conditions)
+        ->count();
+        $reap_message = '';
+
+        if(empty($this->request->getData('name'))) {
+            $reap_message = __('名稱請勿空白', true);
+        } elseif($DuplicateCount > 0) {
+            $reap_message = __('請檢查是否有重複名稱的權限群組', true);
+        }
+
+        if(empty($reap_message)){
+            $actionOpts = $this->__listActions();
+            $this->log(var_export($actionOpts, true));
+            $home = $this->request->getData('home');
+            $action = $this->request->getData('action');
+            if(!in_array($home, $action)){
+                $action_name = (!empty($actionOpts[$home])? $actionOpts[$home]:'');
+                $reap_message = $action_name.__(' 對應權限需一併開啟', true);
+            }
+        }
+
+        return $reap_message;
+    }
+
     public function delete($id = false){
         if(!empty($id)){
             $this->loadModel("SaasAdminAuthGroups");
+            $this->loadModel("SaasAuthGroupPermissions");
             $isUsedId = $this->SaasAdminAuthGroups->find('list', [
                 'keyField' => 'saas_auth_group_id',
                 'valueField' => 'saas_auth_group_id'
@@ -233,6 +276,7 @@ class SaasAuthGroupsController extends AppController
             if(!in_array($id, $isUsedId)){
                 $this->SaasAuthGroups->deleteAll(['id IN' => $id]);
                 $this->SaasAdminAuthGroups->deleteAll(['saas_auth_group_id IN' => $id]);
+                $this->SaasAuthGroupPermissions->deleteAll(['saas_auth_group_id IN' => $id]);
                 $status = 'ok';
             }else{
                 $status = '不能刪除正在使用的權限群組';

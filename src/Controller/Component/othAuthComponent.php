@@ -306,13 +306,10 @@ class OthAuthComponent extends Component
 
 		}
 
-		
 		$salt = '';
 		$row = $UserModel->find()->where($conditions)->first();
 		$useSalt = strrpos($row['passwd'], 'salt');
 		$passUpgrade = strrpos($row['passwd'], 'sha2021');
-
-
 
 		if(!empty($useSalt)){
 			 $salt = substr($row['passwd'], 0, 16);
@@ -321,11 +318,19 @@ class OthAuthComponent extends Component
 			 $passw = $this->_getHashOf(md5($params[$this->user_passw_var])).'sha2021';
 		}
 
-		$this->log(var_export($passw, true));
-		$this->log(var_export($row[$this->user_table_passw], true));
 		if($passw !== $row[$this->user_table_passw]){
 			$row = array();
 		}
+		if(!empty($row) && !empty($row['pwd_expired'])){
+			$pwd_expired = new \DateTime($row['pwd_expired']);
+			$date = new \DateTime();
+
+			if($pwd_expired <= $date){
+				$controller->getRequest()->getSession()->write('chgpwd_emUid', $row['id']);
+				return -6;
+			}
+		}
+		
 
 		if( empty($row) /* || $num_users != 1 */ )
 		{
@@ -343,7 +348,7 @@ class OthAuthComponent extends Component
 				/**
 				* now save login records
 				*/
-				$data = $loginRecordModel->newEntity([
+				$data = $loginRecordModel->newEmptyEntity([
 				    'saas_admin_id' => $row['id'],
 				    'ip' => $row['last_visit_from']
 				]);
@@ -1466,6 +1471,7 @@ class OthAuthComponent extends Component
 			-3 => 'Too many login attempts.',
 			-4 => '系統異常，請透過正常方式登入',
 			-5 => '該帳號未設定權限群組，請聯繫系統管理員協助設定',
+			-6 => '密碼已到期，請重新設定密碼',
 			-19 => '登入帳號無人員資料',
 			-20 => '該人員已經離職',
 			-31 => '無法設定認證協定版本為 3',
@@ -1661,9 +1667,10 @@ class OthAuthComponent extends Component
 		}else if(!empty($passUpgrade)){
 			$passw = $this->_getHashOf(md5($passwd)).'sha2021';
 		}
-
-		$this->log(var_export($passw, true));
-		$this->log(var_export($hashPasswd, true));
+		// $this->log(var_export($useSalt, true));
+		// $this->log(var_export($passwd, true));
+		// $this->log(var_export($passw, true));
+		// $this->log(var_export($hashPasswd, true));
 
 		if($passw !== $hashPasswd){
 			return false;

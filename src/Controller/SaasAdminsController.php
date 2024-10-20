@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Event\EventInterface;
+use Cake\I18n\FrozenDate;
+use Cake\Database\Log\QueryLogger;
 /**
  * SaasAdmins Controller
  *
@@ -52,8 +54,6 @@ class SaasAdminsController extends AppController
             ->group(['saas_auth_group_id', 'saas_admin_id'])
             ->toArray();
         $conditions = [];
-        
-        
         $findOpt = [
             'limit' => $w2Params['limit']
         ];
@@ -174,7 +174,7 @@ class SaasAdminsController extends AppController
             'valueField' => 'name'
         ]);
         if (!empty($this->request->getData())) {
-            // $reap_message = $this->reap();
+            $reap_message = $this->reap(false, true);
             if(!empty($reap_message)) {
                 $result = $reap_message;
             } else {
@@ -238,13 +238,21 @@ class SaasAdminsController extends AppController
                 $saasAdmin->passwd = $this->othAuth->_getHashOf($this->request->getData('passwd'), $salt);
                 $chkpwd = true;
             }
-
-            $reap_message = $this->reap($id, $chkpwd);
-
-            if(!empty($reap_message)) {
-                $result = $reap_message;
+            $msg = $this->reap($id, $chkpwd);
+            if(empty($msg) && !empty($chkpwd)){
+               $msg = $this->recentPassword($id, $this->request->getData('passwd'));
+            }
+            if(!empty($msg)) {
+                $result = $msg;
             } else {
+                if(!empty($this->request->getData('pwd_expired'))){
+                    $saasAdmin['pwd_expired'] = new FrozenDate($this->request->getData('pwd_expired'));
+
+                }
                 if($this->SaasAdmins->save($saasAdmin)) {
+                    if(!empty($chkpwd)){
+                        $this->save_passwd($id, $saasAdmin['passwd']);
+                    }
                     if(!empty($this->request->getData('group'))){
                         $this->loadModel("SaasAdminAuthGroups");
                         $existGroups = $this->SaasAdminAuthGroups->find('list', [
@@ -339,6 +347,10 @@ class SaasAdminsController extends AppController
         if(!empty($id)){
             if($id != $this->emUid){
                 $this->SaasAdmins->deleteAll(['id IN' => $id]);
+                $this->loadModel("SaasAdminAuthGroups");
+                $this->loadModel("SaasAdminPasswds");
+                $this->SaasAdminAuthGroups->deleteAll(['saas_admin_id IN' => $id]);
+                $this->SaasAdminPasswds->deleteAll(['saas_admin_id IN' => $id]);
                 $status = 'ok';
             }else{
                 $status = '不能刪除正在使用的帳號';
@@ -382,22 +394,45 @@ class SaasAdminsController extends AppController
         $saasAdmin = $this->SaasAdmins->get($this->emUid, [
             'contain' => [],
         ]);
+
         if(!empty($this->request->getData())) {
+            $result = 'fail';
             $orgAccountPw = $saasAdmin->passwd;
-            // $this->log(var_export($orgAccountPw, true));
-            // $this->log(var_export($this->othAuth->_passwdCompare($this->request->getData('orig_passwd')), true));
-            if(!empty($this->request->getData('orig_passwd')) || !empty($this->request->getData('new_passwd')) || !empty($this->request->getData('confirm_new_passwd'))){
+
+            if(empty($this->request->getData('orig_passwd'))){
+                $msg = __('請輸入舊密碼', true);
+            }
+
+            if(empty($this->request->getData('new_passwd'))){
+                $msg = __('請輸入新密碼', true);
+            }
+
+            if(empty($this->request->getData('confirm_new_passwd'))){
+                $msg = __('再次確認新密碼不能空白', true);
+            }
+            if(empty($msg)){
+                $newPass = $this->request->getData('new_passwd');
+
                 if(!$this->othAuth->_passwdCompare($this->request->getData('orig_passwd'), $orgAccountPw)){
-                    $result = 'fail';
                     $msg = __('原始密碼不正確，更新失敗', true);
+                }elseif($newPass == $saasAdmin['username']){
+                    $msg = __('密碼不得與帳號相同', true);
                 }else{
-                    $salt = substr(sha1((string)time()), 0, 16);
-                    $newPass = $this->request->getData('new_passwd');
-                    $saasAdmin['passwd'] = $this->othAuth->_getHashOf($newPass, $salt);
-                    if($this->SaasAdmins->save($saasAdmin)){
-                        $result = 'success';
-                        $msg = __('已更新密碼', true);
+                    $msg = $this->validatePassword($this->request->getData('new_passwd'));
+                    if(empty($msg)){
+                       $msg = $this->recentPassword($this->emUid, $newPass);
                     }
+                    if(empty($msg)){
+                        $salt = substr(sha1((string)time()), 0, 16);
+                        $passw = $this->othAuth->_getHashOf($newPass, $salt);
+                        $saasAdmin['passwd'] = $passw;
+                        if($this->SaasAdmins->save($saasAdmin)){
+                            $this->save_passwd($this->emUid, $saasAdmin['passwd']);
+                            $result = 'success';
+                            $msg = __('已更新密碼', true);
+                        }
+                    }
+                    
                 }
             }
 
@@ -424,7 +459,7 @@ class SaasAdminsController extends AppController
 
     }
 
-    public function reap($id = null, $chkpwd = false) {
+    public function reap($id = false, $chkpwd = false) {
         if(!empty($id)) {
             $conditions = ['id !=' => $id, 'username' => $this->request->getData('username')];
         } else {
@@ -462,11 +497,99 @@ class SaasAdminsController extends AppController
         $hasNumber = preg_match('/[0-9]/', $password);
         $hasSpecial = preg_match('/[@$%^&*()~!]/', $password);
         $typesCount = $hasUpper + $hasLower + $hasNumber + $hasSpecial;
-        if ($typesCount < 3) {
+        if (empty($err) && $typesCount < 3) {
             $err = '密碼必須包含至少三種以下四種符號：大寫字母、小寫字母、數字、特殊符號。';
         }
+
         return $err;
     }
+
+    public function recentPassword($emUid ,$newPass){
+        $this->loadModel("SaasAdminPasswds");
+        $recentPasswords = $this->SaasAdminPasswds
+        ->find()
+        ->select(['id','passwd'])
+        ->where(['saas_admin_id' => $emUid])
+        ->order(['created' => 'DESC'])
+        ->limit(2)
+        ->toArray();
+        
+        if(!empty($recentPasswords)){
+            foreach ($recentPasswords as $pwd) {
+                $salt = substr($pwd['passwd'], 0, 16);
+                $new_passw = $this->othAuth->_getHashOf($newPass, $salt);
+                if($new_passw == $pwd['passwd']){
+                    return '不可使用已經使用過的前兩組密碼';
+                }
+            }
+            $lastTwoIds = array_column($recentPasswords, 'id');
+            if(!empty($lastTwoIds)){
+                $this->SaasAdminPasswds->deleteAll([
+                    'saas_admin_id' => $emUid,
+                    'id NOT IN' => $lastTwoIds
+                ]);
+            }
+
+        }
+        return false;
+    }
+
+    public function save_passwd($id, $pwd){
+        $this->loadModel("SaasAdminPasswds");
+        $saasAdminPasswd = $this->SaasAdminPasswds->newEmptyEntity();
+        $saasAdminPasswd['saas_admin_id'] = $id;
+        $saasAdminPasswd['passwd'] = $pwd;
+        $saasAdminPasswd['created'] = date('Y-m-d H:i:s');
+        $this->SaasAdminPasswds->save($saasAdminPasswd);
+        $saasAdmin = $this->SaasAdmins->get($id, [
+            'contain' => [],
+        ]);
+
+        $currentDate = new \DateTime();
+        $currentDate->modify('+180 days');
+        $saasAdmin['pwd_expired'] = $currentDate;
+        $this->SaasAdmins->save($saasAdmin);
+    }
+
+    public function chgPwd(){
+        $result = 'fail';
+        $chgpwd_emUid = $this->request->getSession()->read('chgpwd_emUid');
+        $saasAdmin = $this->SaasAdmins->get($chgpwd_emUid, [
+            'contain' => [],
+        ]);
+        if(empty($this->request->getData('new_passwd')) || empty($this->request->getData('confirm_new_passwd'))){
+            $msg = __('新密碼、確認新密碼不能空白', true);
+        }
+
+        if(empty($msg)){
+            $newPass = $this->request->getData('new_passwd');
+            if($newPass == $saasAdmin['username']){
+                $msg = __('密碼不得與帳號相同', true);
+            }else{
+                $msg = $this->validatePassword($this->request->getData('new_passwd'));
+
+                if(empty($msg)){
+                   $msg = $this->recentPassword($chgpwd_emUid, $newPass);
+                }
+                if(empty($msg)){
+                    $salt = substr(sha1((string)time()), 0, 16);
+                    $passw = $this->othAuth->_getHashOf($newPass, $salt);
+                    $saasAdmin['passwd'] = $passw;
+
+                    if($this->SaasAdmins->save($saasAdmin)){
+                        $this->save_passwd($chgpwd_emUid, $passw);
+                        $result = 'success';
+                        $msg = __('已更新密碼', true);
+                    }
+                }
+                
+            }
+        }
+
+        $this->set('jsonData', array('status' => $result, 'msg' => $msg));
+        $this->viewBuilder()->setLayout('txt');
+        $this->render('/element/in_json');
+    } 
 
     public function login(){
         $this->viewBuilder()->setLayout('login'); // 替換為你的佈局名稱
@@ -484,8 +607,10 @@ class SaasAdminsController extends AppController
             if(empty($this->request->getData('SaasAdmin.username')) or empty($this->request->getData('SaasAdmin.passwd'))) {
                 $this->Flash->error(__('帳號/密碼或兩階段驗證碼 錯誤', true));
             } else {
-                // $this->log(var_export($this->request->getData(), true));
                 $authError = $this->othAuth->login($this->request->getData('SaasAdmin'));
+                if($authError == -6){
+                 $this->set('chg_pwd', true);
+                }
                 $this->Flash->error($this->othAuth->getMsg($authError));
             }
         }else{
@@ -540,19 +665,26 @@ class SaasAdminsController extends AppController
         $conditions = ['username' => $this->request->getData('SaasAdmin.username')];
         $accountData = $this->SaasAdmins->find()->where([$conditions])->first();
         $isMfa = $accountData->is_mfa;
-
-        if(empty($isMfa) && !empty($forceMfa->value)){
+        if(empty($isMfa)){
             $this->loadModel('MfaBackupCodes');
-            $adminId = $accountData->id;
-            $BackupCodes = $this->MfaBackupCodes->find('list', array('fields' => array('id', 'passwd'), 'conditions' => array('saas_admin_id' => $adminId, 'used' => 0)));
             if (empty($accountData)) {
                 $isMfa = null;
-            }else if(empty($BackupCodes)){
-                $isMfa = -1;
             }else{
-                $isMfa = $forceMfa->value;
+                $adminId = $accountData->id;
+                $BackupCodes = $this->MfaBackupCodes->find('list', [
+                    'keyField' => 'id',
+                    'valueField' => 'passwd'
+                ])
+                ->where(['saas_admin_id' => $adminId, 'used' => 0])
+                ->toArray();
+                if(empty($BackupCodes)){
+                    $isMfa = -1;
+                }else{
+                    $isMfa = 1;
+                }
             }
         }
+        $this->log(var_export($isMfa, true));
         if(!empty($mfaCheck)){
             return $isMfa;
         }else{

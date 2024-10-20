@@ -20,6 +20,7 @@
     }
 
     function initial() {
+        <?php if(empty($chg_pwd)){ ?>
         if ($('user_username').value == "") {
             var uid = Cookie.get('femasUid');
             if (uid != null) {
@@ -35,12 +36,13 @@
         if (Cookie.get('femasRem') == 1) {
             $('remember').checked = true;
         }
+        <?php }?>
     }
 
     function new_login() {
         jQuery('#flashMessage').empty();
         if ($('user_username').value == "" || $('user_passwd').value == "") {
-            jQuery('#flashMessage').append('<div class="errMsg">請勿輸入空值</div>');
+            jQuery('#flashMessage').html('<div class="errMsg">請勿輸入空值</div>').addClass('error');
             return false;
         } else if (isForceMfa == 1) {
             jQuery.ajax({
@@ -50,17 +52,16 @@
                 async: false,
                 url: '<?php echo $this->Url->build(['controller' => 'SaasAdmins', 'action' => 'checkMfa', 'admin' => false]); ?>',
 
-
                 success: function(response) {
                     if (response.isMfa == 1) {
                         jQuery('#orglogin').hide();
                         jQuery('#mfaDiv').show();
                         jQuery('#mfaCodeInput').focus();
                     }else if(response.isMfa == -1){
-                        jQuery('#flashMessage').append('<div class="errMsg">需先請管理者創建MFA備用碼</div>');
+                        jQuery('#flashMessage').html('<div class="errMsg">需先請管理者創建MFA備用碼</div>').addClass('error');
                         clear_login();
                     }else if(response.isMfa == null){
-                        jQuery('#flashMessage').append('<div class="errMsg">帳號或密碼錯誤</div>');
+                        jQuery('#flashMessage').html('<div class="errMsg">帳號不存在</div>').addClass('error');
                         clear_login();
                     } else {
                         login_submit();
@@ -71,7 +72,24 @@
             login_submit();
         }
     }
-
+    function chgPassword(){
+        jQuery.ajax({
+            url: '<?php echo $this->Url->build(['controller' => 'SaasAdmins', 'action' => 'chgPwd', 'admin' => false]); ?>',
+            data: jQuery('#login').serialize(),
+            type: 'POST',
+            async: false,
+            dataType: 'json',
+            success: function(response) {
+                if(response.status != 'success'){
+                    jQuery('#flashMessage').html('<div class="errMsg">'+response.msg+'</div>').addClass('error');
+                }else{
+                    jQuery('#flashMessage').html('<div class="errMsg">密碼更新完成</div>').removeClass('error');
+                    jQuery('#loginDiv').show();
+                    jQuery('#chgDiv').hide();
+                }
+            }
+        });
+    }
     function mfacheck() {
         jQuery.ajax({
             url: '<?php echo $this->Url->build(['controller' => 'SaasAdmins', 'action' => 'checkMfaCode', 'admin' => false]); ?>',
@@ -83,9 +101,9 @@
                 if (response.isMfaPass == 1) {
                     login_submit();
                 } else {
-                    jQuery('#flashMessage').append('<div class="errMsg">帳號/密碼或兩階段驗證碼 錯誤</div>');
+                    jQuery('#flashMessage').html('<div class="errMsg">帳號/密碼或兩階段驗證碼 錯誤</div>');
                     jQuery('#orglogin').show();
-                    jQuery('#mfaDiv').hide();
+                    jQuery('#mfaDiv, #flashMessage').hide();
                     clear_login();
                 }
             }
@@ -107,6 +125,11 @@
         jQuery(document).on('click', '#submitBtn', function(e) {
             e.preventDefault();
             new_login();
+        });
+
+        jQuery(document).on('click', '#submitPwdBtn', function(e) {
+            e.preventDefault();
+            chgPassword();
         });
 
         jQuery(document).on('click', '#clearBtn', function() {
@@ -140,7 +163,6 @@
     })
 
 </script>
-
 <div class="container-fluid h-100">
     <div class="row row-cols-1 row-cols-lg-2 h-100">
         <div class="col m-auto justify-content-center align-items-center d-none d-lg-flex">
@@ -161,6 +183,7 @@
                             <?= $this->Flash->render() ?>
                         </div>
                     </div>
+                    <div id="loginDiv" style="<?php echo (!empty($chg_pwd))? 'display: none':''?>">
                         <div class="row row-span">
                             <div class="col-4 colLabel">
                                 <label for="user_username" class="labelStyle">帳號</label>
@@ -200,6 +223,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row span-space"></div>
                         <div class="row row-btn btn-groups">
                             <div class="col-4 colLabel btn-submit-groups">
@@ -209,6 +233,46 @@
                                 <button id="submitBtn" type="button" class="btn submitBtn">送出</button>
                             </div>
                         </div>
+                    </div>
+                    <div id="chgDiv" style="<?php echo (empty($chg_pwd))? 'display: none':''?>">
+                        <div class="row row-span">
+                            <div class="col-4 colLabel">
+                                <label for="new_passwd" class="labelStyle">新密碼</label>
+                            </div>
+                            <div class="col-7 colInput">
+                                <?php echo $this->Form->control('new_passwd', [
+                                    'id' => 'new_passwd',
+                                    'label' => false,
+                                    'class' => 'userInput',
+                                    'size' => '15', 'maxlength' => '20', 'type'=>"password",
+                                    'placeholder' => '請輸入新密碼',
+                                    'autocomplete' => 'new-password'
+                                ]); ?>
+                            </div>
+                        </div>
+                        <div class="row row-span">
+                            <div class="col-4 colLabel">
+                                <label for="confirm_new_passwd" class="labelStyle">再次確認新密碼</label>
+                            </div>
+                            <div class="col-7 colInput">
+                                <?php echo $this->Form->control('confirm_new_passwd', [
+                                    'id' => 'confirm_new_passwd',
+                                    'label' => false,
+                                    'class' => 'userInput',
+                                    'size' => '15', 'maxlength' => '20', 'type'=>"password",
+                                    'placeholder' => '再次確認新密碼',
+                                    'autocomplete' => 'new-password'
+                                ]); ?>
+                            </div>
+                        </div>
+                        <div class="row span-space"></div>
+                        <div class="row row-btn btn-groups">
+                            <div class="col-4 colLabel btn-submit-groups"></div>
+                            <div class="col-7 colInput">
+                                <button id="submitPwdBtn" type="button" class="btn submitBtn">送出</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div id="mfaDiv" class="mfaBox" style="display:none;">
                     <div class="mfa-phone-box">

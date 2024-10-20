@@ -18,18 +18,18 @@ class SyncRecordsCommand extends Command
         $deleteLog->do_del();
         $io->out('刪除完成。');
 
-        $io->out('同步資料中...');
-        $syncService = new SyncService();
-        $data = [
-            'user'=>true,
-            'user2'=>true,
-            'edu'=>true,
-            'exp'=>true,
-            'dep'=>true,
-            'appover'=>true,
-        ];
-        $syncService->doSync($data, false);
-        $io->out('同步完成。');
+        // $io->out('同步資料中...');
+        // $syncService = new SyncService();
+        // $data = [
+        //     'user'=>true,
+        //     'user2'=>true,
+        //     'edu'=>true,
+        //     'exp'=>true,
+        //     'dep'=>true,
+        //     'appover'=>true,
+        // ];
+        // $syncService->doSync($data, false);
+        // $io->out('同步完成。');
         return CommandInterface::CODE_SUCCESS;
     }
 }

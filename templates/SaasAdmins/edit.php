@@ -27,6 +27,14 @@
 			</td>
 		</tr>
 		<tr>
+			<td class="title right"><?php echo __('密碼到期日', true); ?></td>
+			<td class="content left">
+				<?php
+			        echo $this->Form->control('pwd_expired',['label'=>false, 'class'=>'textBlack', 'type'=>'date']);
+			    ?>
+			</td>
+		</tr>
+		<tr>
 			<td class="title right"><?php echo __('啟用', true); ?></td>
 			<td class="content left">
 				<?php

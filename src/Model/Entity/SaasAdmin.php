@@ -24,6 +24,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property bool $is_mfa
  * @property string|null $mfa_key
+ * @property \Cake\I18n\FrozenDate|null $pwd_expired
  *
  * @property \App\Model\Entity\MfaBackupCode[] $mfa_backup_codes
  * @property \App\Model\Entity\SaasAdminAuthGroup[] $saas_admin_auth_groups
@@ -57,6 +58,7 @@ class SaasAdmin extends Entity
         'modified' => true,
         'is_mfa' => true,
         'mfa_key' => true,
+        'pwd_expired' => true,
         'mfa_backup_codes' => true,
         'saas_admin_auth_groups' => true,
         'saas_login_records' => true,

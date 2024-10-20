@@ -300,6 +300,7 @@ return [
             'persistent' => false,
             'timezone' => 'UTC',
 
+
             /*
              * For MariaDB/MySQL the internal default changed from utf8 to utf8mb4, aka full utf-8 support, in CakePHP 3.6
              */
@@ -323,6 +324,9 @@ return [
              * manipulated before being executed.
              */
             'quoteIdentifiers' => false,
+            // 'log' => true, // 確保這個設置為 true
+            // 'logQueries' => true, // 啟用查詢日誌
+            // 'logger' => QueryLogger::class, // 指定 QueryLogger 作為日誌記錄器
 
             /*
              * During development, if using MySQL < 5.6, uncommenting the
@@ -388,6 +392,7 @@ return [
             'file' => 'queries_'.date('Y-m-d'),
             'url' => env('LOG_QUERIES_URL', null),
             'scopes' => ['queriesLog'],
+            'levels' => ['debug', 'info'], // 添加這行來記錄不同級別
         ],
     ],
 
@@ -433,8 +438,8 @@ return [
     'Session' => [
         'defaults' => 'php',
         'ini' => [
-            'session.cookie_lifetime' => 3600, // 設定 session cookie 有效期（秒）
-            'session.gc_maxlifetime' => 3600,  // 設定 session 最大不活動時間（秒）
+            'session.cookie_lifetime' => 86400, // 設定 session cookie 有效期（秒）
+            'session.gc_maxlifetime' => 86400,  // 設定 session 最大不活動時間（秒）
         ],
     ],
 ];

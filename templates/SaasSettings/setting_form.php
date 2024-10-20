@@ -208,10 +208,10 @@
             <div id="body">
                 <table class="Classical" cellpadding="0" width="100%" align="center">
                     <tr>
-                        <td class="title right"><?php echo __('閒置登出設定', true); ?></td>
+                        <td class="title right"><?php echo __('閒置幾秒自動登出', true); ?></td>
                         <td class="content left">
                             <div class=" d-flex align-items-center">
-                                <?php echo $this->Form->control('SaasSetting.LoginLifeTime', ['label'=> __('閒置幾秒自動登出', true).'：', 'type'=>'text', 'default'=> 1440, 'size' => 6, 'value' => $SaasSetting['LoginLifeTime']]); ?>
+                                <?php echo $this->Form->control('SaasSetting.LoginLifeTime', ['label'=> false, 'type'=>'text', 'default'=> 1440, 'size' => 6, 'value' => $SaasSetting['LoginLifeTime']]); ?>
                                 <div class="ml-2"><?php echo __('秒', true)?></div>
                             </div>
                         </td>

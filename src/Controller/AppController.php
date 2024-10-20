@@ -215,7 +215,7 @@ class AppController extends Controller
             $loginLifeTime = 1440; //延遲多少秒 登出
         }
         $this->set('sessionMaxLifeTime', $loginLifeTime);
-        $this->noCheckAction = array('login', 'logout', 'checkMfa','checkMfaCode');//actions need not login
+        $this->noCheckAction = array('login', 'logout', 'checkMfa','checkMfaCode','chgPwd');//actions need not login
         $this->login_page = $auth_conf['login_page'];
         $this->loginVal = $this->request->getSession()->read('othAuth.'.$auth_conf['hashkey']);
         if($this->request->getSession()->read('EmmaApp.UserInfo')){
