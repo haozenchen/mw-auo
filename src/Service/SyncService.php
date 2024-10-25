@@ -30,19 +30,23 @@ class SyncService
                 'created' => date('Y-m-d H:i:s')
             );
             $this->save_sync_record($record);
-
             $syncJobs = $this->syncJob($data);
             if(!empty($syncJobs)){
                 $user_update = $syncJobs['trans_count']['user'];
                 $department_update = $syncJobs['trans_count']['dep'];
                 $this->save_sync_record(array('id' => $this->syncId, 'user_update' => $user_update, 'department_update' => $department_update));
-                $err_datas = array();
-                $err_datas = $this->do_sync_api($syncJobs);
-                $status = 'success';
-                if($this->countFuc($err_datas['user']) ==  $user_update && $this->countFuc($err_datas['dep']) ==  $department_update){
+                list($chk_dep, $chk_user) = $this->diffReference($syncJobs['trans_count']);
+                if(empty($chk_dep) || empty($chk_user)){
                     $status = 'error';
-                }else if(!empty($err_datas['user']) || !empty($err_datas['dep'])){
-                    $status = 'warning';
+                }else{
+                    $err_datas = array();
+                    $err_datas = $this->do_sync_api($syncJobs);
+                    $status = 'success';
+                    if(!empty($user_update) && !empty($department_update) && $this->countFuc($err_datas['user']) ==  $user_update && $this->countFuc($err_datas['dep']) ==  $department_update){
+                        $status = 'error';
+                    }else if(!empty($err_datas['user']) || !empty($err_datas['dep'])){
+                        $status = 'warning';
+                    }
                 }
                 $this->save_sync_record(array('id' => $this->syncId, 'status' => $status));
             }else{
@@ -168,11 +172,12 @@ class SyncService
             $syncJobs = $this->del_user($syncJobs, $auoAllUids, $fsAllUids);
         }
         //------------------------------------------------------------
-        Log::error(var_export($syncJobs, true));
+        // Log::error(var_export($syncJobs, true));
         return $syncJobs;
     }
 
     public function do_sync_api($syncJobs){
+        $err_datas = array('dep' => array(), 'user' => array());
         $syncAPI = array(
             'add_dep' => 'su_department_update.json',
             'upd_dep_name' => 'su_department_order.json',
@@ -197,46 +202,57 @@ class SyncService
             'ud_lv_user' => '員工留停作業',
             're_user' => '員工回任/復職作業',
             'chg_user' => '員工調派作業',
-            'upd_user' => '人員批量更新',
+            'upd_user' => '員工批量更新',
             'upd_dep_dir' => '部門主管更新',
-            'del_user' => '人員刪除',
+            'del_user' => '員工刪除',
             'del_dep' => '部門刪除'
         );
-        $err_datas = array('dep' => array(), 'user' => array());
+
+
         foreach ($syncJobs as $key => $job) {
             if(!empty($syncAPI[$key]) && !empty($job)){
                 list($res ,$err_msg) = $this->requestFemas($syncAPI[$key], ['datas' => $job]);
-                // $this->log(var_export(array($key, $res), true));
                 $total_count = $this->countFuc($job);
-
-                Log::error(var_export(array($key,$job,$res), true));
-
                 if(empty($err_msg)){
                     $res_err = $res['err_datas'];
                     if(!empty($res_err)){
+                        $err_identify = Hash::combine($job,'{n}.sn','{n}');
                         foreach ($res_err as $err) {
+                            $err_val = '';
+                            if(!empty($err['msg'])){
+                                preg_match("/\((.*?)\)/", (string)$err['msg'], $matches);
+                                if (!empty($matches[1])) {
+                                    $field = $matches[1];
+                                    if(isset($err['data'])){
+                                        $err_val = $err['data'][$field];
+                                    }else{
+                                        $err_val = $err_identify[$err['sn']][$field];
+                                    }
+                                }
+                            }
                             switch ($key) {
                                 case 'add_dep':
                                 case 'upd_dep':
                                 case 'del_dep':
                                 case 'upd_dep_dir':
                                 case 'upd_dep_name':
-                                    $err_datas['dep'][$err['sn']][] = $err['msg'];
+                                    $err_datas['dep'][$err['sn']][] = array('action' => $syncName[$key], 'msg' => $err['msg'], 'value' => $err_val);
                                     break;
                                 default:
-                                    $err_datas['user'][$err['sn']][] = $err['msg'];
+                                    $err_datas['user'][$err['sn']][] = array('action' => $syncName[$key], 'msg' => $err['msg'], 'value' => $err_val);
                                     break;
                             }
                         }
                     }
                     if(!empty($res_err)){
-                        $error_count = count($res_err);
+                        $error_count = $this->countFuc($res_err);
                         if($total_count - $error_count > 0){
                             $status = 'warning';
                         }else{
                             $status = 'error';
                         }
                     }else{
+                        $error_count = 0;
                         $status = 'success';
                     }
                 }else{
@@ -244,7 +260,7 @@ class SyncService
                     $status = 'error';
                 }
 
-                $log_msg = array('request' => $job, 'response' => $res, 'err_msg' => $err_msg);
+                $log_msg = array('response' => $res, 'err_msg' => $err_msg);
                 $record = array(
                     'sync_records_id' => $this->syncId,
                     'action' => $syncName[$key].'('.$syncAPI[$key].')',
@@ -260,7 +276,135 @@ class SyncService
                 $this->save_sync_log($record);
             }
         }
+        $this->generateTable($err_datas);
         return $err_datas;
+    }
+
+    public function diffReference($tran_count){
+        $SaasSettings = TableRegistry::getTableLocator()->get('SaasSettings');
+        $userRef = $SaasSettings->getSys('UserDiffReference');
+        $userRef = (!empty($userRef) && is_numeric($userRef))? $userRef:0;
+
+        $depRef = $SaasSettings->getSys('DepartmentDiffReference');
+        $depRef = (!empty($depRef) && is_numeric($depRef))? $depRef:0;
+
+        $diff_user = $tran_count['user'];
+        $diff_dep = $tran_count['dep'];
+
+        $chk_dep = true;
+        $chk_user = true;
+        if(!empty($diff_dep)){
+            $record = array('sync_records_id' => $this->syncId, 'api_host' => 'Femas', 'action' => '部門異動閾值檢查', 'total_count' => $diff_user, 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
+            if($diff_dep > $depRef){
+                $status = 'error';
+                $record['status'] = 'error';
+                $record['error_count'] = $diff_dep;
+                $record['msg'] = '異動數大於閾值設定：'.$depRef;
+                $chk_dep = false;
+            }else{
+                $status = 'error';
+                $record['success_count'] = $diff_dep;
+            }
+            $this->save_sync_log($record);
+        }
+
+        if(!empty($diff_user)){
+            $record = array('sync_records_id' => $this->syncId, 'api_host' => 'Femas', 'action' => '員工異動閾值檢查', 'total_count' => $diff_user, 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
+            if($diff_user > $userRef){
+                $status = 'error';
+                $record['status'] = 'error';
+                $record['error_count'] = $diff_user;
+                $record['msg'] = '異動數大於閾值設定：'.$userRef;
+                $chk_user = false;
+            }else{
+                $status = 'error';
+                $record['success_count'] = $diff_user;
+            }
+            $this->save_sync_log($record);
+        }
+
+        return array($chk_dep, $chk_user);
+    }
+
+    public function generateTable($data) {
+        $html = '';
+        foreach ($data['dep'] as $depId => $records) {
+            $html .= "<table>";
+            $html .= "<tr><th>部門編號ORGID</th><th>執行動作</th><th>錯誤訊息</th><th>值</th></tr>";
+            foreach ($records as $record) {
+                $html .= "<tr>";
+                $html .= "<td>{$depId}</td>";
+                $html .= "<td>{$record['action']}</td>";
+                $html .= "<td>{$record['msg']}</td>";
+                $html .= "<td>{$record['value']}</td>";
+                $html .= "</tr>";
+            }
+        }
+        if(!empty($data['user'])){
+            $html .= "<table>";
+            $html .= "<tr><th>排序</th><th>員編EMPNO</th><th>執行動作</th><th>錯誤訊息</th><th>值</th></tr>";
+            $k = 1;
+            foreach ($data['user'] as $userId => $records) {
+                foreach ($records as $record) {
+                    $html .= "<tr>";
+                    $html .= "<td>{$k}</td>";
+                    $html .= "<td>{$userId}</td>";
+                    $html .= "<td>{$record['action']}</td>";
+                    $html .= "<td>{$record['msg']}</td>";
+                    $html .= "<td>{$record['value']}</td>";
+                    $html .= "</tr>";
+                    $k+=1;
+                }
+            }
+        }
+        $html .= "</table>";
+
+        $SyncRecords = TableRegistry::getTableLocator()->get('SyncRecords');
+        if(!empty($this->syncId)){
+            $syncRecord = $SyncRecords->get($this->syncId, [
+                'contain' => [],
+            ]);
+        }
+
+        $dep_total = !empty($syncRecord['department_total'])? $syncRecord['department_total']:0;
+        $dep_update = !empty($syncRecord['department_update'])? $syncRecord['department_update']:0;
+        $dep_err = $this->countFuc($data['dep']);
+        $user_total = !empty($syncRecord['user_total'])? $syncRecord['user_total']:0;
+        $user_update = !empty($syncRecord['user_update'])? $syncRecord['user_update']:0;
+        $user_err = $this->countFuc($data['user']);
+
+        $emailContent = "
+        <html>
+        <head>
+            <meta charset='UTF-8'>
+            <title>使用者資料表格</title>
+            <style>
+                table{border-collapse: collapse;border: 1px solid #ddd;margin-bottom:20px}
+                th{background-color: beige;}
+                th,td{border: 1px solid #ddd; padding: 4px 8px;}
+                *{font-family: Arial, sans-serif;}
+            </style>
+        </head>
+        <body>
+            <h2>同步執行結果</h2>
+            <table>
+                <tr><th>類型</th><th>AUO掃描總數</th><th>異動數</th><th>失敗數</th></tr>
+                <tr>
+                    <td>部門</td>
+                    <td>{$dep_total}</td>
+                    <td>{$dep_update}</td>
+                    <td>{$dep_err}</td>
+                </tr>
+                <tr>
+                    <td>員工</td>
+                    <td>{$user_total}</td>
+                    <td>{$user_update}</td>
+                    <td>{$user_err}</td>
+                </tr>
+            </table>
+            " . $html . "
+        </body>
+        </html>";
     }
 
     public function add_dep($syncJobs, $auo_deps, $auoDids, $fsDids, $auoAllUids){
@@ -441,7 +585,7 @@ class SyncService
                                 }else{
                                     $upd_user[$id][$key] = $value;
                                 }
-                            }elseif(empty($auo_users[$id]['base']['leavedate']) && in_array($key, $chg_fields)){ //調派
+                            }elseif(isset($auo_users[$id]['base']['leavedate']) && empty($auo_users[$id]['base']['leavedate']) && in_array($key, $chg_fields)){ //調派
                                 $chg_user[$id][$key] = $value;
                             }else{ //其餘欄位視為人員批量更新
                                 $upd_user[$id][$key] = $value;
@@ -496,6 +640,7 @@ class SyncService
                     }
                 }
             }
+
             if(!empty($lv_user[$id]) || !empty($re_user[$id]) || !empty($chg_user[$id]) || !empty($upd_user[$id])){
                 $syncJobs['trans_count']['user'] += 1; //同一個員工的人事異動、更新皆視為同一異動數
             }
@@ -512,8 +657,8 @@ class SyncService
                 $LeaveUser = array();
                 $UnpaidLeaveUser = array();
                 foreach ($lv_user as $id => $user) {
-                    $upd_user[$id]['sn'] = $id;
                     if(empty($auo_chgs[$id])){//無異動紀錄，視為批量更新
+                        $upd_user[$id]['sn'] = $id;
                         $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
                     }else{
                         $chg = $this->diff_chg($fs_chgs[$id], $auo_chgs[$id]);
@@ -541,6 +686,7 @@ class SyncService
                                 unset($chg_user[$id]);
                             }
                         }else{
+                            $upd_user[$id]['sn'] = $id;
                             $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
                         }
                     }
@@ -552,8 +698,8 @@ class SyncService
             if(!empty($re_user)){
                 $Reinstate = array();
                 foreach ($re_user as $id => $user) {
-                    $upd_user[$id]['sn'] = $id;
                     if(empty($auo_chgs[$id])){//無異動紀錄，視為批量更新
+                        $upd_user[$id]['sn'] = $id;
                         $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
                     }else{
                         $chk = $this->diff_chg($fs_chgs[$id], $auo_chgs[$id]);
@@ -569,6 +715,7 @@ class SyncService
                                 unset($chg_user[$id]);
                             }
                         }else{
+                            $upd_user[$id]['sn'] = $id;
                             $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
                         }
                     }
@@ -579,8 +726,8 @@ class SyncService
             if(!empty($chg_user)){
                 $UserChange = array();
                 foreach ($chg_user as $id => $user) {
-                    $upd_user[$id]['sn'] = $id;
                     if(empty($auo_chgs[$id])){//無異動紀錄，視為批量更新
+                        $upd_user[$id]['sn'] = $id;
                         $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
                     }else{
                         $chg = $this->diff_chg($fs_chgs[$id], $auo_chgs[$id]);
@@ -596,7 +743,9 @@ class SyncService
                             $UserChange[$id]['user_type_name'] = $auo_users[$id]['base']['user_type_name'];
                             $UserChange[$id]['dept_name'] = $auo_users[$id]['base']['department_name'];
                             $UserChange[$id]['update_user'] = true;
+                            // Log::error(var_export(array($id, $auo_users[$id]), true));
                         }else{
+                            $upd_user[$id]['sn'] = $id;
                             $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
                         }
                     }
@@ -604,7 +753,6 @@ class SyncService
                 $syncJobs['chg_user'] = array_values($UserChange);
             }
         }
-
         $syncJobs['upd_user'] = array_merge($syncJobs['upd_user'], array_values($upd_user));
         return $syncJobs;
     }
@@ -774,7 +922,6 @@ class SyncService
             $date = $mil['started_date'].' '.$mil['ended_date'];
             $tmp_fs[$date] = $mil;
         }
-
         $delIds = array_diff(array_keys($tmp_fs), array_keys($tmp_auo));
         $addIds = array_diff(array_keys($tmp_auo), array_keys($tmp_fs));
         $int_mils = array_intersect_assoc($tmp_auo, $tmp_fs);
@@ -829,8 +976,8 @@ class SyncService
                 }
             }
             $record['total_count'] = $this->countFuc($deps);
-            if($this->countFuc($deps) < $depMin){
-                $err_msg = '生效組織資料低於閥值';
+            if($this->countFuc($deps) <= $depMin){
+                $err_msg = '生效組織資料低於閥值:'.$depMin;
                 $record['msg'] = $err_msg;
                 $record['status'] = 'error';
                 $record['error_count'] = $this->countFuc($deps);
@@ -929,8 +1076,8 @@ class SyncService
                 $users[$user['emp_no']]['base'] = $base;
             }
             $record['total_count'] = $this->countFuc($users);
-            if($this->countFuc($users) < $userMin){
-                $err_msg = '員工基礎資料低於閥值';
+            if($this->countFuc($users) <= $userMin){
+                $err_msg = '員工基礎資料低於閥值：'.$userMin;
                 $record['msg'] = $err_msg;
                 $record['status'] = 'error';
                 $record['error_count'] = $this->countFuc($users);
@@ -1017,8 +1164,8 @@ class SyncService
                 $users[$user['EMP_NO']]['salary'] = $salary;
             }
             $record['total_count'] = $this->countFuc($users);
-            if($this->countFuc($users) < $user2Min){
-                $err_msg = '員工進階資料低於閥值';
+            if($this->countFuc($users) <= $user2Min){
+                $err_msg = '員工進階資料低於閥值：'.$user2Min;
                 $record['msg'] = $err_msg;
                 $record['status'] = 'error';
                 $record['error_count'] = $this->countFuc($users);

@@ -1,9 +1,27 @@
 {
     "Code": 1,
     "Message": "OK(DATA_HUB)",
-    "RequestId": "cbd03b9182b541bfb95fe38517d8a8e1",
-    "Bizid": "74bf174f0c2141888489d1a0dcf2f2bb",
+    "RequestId": "a76c32f516074c149affa30df6c5bf31",
+    "Bizid": "fa300a820b214512910d6b7d96f1fc21",
     "Result": [
+        {
+            "BEGIN_DATE": "20180301",
+            "END_DATE": "20230401",
+            "TITLE": "資深處長",
+            "COMPANY": "仁寶",
+            "PRO_YEAR": "5.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2305001"
+        },
+        {
+            "BEGIN_DATE": "19960101",
+            "END_DATE": "20180228",
+            "TITLE": "協理",
+            "COMPANY": "廣達",
+            "PRO_YEAR": "22.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2305001"
+        },
         {
             "BEGIN_DATE": "20010129",
             "END_DATE": "20040604",
@@ -59,6 +77,42 @@
             "EMP_NO": "1206034"
         },
         {
+            "BEGIN_DATE": "20230522",
+            "END_DATE": "20231101",
+            "TITLE": "ASSISTANT",
+            "COMPANY": "GOLDEN ARROW VIETNAM",
+            "PRO_YEAR": "0.60",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "V2352013"
+        },
+        {
+            "BEGIN_DATE": "20061120",
+            "END_DATE": "20130222",
+            "TITLE": "系統工程師",
+            "COMPANY": "漢翔航空工業股份有限公司",
+            "PRO_YEAR": "1.88",
+            "PERCENTAGE": "0.30",
+            "EMP_NO": "1305431"
+        },
+        {
+            "BEGIN_DATE": "20141127",
+            "END_DATE": "20190527",
+            "TITLE": "高級工程師",
+            "COMPANY": "中華映管",
+            "PRO_YEAR": "3.15",
+            "PERCENTAGE": "0.70",
+            "EMP_NO": "2108169"
+        },
+        {
+            "BEGIN_DATE": "20190617",
+            "END_DATE": "20210701",
+            "TITLE": "主任工程師",
+            "COMPANY": "冠捷科技",
+            "PRO_YEAR": "2.04",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2108169"
+        },
+        {
             "BEGIN_DATE": "20220401",
             "END_DATE": "20231130",
             "TITLE": "SQE",
@@ -86,13 +140,31 @@
             "EMP_NO": "V2352006"
         },
         {
-            "BEGIN_DATE": "20210901",
-            "END_DATE": "20231130",
-            "TITLE": "LOGISTIC",
-            "COMPANY": "ALPHA NETWORKS VIETNAM LTD CO.,",
-            "PRO_YEAR": "2.25",
-            "PERCENTAGE": "100.00",
-            "EMP_NO": "V2352007"
+            "BEGIN_DATE": "20200217",
+            "END_DATE": "20200816",
+            "TITLE": "助理辦事員",
+            "COMPANY": "台灣土地銀行",
+            "PRO_YEAR": "0.49",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2009091"
+        },
+        {
+            "BEGIN_DATE": "19980901",
+            "END_DATE": "20130604",
+            "TITLE": "經理/廠長",
+            "COMPANY": "友達光電",
+            "PRO_YEAR": "14.77",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2109004"
+        },
+        {
+            "BEGIN_DATE": "20130701",
+            "END_DATE": "20210601",
+            "TITLE": "協理",
+            "COMPANY": "達運精密",
+            "PRO_YEAR": "7.92",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2109004"
         },
         {
             "BEGIN_DATE": "20181201",
@@ -102,6 +174,15 @@
             "PRO_YEAR": "6.00",
             "PERCENTAGE": "1.00",
             "EMP_NO": "V2442007"
+        },
+        {
+            "BEGIN_DATE": "20210901",
+            "END_DATE": "20231130",
+            "TITLE": "LOGISTIC",
+            "COMPANY": "ALPHA NETWORKS VIETNAM LTD CO.,",
+            "PRO_YEAR": "2.25",
+            "PERCENTAGE": "100.00",
+            "EMP_NO": "V2352007"
         },
         {
             "BEGIN_DATE": "20201019",
@@ -140,24 +221,6 @@
             "EMP_NO": "2303003"
         },
         {
-            "BEGIN_DATE": "20180301",
-            "END_DATE": "20230401",
-            "TITLE": "資深處長",
-            "COMPANY": "仁寶",
-            "PRO_YEAR": "5.00",
-            "PERCENTAGE": "1.00",
-            "EMP_NO": "2305001"
-        },
-        {
-            "BEGIN_DATE": "19960101",
-            "END_DATE": "20180228",
-            "TITLE": "協理",
-            "COMPANY": "廣達",
-            "PRO_YEAR": "22.00",
-            "PERCENTAGE": "1.00",
-            "EMP_NO": "2305001"
-        },
-        {
             "BEGIN_DATE": "20020429",
             "END_DATE": "20030131",
             "TITLE": "設計師",
@@ -183,60 +246,6 @@
             "PRO_YEAR": "0.21",
             "PERCENTAGE": "0.15",
             "EMP_NO": "1108052"
-        },
-        {
-            "BEGIN_DATE": "20061120",
-            "END_DATE": "20130222",
-            "TITLE": "系統工程師",
-            "COMPANY": "漢翔航空工業股份有限公司",
-            "PRO_YEAR": "1.88",
-            "PERCENTAGE": "0.30",
-            "EMP_NO": "1305431"
-        },
-        {
-            "BEGIN_DATE": "20200217",
-            "END_DATE": "20200816",
-            "TITLE": "助理辦事員",
-            "COMPANY": "台灣土地銀行",
-            "PRO_YEAR": "0.49",
-            "PERCENTAGE": "1.00",
-            "EMP_NO": "2009091"
-        },
-        {
-            "BEGIN_DATE": "20141127",
-            "END_DATE": "20190527",
-            "TITLE": "高級工程師",
-            "COMPANY": "中華映管",
-            "PRO_YEAR": "3.15",
-            "PERCENTAGE": "0.70",
-            "EMP_NO": "2108169"
-        },
-        {
-            "BEGIN_DATE": "20190617",
-            "END_DATE": "20210701",
-            "TITLE": "主任工程師",
-            "COMPANY": "冠捷科技",
-            "PRO_YEAR": "2.04",
-            "PERCENTAGE": "1.00",
-            "EMP_NO": "2108169"
-        },
-        {
-            "BEGIN_DATE": "19980901",
-            "END_DATE": "20130604",
-            "TITLE": "經理/廠長",
-            "COMPANY": "友達光電",
-            "PRO_YEAR": "14.77",
-            "PERCENTAGE": "1.00",
-            "EMP_NO": "2109004"
-        },
-        {
-            "BEGIN_DATE": "20130701",
-            "END_DATE": "20210601",
-            "TITLE": "協理",
-            "COMPANY": "達運精密",
-            "PRO_YEAR": "7.92",
-            "PERCENTAGE": "1.00",
-            "EMP_NO": "2109004"
         }
     ]
 }

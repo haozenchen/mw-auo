@@ -1,9 +1,79 @@
 {
     "Code": 1,
     "Message": "OK(DATA_HUB)",
-    "RequestId": "dcd7d3a2b5eb45459f0f76ddfdfbfdfa",
-    "Bizid": "8e41b1a68e87463a9c108cc71df52e22",
+    "RequestId": "6430baeee4e142c7b94bafe51eceb693",
+    "Bizid": "862affa3d2224494a68931309eca3d4d",
     "Result": [
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "CONG NGHE THONG TIN",
+            "LOCATION": "VN",
+            "SCHOOL_NAME": "DH Kinh doanh va cong nghe Ha Noi",
+            "END_DATE": "20160801",
+            "EMP_NO": "V2443041",
+            "BEGIN_DATE": "20120902"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "ACCOUNTING",
+            "LOCATION": "VN",
+            "SCHOOL_NAME": "DAI HOC KINH TE QUOC DAN",
+            "END_DATE": "20120630",
+            "EMP_NO": "V2443006",
+            "BEGIN_DATE": "20080902"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "ACCOUNTING",
+            "LOCATION": "VN",
+            "SCHOOL_NAME": "Dai hoc Cong nghiep",
+            "END_DATE": "20140601",
+            "EMP_NO": "V2442008",
+            "BEGIN_DATE": "20100902"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "KHOA HOC CAY TRONG TIEN TIEN",
+            "LOCATION": "VN",
+            "SCHOOL_NAME": "Hoc vien Nong nghiep Viet Nam",
+            "END_DATE": "20150501",
+            "EMP_NO": "V2441015",
+            "BEGIN_DATE": "20100902"
+        },
+        {
+            "DEGREE": "02",
+            "GRADUATE": "1",
+            "COURSE_NAME": "經濟管理",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "國立台北科技大學",
+            "END_DATE": "20190102",
+            "EMP_NO": "V2441015",
+            "BEGIN_DATE": "20170201"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "BUSINESS ACCOUNTING",
+            "LOCATION": "VN",
+            "SCHOOL_NAME": "The Electric Power University",
+            "END_DATE": "20151210",
+            "EMP_NO": "V2441003",
+            "BEGIN_DATE": "20110902"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "CHINESE LANGUAGE",
+            "LOCATION": "VN",
+            "SCHOOL_NAME": "Hanoi University",
+            "END_DATE": "20210301",
+            "EMP_NO": "V2352012",
+            "BEGIN_DATE": "20170902"
+        },
         {
             "DEGREE": "03",
             "GRADUATE": "1",
@@ -23,56 +93,6 @@
             "END_DATE": "20100630",
             "EMP_NO": "0405083",
             "BEGIN_DATE": "20070901"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "化學系",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "國立成功大學",
-            "END_DATE": "20020630",
-            "EMP_NO": "0408354",
-            "BEGIN_DATE": "19980901"
-        },
-        {
-            "DEGREE": "02",
-            "GRADUATE": "1",
-            "COURSE_NAME": "化學系",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "國立台灣大學",
-            "END_DATE": "20040731",
-            "EMP_NO": "0408354",
-            "BEGIN_DATE": "20020901"
-        },
-        {
-            "DEGREE": "04",
-            "GRADUATE": "1",
-            "COURSE_NAME": "電機工程(學)系",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "國立雲林工專",
-            "END_DATE": "20020630",
-            "EMP_NO": "1305431",
-            "BEGIN_DATE": "19970901"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "電機工程(學)系",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "國立台灣科技大學",
-            "END_DATE": "20040630",
-            "EMP_NO": "1305431",
-            "BEGIN_DATE": "20020901"
-        },
-        {
-            "DEGREE": "02",
-            "GRADUATE": "1",
-            "COURSE_NAME": "電機工程(學)系",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "國立台灣科技大學",
-            "END_DATE": "20060630",
-            "EMP_NO": "1305431",
-            "BEGIN_DATE": "20040901"
         },
         {
             "DEGREE": "03",
@@ -97,116 +117,6 @@
         {
             "DEGREE": "03",
             "GRADUATE": "1",
-            "COURSE_NAME": "工業管理",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "雲林技術學院",
-            "END_DATE": "19960630",
-            "EMP_NO": "2109004",
-            "BEGIN_DATE": "19920612"
-        },
-        {
-            "DEGREE": "02",
-            "GRADUATE": "1",
-            "COURSE_NAME": "工業管理",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "成功大學",
-            "END_DATE": "19980630",
-            "EMP_NO": "2109004",
-            "BEGIN_DATE": "19960611"
-        },
-        {
-            "DEGREE": "02",
-            "GRADUATE": "1",
-            "COURSE_NAME": "機械工程學系",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "國立中央大學",
-            "END_DATE": "20060630",
-            "EMP_NO": "1206034",
-            "BEGIN_DATE": "20040901"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "CHINESE TRANSLATION",
-            "LOCATION": "VN",
-            "SCHOOL_NAME": "VNU University of Languages and International Stud",
-            "END_DATE": "20140601",
-            "EMP_NO": "V2352006",
-            "BEGIN_DATE": "20100902"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "ACCOUNTING",
-            "LOCATION": "VN",
-            "SCHOOL_NAME": "Thuong Mai University",
-            "END_DATE": "20130723",
-            "EMP_NO": "V2352007",
-            "BEGIN_DATE": "20090902"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "CHINESE LANGUAGE",
-            "LOCATION": "VN",
-            "SCHOOL_NAME": "Hanoi University",
-            "END_DATE": "20210301",
-            "EMP_NO": "V2352012",
-            "BEGIN_DATE": "20170902"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "BUSINESS ACCOUNTING",
-            "LOCATION": "VN",
-            "SCHOOL_NAME": "The Electric Power University",
-            "END_DATE": "20151210",
-            "EMP_NO": "V2441003",
-            "BEGIN_DATE": "20110902"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "CONG NGHE THONG TIN",
-            "LOCATION": "VN",
-            "SCHOOL_NAME": "Dai hoc CNTT&TT Thai Nguyen",
-            "END_DATE": "20180618",
-            "EMP_NO": "V2441004",
-            "BEGIN_DATE": "20130902"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "KHOA HOC CAY TRONG TIEN TIEN",
-            "LOCATION": "VN",
-            "SCHOOL_NAME": "Hoc vien Nong nghiep Viet Nam",
-            "END_DATE": "20150501",
-            "EMP_NO": "V2441015",
-            "BEGIN_DATE": "20100902"
-        },
-        {
-            "DEGREE": "02",
-            "GRADUATE": "1",
-            "COURSE_NAME": "經濟管理",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "國立台北科技大學",
-            "END_DATE": "20190102",
-            "EMP_NO": "V2441015",
-            "BEGIN_DATE": "20170201"
-        },
-        {
-            "DEGREE": "02",
-            "GRADUATE": "1",
-            "COURSE_NAME": "GMBA",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "Yuan Ze University",
-            "END_DATE": "20230102",
-            "EMP_NO": "V2442001",
-            "BEGIN_DATE": "20200902"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
             "COURSE_NAME": "CHINESE LANGUAGE",
             "LOCATION": "VN",
             "SCHOOL_NAME": "Dai hoc Thai Nguyen",
@@ -217,72 +127,12 @@
         {
             "DEGREE": "03",
             "GRADUATE": "1",
-            "COURSE_NAME": "ACCOUNTING",
+            "COURSE_NAME": "CHINESE TRANSLATION",
             "LOCATION": "VN",
-            "SCHOOL_NAME": "Dai hoc Cong nghiep",
+            "SCHOOL_NAME": "VNU University of Languages and International Stud",
             "END_DATE": "20140601",
-            "EMP_NO": "V2442007",
+            "EMP_NO": "V2352006",
             "BEGIN_DATE": "20100902"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "ACCOUNTING",
-            "LOCATION": "VN",
-            "SCHOOL_NAME": "Dai hoc Cong nghiep",
-            "END_DATE": "20140601",
-            "EMP_NO": "V2442008",
-            "BEGIN_DATE": "20100902"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "CONG NGHE THONG TIN",
-            "LOCATION": "VN",
-            "SCHOOL_NAME": "DH Kinh doanh va cong nghe Ha Noi",
-            "END_DATE": "20160801",
-            "EMP_NO": "V2443041",
-            "BEGIN_DATE": "20120902"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "SU PHAM VAN DIA",
-            "LOCATION": "VN",
-            "SCHOOL_NAME": "TRUONG DAI HOC SU PHAM - DAI HOC THAI NGUYEN",
-            "END_DATE": "20230715",
-            "EMP_NO": "V2443042",
-            "BEGIN_DATE": "20090902"
-        },
-        {
-            "DEGREE": "05",
-            "GRADUATE": "1",
-            "COURSE_NAME": "普通科",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "市立武陵高中",
-            "END_DATE": "20120630",
-            "EMP_NO": "2009091",
-            "BEGIN_DATE": "20090901"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "2",
-            "COURSE_NAME": "數學系",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "國立臺灣大學",
-            "END_DATE": "20150630",
-            "EMP_NO": "2009091",
-            "BEGIN_DATE": "20120901"
-        },
-        {
-            "DEGREE": "03",
-            "GRADUATE": "1",
-            "COURSE_NAME": "財務金融(學)系",
-            "LOCATION": "TW",
-            "SCHOOL_NAME": "國立中央大學",
-            "END_DATE": "20180630",
-            "EMP_NO": "2009091",
-            "BEGIN_DATE": "20150901"
         },
         {
             "DEGREE": "03",
@@ -355,6 +205,26 @@
             "BEGIN_DATE": "20130901"
         },
         {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "ACCOUNTING",
+            "LOCATION": "VN",
+            "SCHOOL_NAME": "Dai hoc Cong nghiep",
+            "END_DATE": "20140601",
+            "EMP_NO": "V2442007",
+            "BEGIN_DATE": "20100902"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "ACCOUNTING",
+            "LOCATION": "VN",
+            "SCHOOL_NAME": "Thuong Mai University",
+            "END_DATE": "20130723",
+            "EMP_NO": "V2352007",
+            "BEGIN_DATE": "20090902"
+        },
+        {
             "DEGREE": "04",
             "GRADUATE": "1",
             "COURSE_NAME": "COMPUTER ENGINEERING",
@@ -373,6 +243,156 @@
             "END_DATE": "20021216",
             "EMP_NO": "2305001",
             "BEGIN_DATE": "20000901"
+        },
+        {
+            "DEGREE": "04",
+            "GRADUATE": "1",
+            "COURSE_NAME": "電機工程(學)系",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "國立雲林工專",
+            "END_DATE": "20020630",
+            "EMP_NO": "1305431",
+            "BEGIN_DATE": "19970901"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "電機工程(學)系",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "國立台灣科技大學",
+            "END_DATE": "20040630",
+            "EMP_NO": "1305431",
+            "BEGIN_DATE": "20020901"
+        },
+        {
+            "DEGREE": "02",
+            "GRADUATE": "1",
+            "COURSE_NAME": "電機工程(學)系",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "國立台灣科技大學",
+            "END_DATE": "20060630",
+            "EMP_NO": "1305431",
+            "BEGIN_DATE": "20040901"
+        },
+        {
+            "DEGREE": "02",
+            "GRADUATE": "1",
+            "COURSE_NAME": "機械工程學系",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "國立中央大學",
+            "END_DATE": "20060630",
+            "EMP_NO": "1206034",
+            "BEGIN_DATE": "20040901"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "工業管理",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "雲林技術學院",
+            "END_DATE": "19960630",
+            "EMP_NO": "2109004",
+            "BEGIN_DATE": "19920612"
+        },
+        {
+            "DEGREE": "02",
+            "GRADUATE": "1",
+            "COURSE_NAME": "工業管理",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "成功大學",
+            "END_DATE": "19980630",
+            "EMP_NO": "2109004",
+            "BEGIN_DATE": "19960611"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "SU PHAM VAN - DIA",
+            "LOCATION": "VN",
+            "SCHOOL_NAME": "Truong Dai hoc Su pham - Dai hoc Thai Nguyen",
+            "END_DATE": "20130730",
+            "EMP_NO": "V2443042",
+            "BEGIN_DATE": "20090902"
+        },
+        {
+            "DEGREE": "02",
+            "GRADUATE": "1",
+            "COURSE_NAME": "GMBA",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "Yuan Ze University",
+            "END_DATE": "20230102",
+            "EMP_NO": "V2442001",
+            "BEGIN_DATE": "20200902"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "CONG NGHE THONG TIN",
+            "LOCATION": "VN",
+            "SCHOOL_NAME": "Dai hoc CNTT&TT Thai Nguyen",
+            "END_DATE": "20180618",
+            "EMP_NO": "V2441004",
+            "BEGIN_DATE": "20130902"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "CHINESE LANGUAGE",
+            "LOCATION": "VN",
+            "SCHOOL_NAME": "Dai hoc Phuong Dong",
+            "END_DATE": "20230630",
+            "EMP_NO": "V2352013",
+            "BEGIN_DATE": "20190905"
+        },
+        {
+            "DEGREE": "05",
+            "GRADUATE": "1",
+            "COURSE_NAME": "普通科",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "市立武陵高中",
+            "END_DATE": "20120630",
+            "EMP_NO": "2009091",
+            "BEGIN_DATE": "20090901"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "2",
+            "COURSE_NAME": "數學系",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "國立臺灣大學",
+            "END_DATE": "20150630",
+            "EMP_NO": "2009091",
+            "BEGIN_DATE": "20120901"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "財務金融(學)系",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "國立中央大學",
+            "END_DATE": "20180630",
+            "EMP_NO": "2009091",
+            "BEGIN_DATE": "20150901"
+        },
+        {
+            "DEGREE": "03",
+            "GRADUATE": "1",
+            "COURSE_NAME": "化學系",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "國立成功大學",
+            "END_DATE": "20020630",
+            "EMP_NO": "0408354",
+            "BEGIN_DATE": "19980901"
+        },
+        {
+            "DEGREE": "02",
+            "GRADUATE": "1",
+            "COURSE_NAME": "化學系",
+            "LOCATION": "TW",
+            "SCHOOL_NAME": "國立台灣大學",
+            "END_DATE": "20040731",
+            "EMP_NO": "0408354",
+            "BEGIN_DATE": "20020901"
         }
     ]
 }

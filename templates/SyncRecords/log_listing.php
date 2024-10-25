@@ -35,8 +35,6 @@
                     { type: 'check', caption: '員工異動', count: '<?php echo $count['user_update']?>' },
                     { type: 'check', caption: '部門異動', count: '<?php echo $count['department_update']?>' },
                     { type: 'spacer' },
-                    { type: 'check', caption: '員工閾值', count: '<?php echo $count['user_threshold']?>' },
-                    { type: 'check', caption: '部門閾值', count: '<?php echo $count['department_threshold']?>' },
 				]
 			},
             multiSearch: false,

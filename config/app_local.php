@@ -35,45 +35,40 @@ return [
      *
      * See app.php for more configuration options.
      */
+
     'Datasources' => [
+        // 'default' => [
+        //     'host' => 'localhost',
+        //     /*
+        //      * CakePHP will use the default DB port based on the driver selected
+        //      * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
+        //      * the following line and set the port accordingly
+        //      */
+        //     'port' => '3307',
+
+        //     'username' => 'root',
+        //     'password' => '',
+
+        //     'database' => 'mw-auo',
+        //     /*
+        //      * If not using the default 'public' schema with the PostgreSQL driver
+        //      * set it here.
+        //      */
+        //     //'schema' => 'myapp',
+
+        //     /*
+        //      * You can use a DSN string to set the entire configuration
+        //      */
+        //     'url' => env('DATABASE_URL', null),
+        // ],
+
         'default' => [
-            'host' => 'localhost',
-            /*
-             * CakePHP will use the default DB port based on the driver selected
-             * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
-             * the following line and set the port accordingly
-             */
-            'port' => '3307',
-
+            'host' => 'wamp64-db-1',
+            'port' => '3306',
             'username' => 'root',
-            'password' => '',
-
+            'password' => 'fonsen',
             'database' => 'mw-auo',
-
-            /*
-             * If not using the default 'public' schema with the PostgreSQL driver
-             * set it here.
-             */
-            //'schema' => 'myapp',
-
-            /*
-             * You can use a DSN string to set the entire configuration
-             */
             'url' => env('DATABASE_URL', null),
-            'logQueries' => true, // 啟用查詢日誌
-        ],
-
-        /*
-         * The test connection is used during the test suite.
-         */
-        'test' => [
-            'host' => 'localhost',
-            //'port' => 'non_standard_port_number',
-            'username' => 'my_app',
-            'password' => 'secret',
-            'database' => 'test_myapp',
-            //'schema' => 'myapp',
-            'url' => env('DATABASE_TEST_URL', 'sqlite://127.0.0.1/tmp/tests.sqlite'),
         ],
     ],
 

@@ -98,12 +98,13 @@
             async: false,
             dataType: 'json',
             success: function(response) {
+                console.log(response);
                 if (response.isMfaPass == 1) {
                     login_submit();
                 } else {
-                    jQuery('#flashMessage').html('<div class="errMsg">帳號/密碼或兩階段驗證碼 錯誤</div>');
+                    jQuery('#flashMessage').html('<div class="errMsg">帳號/密碼或兩階段驗證碼錯誤</div>');
                     jQuery('#orglogin').show();
-                    jQuery('#mfaDiv, #flashMessage').hide();
+                    jQuery('#mfaDiv').hide();
                     clear_login();
                 }
             }

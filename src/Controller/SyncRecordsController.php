@@ -118,7 +118,7 @@ class SyncRecordsController extends AppController
     public function logListing($record_id){
         $this->viewBuilder()->setLayout('simple');
         $this->loadModel('SyncRecords');
-        $fields = array('user_total' ,'user_update' ,'user_threshold' ,'department_total' ,'department_update','department_threshold', 'created');
+        $fields = array('user_total' ,'user_update' ,'department_total' ,'department_update', 'created');
         $sync_records = $this->SyncRecords->find()
         ->where(['`id`' => $record_id])
         ->select($fields)

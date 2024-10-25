@@ -700,7 +700,7 @@ class SaasAdminsController extends AppController
         }
         $this->loadModel('SaasSettings');
         $mfaKey = '';
-        $isMfaPass = 0;
+        $isMfaPass = 1;
         if(!empty($this->request->getData('data.mfaKey'))) {
             $hash = hash('SHA384', (string)$this->hashStr, true);
             $key = substr($hash, 0, 32);

@@ -1,0 +1,2988 @@
+<?xml version="1.0"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://tempuri.org/">
+<wsdl:types>
+<s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+<s:element name="ResendMail">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strSentCode" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ResendMailResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ResendMailResult" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ResendMailForClient">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSentId" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ResendMailForClientResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ResendMailForClientResult" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="RunJob">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strCode" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="RunJobResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="RunJobResult" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="CallSend">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="CallSendResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="CallSendResult" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="GetDDRSQLQueryResult">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strDBCSCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strDatabase" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSQL" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="GetDDRSQLQueryResultResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="GetDDRSQLQueryResultResult">
+<s:complexType>
+<s:sequence>
+<s:element ref="s:schema"/>
+<s:any/>
+</s:sequence>
+</s:complexType>
+</s:element>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="GetMailRecipient">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="GetMailRecipientResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="GetMailRecipientResult">
+<s:complexType>
+<s:sequence>
+<s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+<s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="GetRecipientDetail">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="GetRecipientDetailResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="GetRecipientDetailResult">
+<s:complexType>
+<s:sequence>
+<s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+<s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="GetMailSentLog">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="dtmStartDate" type="s:dateTime"/>
+<s:element minOccurs="1" maxOccurs="1" name="dtmEndDate" type="s:dateTime"/>
+<s:element minOccurs="1" maxOccurs="1" name="intCompassSystemID" nillable="true" type="s:int"/>
+<s:element minOccurs="1" maxOccurs="1" name="intMailID" nillable="true" type="s:int"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="GetMailSentLogResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="GetMailSentLogResult">
+<s:complexType>
+<s:sequence>
+<s:element ref="s:schema"/>
+<s:any/>
+</s:sequence>
+</s:complexType>
+</s:element>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="GetMailSentLogBySentId">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSentId" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="GetMailSentLogBySentIdResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="GetMailSentLogBySentIdResult">
+<s:complexType>
+<s:sequence>
+<s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+<s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_00">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_00Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_00Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_04">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_04Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_04Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_06">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_06Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_06Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_07">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_07Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_07Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_107">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_107Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_107Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_07A">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="bolGrabImage" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_07AResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_07AResult" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_107A">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="bolGrabImage" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_107AResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_107AResult" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_08">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFormUser" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_08Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_08Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_108">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFromUser" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_108Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_108Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_08A">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFromUser" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="bolGrabImage" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_08AResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_08AResult" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_108A">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFromUser" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="bolGrabImage" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_108AResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_108AResult" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_15">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_15Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_15Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_115">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_115Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_115Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_23">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileDirectoryPath" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_23Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_23Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_123">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileDirectoryPath" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_123Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_123Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_31">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileDirectoryPath" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_31Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_31Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_131">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileDirectoryPath" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_131Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_131Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_39">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileBase64String" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_39Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_39Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_139">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileBase64String" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_139Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_139Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_40">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFromUser" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileBase64String" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_40Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_40Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_140">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFromUser" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileBase64String" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_140Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_140Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_47">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileBase64String" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_47Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_47Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_147">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileBase64String" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_147Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_147Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_48">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFromUser" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileBase64String" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_48Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_48Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_148">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFromUser" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFileBase64String" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_148Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_148Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_57">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFLMCode" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_57Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_57Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_157">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFLMCode" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_157Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_157Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_58">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFLMCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="_PDFSetting" type="tns:PDFSetting"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:complexType name="PDFSetting">
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="AddWatermark" type="s:boolean"/>
+<s:element minOccurs="1" maxOccurs="1" name="AddDownloadInfo" type="s:boolean"/>
+<s:element minOccurs="0" maxOccurs="1" name="CustomDownloadInfo" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="ViewPassword" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="AllowHandle" type="s:boolean"/>
+<s:element minOccurs="1" maxOccurs="1" name="AllowPrint" type="s:boolean"/>
+<s:element minOccurs="1" maxOccurs="1" name="AllowCopy" type="s:boolean"/>
+<s:element minOccurs="1" maxOccurs="1" name="AllowModify" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+<s:element name="ManualSend_58Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_58Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_158">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFLMCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="_PDFSetting" type="tns:PDFSetting"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_158Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_158Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_59">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFLMCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="_PDFSetting" type="tns:PDFSetting"/>
+<s:element minOccurs="0" maxOccurs="1" name="_PDFWatermarkSetting" type="tns:PDFWatermarkSetting"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:complexType name="PDFWatermarkSetting">
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="Content" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="FontSize" type="s:int"/>
+<s:element minOccurs="0" maxOccurs="1" name="FontColorHtml" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="FontLocationX" type="s:float"/>
+<s:element minOccurs="1" maxOccurs="1" name="FontLocationY" type="s:float"/>
+<s:element minOccurs="1" maxOccurs="1" name="Rotation" type="s:float"/>
+<s:element minOccurs="1" maxOccurs="1" name="FontTransparency" type="s:float"/>
+</s:sequence>
+</s:complexType>
+<s:element name="ManualSend_59Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_59Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_159">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFLMCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="_PDFSetting" type="tns:PDFSetting"/>
+<s:element minOccurs="0" maxOccurs="1" name="_PDFWatermarkSetting" type="tns:PDFWatermarkSetting"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_159Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_159Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_60">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFormUser" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFLMCode" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_60Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_60Result" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_160">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFormUser" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBody" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strImportance" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strFLMCode" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_160Response">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="ManualSend_160Result" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_07ALJ">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="strMailCode" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strBlindCopyRecipients" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strSubject" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string"/>
+<s:element minOccurs="1" maxOccurs="1" name="bolGrabImage" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="ManualSend_07ALJResponse">
+<s:complexType>
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="ManualSend_07ALJResult" type="s:boolean"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="boolean" type="s:boolean"/>
+<s:element name="string" nillable="true" type="s:string"/>
+<s:element name="DataSet" nillable="true">
+<s:complexType>
+<s:sequence>
+<s:element ref="s:schema"/>
+<s:any/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="DataTable" nillable="true">
+<s:complexType>
+<s:sequence>
+<s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax"/>
+<s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+</s:schema>
+</wsdl:types>
+<wsdl:message name="ResendMailSoapIn">
+<wsdl:part name="parameters" element="tns:ResendMail"/>
+</wsdl:message>
+<wsdl:message name="ResendMailSoapOut">
+<wsdl:part name="parameters" element="tns:ResendMailResponse"/>
+</wsdl:message>
+<wsdl:message name="ResendMailForClientSoapIn">
+<wsdl:part name="parameters" element="tns:ResendMailForClient"/>
+</wsdl:message>
+<wsdl:message name="ResendMailForClientSoapOut">
+<wsdl:part name="parameters" element="tns:ResendMailForClientResponse"/>
+</wsdl:message>
+<wsdl:message name="RunJobSoapIn">
+<wsdl:part name="parameters" element="tns:RunJob"/>
+</wsdl:message>
+<wsdl:message name="RunJobSoapOut">
+<wsdl:part name="parameters" element="tns:RunJobResponse"/>
+</wsdl:message>
+<wsdl:message name="CallSendSoapIn">
+<wsdl:part name="parameters" element="tns:CallSend"/>
+</wsdl:message>
+<wsdl:message name="CallSendSoapOut">
+<wsdl:part name="parameters" element="tns:CallSendResponse"/>
+</wsdl:message>
+<wsdl:message name="GetDDRSQLQueryResultSoapIn">
+<wsdl:part name="parameters" element="tns:GetDDRSQLQueryResult"/>
+</wsdl:message>
+<wsdl:message name="GetDDRSQLQueryResultSoapOut">
+<wsdl:part name="parameters" element="tns:GetDDRSQLQueryResultResponse"/>
+</wsdl:message>
+<wsdl:message name="GetMailRecipientSoapIn">
+<wsdl:part name="parameters" element="tns:GetMailRecipient"/>
+</wsdl:message>
+<wsdl:message name="GetMailRecipientSoapOut">
+<wsdl:part name="parameters" element="tns:GetMailRecipientResponse"/>
+</wsdl:message>
+<wsdl:message name="GetRecipientDetailSoapIn">
+<wsdl:part name="parameters" element="tns:GetRecipientDetail"/>
+</wsdl:message>
+<wsdl:message name="GetRecipientDetailSoapOut">
+<wsdl:part name="parameters" element="tns:GetRecipientDetailResponse"/>
+</wsdl:message>
+<wsdl:message name="GetMailSentLogSoapIn">
+<wsdl:part name="parameters" element="tns:GetMailSentLog"/>
+</wsdl:message>
+<wsdl:message name="GetMailSentLogSoapOut">
+<wsdl:part name="parameters" element="tns:GetMailSentLogResponse"/>
+</wsdl:message>
+<wsdl:message name="GetMailSentLogBySentIdSoapIn">
+<wsdl:part name="parameters" element="tns:GetMailSentLogBySentId"/>
+</wsdl:message>
+<wsdl:message name="GetMailSentLogBySentIdSoapOut">
+<wsdl:part name="parameters" element="tns:GetMailSentLogBySentIdResponse"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_00SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_00"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_00SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_00Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_04SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_04"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_04SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_04Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_06SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_06"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_06SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_06Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_07"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_07Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_107SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_107"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_107SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_107Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07ASoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_07A"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07ASoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_07AResponse"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_107ASoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_107A"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_107ASoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_107AResponse"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_08SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_08"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_08SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_08Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_108SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_108"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_108SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_108Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_08ASoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_08A"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_08ASoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_08AResponse"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_108ASoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_108A"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_108ASoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_108AResponse"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_15SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_15"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_15SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_15Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_115SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_115"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_115SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_115Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_23SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_23"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_23SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_23Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_123SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_123"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_123SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_123Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_31SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_31"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_31SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_31Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_131SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_131"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_131SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_131Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_39SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_39"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_39SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_39Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_139SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_139"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_139SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_139Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_40SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_40"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_40SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_40Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_140SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_140"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_140SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_140Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_47SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_47"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_47SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_47Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_147SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_147"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_147SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_147Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_48SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_48"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_48SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_48Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_148SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_148"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_148SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_148Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_57SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_57"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_57SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_57Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_157SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_157"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_157SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_157Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_58SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_58"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_58SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_58Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_158SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_158"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_158SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_158Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_59SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_59"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_59SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_59Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_159SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_159"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_159SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_159Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_60SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_60"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_60SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_60Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_160SoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_160"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_160SoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_160Response"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07ALJSoapIn">
+<wsdl:part name="parameters" element="tns:ManualSend_07ALJ"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07ALJSoapOut">
+<wsdl:part name="parameters" element="tns:ManualSend_07ALJResponse"/>
+</wsdl:message>
+<wsdl:message name="ResendMailHttpGetIn">
+<wsdl:part name="strSentCode" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ResendMailHttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ResendMailForClientHttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strSentId" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ResendMailForClientHttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="RunJobHttpGetIn">
+<wsdl:part name="strCode" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="RunJobHttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="CallSendHttpGetIn">
+<wsdl:part name="strCode" type="s:string"/>
+<wsdl:part name="strMailCode" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="CallSendHttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="GetDDRSQLQueryResultHttpGetIn">
+<wsdl:part name="strCode" type="s:string"/>
+<wsdl:part name="strDBCSCode" type="s:string"/>
+<wsdl:part name="strDatabase" type="s:string"/>
+<wsdl:part name="strSQL" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="GetDDRSQLQueryResultHttpGetOut">
+<wsdl:part name="Body" element="tns:DataSet"/>
+</wsdl:message>
+<wsdl:message name="GetMailRecipientHttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="GetMailRecipientHttpGetOut">
+<wsdl:part name="Body" element="tns:DataTable"/>
+</wsdl:message>
+<wsdl:message name="GetRecipientDetailHttpGetIn">
+<wsdl:part name="strCode" type="s:string"/>
+<wsdl:part name="strMailCode" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="GetRecipientDetailHttpGetOut">
+<wsdl:part name="Body" element="tns:DataTable"/>
+</wsdl:message>
+<wsdl:message name="GetMailSentLogBySentIdHttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strSentId" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="GetMailSentLogBySentIdHttpGetOut">
+<wsdl:part name="Body" element="tns:DataTable"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_00HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_00HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_04HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_04HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_06HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_06HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_107HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_107HttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07AHttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strUrl" type="s:string"/>
+<wsdl:part name="bolGrabImage" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07AHttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_107AHttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strUrl" type="s:string"/>
+<wsdl:part name="bolGrabImage" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_107AHttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_08HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strFormUser" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_08HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_108HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strFromUser" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_108HttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_08AHttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strFromUser" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strUrl" type="s:string"/>
+<wsdl:part name="bolGrabImage" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_08AHttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_108AHttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strFromUser" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strUrl" type="s:string"/>
+<wsdl:part name="bolGrabImage" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_108AHttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_15HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_15HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_115HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_115HttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_23HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strFileDirectoryPath" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_23HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_123HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strFileDirectoryPath" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_123HttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_31HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+<wsdl:part name="strFileDirectoryPath" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_31HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_131HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+<wsdl:part name="strFileDirectoryPath" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_131HttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_39HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strFileBase64String" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_39HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_139HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strFileBase64String" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_139HttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_40HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strFromUser" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strFileBase64String" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_40HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_140HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strFromUser" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strFileBase64String" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_140HttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_47HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+<wsdl:part name="strFileBase64String" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_47HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_147HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+<wsdl:part name="strFileBase64String" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_147HttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_48HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strFromUser" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+<wsdl:part name="strFileBase64String" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_48HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_148HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strFromUser" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+<wsdl:part name="strFileBase64String" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_148HttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_57HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+<wsdl:part name="strFLMCode" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_57HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_157HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+<wsdl:part name="strFLMCode" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_157HttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_60HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strFormUser" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+<wsdl:part name="strFLMCode" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_60HttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_160HttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strFormUser" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strBody" type="s:string"/>
+<wsdl:part name="strImportance" type="s:string"/>
+<wsdl:part name="strFLMCode" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_160HttpGetOut">
+<wsdl:part name="Body" element="tns:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07ALJHttpGetIn">
+<wsdl:part name="strMailCode" type="s:string"/>
+<wsdl:part name="strRecipients" type="s:string"/>
+<wsdl:part name="strCopyRecipients" type="s:string"/>
+<wsdl:part name="strBlindCopyRecipients" type="s:string"/>
+<wsdl:part name="strSubject" type="s:string"/>
+<wsdl:part name="strUrl" type="s:string"/>
+<wsdl:part name="bolGrabImage" type="s:string"/>
+</wsdl:message>
+<wsdl:message name="ManualSend_07ALJHttpGetOut">
+<wsdl:part name="Body" element="tns:boolean"/>
+</wsdl:message>
+<wsdl:portType name="MailSoap">
+<wsdl:operation name="ResendMail">
+<wsdl:input message="tns:ResendMailSoapIn"/>
+<wsdl:output message="tns:ResendMailSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ResendMailForClient">
+<wsdl:input message="tns:ResendMailForClientSoapIn"/>
+<wsdl:output message="tns:ResendMailForClientSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="RunJob">
+<wsdl:input message="tns:RunJobSoapIn"/>
+<wsdl:output message="tns:RunJobSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="CallSend">
+<wsdl:input message="tns:CallSendSoapIn"/>
+<wsdl:output message="tns:CallSendSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="GetDDRSQLQueryResult">
+<wsdl:input message="tns:GetDDRSQLQueryResultSoapIn"/>
+<wsdl:output message="tns:GetDDRSQLQueryResultSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="GetMailRecipient">
+<wsdl:input message="tns:GetMailRecipientSoapIn"/>
+<wsdl:output message="tns:GetMailRecipientSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="GetRecipientDetail">
+<wsdl:input message="tns:GetRecipientDetailSoapIn"/>
+<wsdl:output message="tns:GetRecipientDetailSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="GetMailSentLog">
+<wsdl:input message="tns:GetMailSentLogSoapIn"/>
+<wsdl:output message="tns:GetMailSentLogSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="GetMailSentLogBySentId">
+<wsdl:input message="tns:GetMailSentLogBySentIdSoapIn"/>
+<wsdl:output message="tns:GetMailSentLogBySentIdSoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_00">
+<wsdl:input message="tns:ManualSend_00SoapIn"/>
+<wsdl:output message="tns:ManualSend_00SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_04">
+<wsdl:input message="tns:ManualSend_04SoapIn"/>
+<wsdl:output message="tns:ManualSend_04SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_06">
+<wsdl:input message="tns:ManualSend_06SoapIn"/>
+<wsdl:output message="tns:ManualSend_06SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07">
+<wsdl:input message="tns:ManualSend_07SoapIn"/>
+<wsdl:output message="tns:ManualSend_07SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_107">
+<wsdl:input message="tns:ManualSend_107SoapIn"/>
+<wsdl:output message="tns:ManualSend_107SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07A">
+<wsdl:input message="tns:ManualSend_07ASoapIn"/>
+<wsdl:output message="tns:ManualSend_07ASoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_107A">
+<wsdl:input message="tns:ManualSend_107ASoapIn"/>
+<wsdl:output message="tns:ManualSend_107ASoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_08">
+<wsdl:input message="tns:ManualSend_08SoapIn"/>
+<wsdl:output message="tns:ManualSend_08SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_108">
+<wsdl:input message="tns:ManualSend_108SoapIn"/>
+<wsdl:output message="tns:ManualSend_108SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_08A">
+<wsdl:input message="tns:ManualSend_08ASoapIn"/>
+<wsdl:output message="tns:ManualSend_08ASoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_108A">
+<wsdl:input message="tns:ManualSend_108ASoapIn"/>
+<wsdl:output message="tns:ManualSend_108ASoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_15">
+<wsdl:input message="tns:ManualSend_15SoapIn"/>
+<wsdl:output message="tns:ManualSend_15SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_115">
+<wsdl:input message="tns:ManualSend_115SoapIn"/>
+<wsdl:output message="tns:ManualSend_115SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_23">
+<wsdl:input message="tns:ManualSend_23SoapIn"/>
+<wsdl:output message="tns:ManualSend_23SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_123">
+<wsdl:input message="tns:ManualSend_123SoapIn"/>
+<wsdl:output message="tns:ManualSend_123SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_31">
+<wsdl:input message="tns:ManualSend_31SoapIn"/>
+<wsdl:output message="tns:ManualSend_31SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_131">
+<wsdl:input message="tns:ManualSend_131SoapIn"/>
+<wsdl:output message="tns:ManualSend_131SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_39">
+<wsdl:input message="tns:ManualSend_39SoapIn"/>
+<wsdl:output message="tns:ManualSend_39SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_139">
+<wsdl:input message="tns:ManualSend_139SoapIn"/>
+<wsdl:output message="tns:ManualSend_139SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_40">
+<wsdl:input message="tns:ManualSend_40SoapIn"/>
+<wsdl:output message="tns:ManualSend_40SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_140">
+<wsdl:input message="tns:ManualSend_140SoapIn"/>
+<wsdl:output message="tns:ManualSend_140SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_47">
+<wsdl:input message="tns:ManualSend_47SoapIn"/>
+<wsdl:output message="tns:ManualSend_47SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_147">
+<wsdl:input message="tns:ManualSend_147SoapIn"/>
+<wsdl:output message="tns:ManualSend_147SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_48">
+<wsdl:input message="tns:ManualSend_48SoapIn"/>
+<wsdl:output message="tns:ManualSend_48SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_148">
+<wsdl:input message="tns:ManualSend_148SoapIn"/>
+<wsdl:output message="tns:ManualSend_148SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_57">
+<wsdl:input message="tns:ManualSend_57SoapIn"/>
+<wsdl:output message="tns:ManualSend_57SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_157">
+<wsdl:input message="tns:ManualSend_157SoapIn"/>
+<wsdl:output message="tns:ManualSend_157SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_58">
+<wsdl:input message="tns:ManualSend_58SoapIn"/>
+<wsdl:output message="tns:ManualSend_58SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_158">
+<wsdl:input message="tns:ManualSend_158SoapIn"/>
+<wsdl:output message="tns:ManualSend_158SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_59">
+<wsdl:input message="tns:ManualSend_59SoapIn"/>
+<wsdl:output message="tns:ManualSend_59SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_159">
+<wsdl:input message="tns:ManualSend_159SoapIn"/>
+<wsdl:output message="tns:ManualSend_159SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_60">
+<wsdl:input message="tns:ManualSend_60SoapIn"/>
+<wsdl:output message="tns:ManualSend_60SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_160">
+<wsdl:input message="tns:ManualSend_160SoapIn"/>
+<wsdl:output message="tns:ManualSend_160SoapOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07ALJ">
+<wsdl:input message="tns:ManualSend_07ALJSoapIn"/>
+<wsdl:output message="tns:ManualSend_07ALJSoapOut"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:portType name="MailHttpGet">
+<wsdl:operation name="ResendMail">
+<wsdl:input message="tns:ResendMailHttpGetIn"/>
+<wsdl:output message="tns:ResendMailHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ResendMailForClient">
+<wsdl:input message="tns:ResendMailForClientHttpGetIn"/>
+<wsdl:output message="tns:ResendMailForClientHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="RunJob">
+<wsdl:input message="tns:RunJobHttpGetIn"/>
+<wsdl:output message="tns:RunJobHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="CallSend">
+<wsdl:input message="tns:CallSendHttpGetIn"/>
+<wsdl:output message="tns:CallSendHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="GetDDRSQLQueryResult">
+<wsdl:input message="tns:GetDDRSQLQueryResultHttpGetIn"/>
+<wsdl:output message="tns:GetDDRSQLQueryResultHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="GetMailRecipient">
+<wsdl:input message="tns:GetMailRecipientHttpGetIn"/>
+<wsdl:output message="tns:GetMailRecipientHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="GetRecipientDetail">
+<wsdl:input message="tns:GetRecipientDetailHttpGetIn"/>
+<wsdl:output message="tns:GetRecipientDetailHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="GetMailSentLogBySentId">
+<wsdl:input message="tns:GetMailSentLogBySentIdHttpGetIn"/>
+<wsdl:output message="tns:GetMailSentLogBySentIdHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_00">
+<wsdl:input message="tns:ManualSend_00HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_00HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_04">
+<wsdl:input message="tns:ManualSend_04HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_04HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_06">
+<wsdl:input message="tns:ManualSend_06HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_06HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07">
+<wsdl:input message="tns:ManualSend_07HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_07HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_107">
+<wsdl:input message="tns:ManualSend_107HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_107HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07A">
+<wsdl:input message="tns:ManualSend_07AHttpGetIn"/>
+<wsdl:output message="tns:ManualSend_07AHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_107A">
+<wsdl:input message="tns:ManualSend_107AHttpGetIn"/>
+<wsdl:output message="tns:ManualSend_107AHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_08">
+<wsdl:input message="tns:ManualSend_08HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_08HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_108">
+<wsdl:input message="tns:ManualSend_108HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_108HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_08A">
+<wsdl:input message="tns:ManualSend_08AHttpGetIn"/>
+<wsdl:output message="tns:ManualSend_08AHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_108A">
+<wsdl:input message="tns:ManualSend_108AHttpGetIn"/>
+<wsdl:output message="tns:ManualSend_108AHttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_15">
+<wsdl:input message="tns:ManualSend_15HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_15HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_115">
+<wsdl:input message="tns:ManualSend_115HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_115HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_23">
+<wsdl:input message="tns:ManualSend_23HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_23HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_123">
+<wsdl:input message="tns:ManualSend_123HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_123HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_31">
+<wsdl:input message="tns:ManualSend_31HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_31HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_131">
+<wsdl:input message="tns:ManualSend_131HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_131HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_39">
+<wsdl:input message="tns:ManualSend_39HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_39HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_139">
+<wsdl:input message="tns:ManualSend_139HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_139HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_40">
+<wsdl:input message="tns:ManualSend_40HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_40HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_140">
+<wsdl:input message="tns:ManualSend_140HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_140HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_47">
+<wsdl:input message="tns:ManualSend_47HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_47HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_147">
+<wsdl:input message="tns:ManualSend_147HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_147HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_48">
+<wsdl:input message="tns:ManualSend_48HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_48HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_148">
+<wsdl:input message="tns:ManualSend_148HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_148HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_57">
+<wsdl:input message="tns:ManualSend_57HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_57HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_157">
+<wsdl:input message="tns:ManualSend_157HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_157HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_60">
+<wsdl:input message="tns:ManualSend_60HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_60HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_160">
+<wsdl:input message="tns:ManualSend_160HttpGetIn"/>
+<wsdl:output message="tns:ManualSend_160HttpGetOut"/>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07ALJ">
+<wsdl:input message="tns:ManualSend_07ALJHttpGetIn"/>
+<wsdl:output message="tns:ManualSend_07ALJHttpGetOut"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="MailSoap" type="tns:MailSoap">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="ResendMail">
+<soap:operation soapAction="http://tempuri.org/ResendMail" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ResendMailForClient">
+<soap:operation soapAction="http://tempuri.org/ResendMailForClient" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="RunJob">
+<soap:operation soapAction="http://tempuri.org/RunJob" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CallSend">
+<soap:operation soapAction="http://tempuri.org/CallSend" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetDDRSQLQueryResult">
+<soap:operation soapAction="http://tempuri.org/GetDDRSQLQueryResult" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetMailRecipient">
+<soap:operation soapAction="http://tempuri.org/GetMailRecipient" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetRecipientDetail">
+<soap:operation soapAction="http://tempuri.org/GetRecipientDetail" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetMailSentLog">
+<soap:operation soapAction="http://tempuri.org/GetMailSentLog" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetMailSentLogBySentId">
+<soap:operation soapAction="http://tempuri.org/GetMailSentLogBySentId" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_00">
+<soap:operation soapAction="http://tempuri.org/ManualSend_00" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_04">
+<soap:operation soapAction="http://tempuri.org/ManualSend_04" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_06">
+<soap:operation soapAction="http://tempuri.org/ManualSend_06" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07">
+<soap:operation soapAction="http://tempuri.org/ManualSend_07" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_107">
+<soap:operation soapAction="http://tempuri.org/ManualSend_107" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07A">
+<soap:operation soapAction="http://tempuri.org/ManualSend_07A" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_107A">
+<soap:operation soapAction="http://tempuri.org/ManualSend_107A" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_08">
+<soap:operation soapAction="http://tempuri.org/ManualSend_08" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_108">
+<soap:operation soapAction="http://tempuri.org/ManualSend_108" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_08A">
+<soap:operation soapAction="http://tempuri.org/ManualSend_08A" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_108A">
+<soap:operation soapAction="http://tempuri.org/ManualSend_108A" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_15">
+<soap:operation soapAction="http://tempuri.org/ManualSend_15" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_115">
+<soap:operation soapAction="http://tempuri.org/ManualSend_115" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_23">
+<soap:operation soapAction="http://tempuri.org/ManualSend_23" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_123">
+<soap:operation soapAction="http://tempuri.org/ManualSend_123" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_31">
+<soap:operation soapAction="http://tempuri.org/ManualSend_31" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_131">
+<soap:operation soapAction="http://tempuri.org/ManualSend_131" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_39">
+<soap:operation soapAction="http://tempuri.org/ManualSend_39" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_139">
+<soap:operation soapAction="http://tempuri.org/ManualSend_139" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_40">
+<soap:operation soapAction="http://tempuri.org/ManualSend_40" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_140">
+<soap:operation soapAction="http://tempuri.org/ManualSend_140" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_47">
+<soap:operation soapAction="http://tempuri.org/ManualSend_47" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_147">
+<soap:operation soapAction="http://tempuri.org/ManualSend_147" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_48">
+<soap:operation soapAction="http://tempuri.org/ManualSend_48" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_148">
+<soap:operation soapAction="http://tempuri.org/ManualSend_148" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_57">
+<soap:operation soapAction="http://tempuri.org/ManualSend_57" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_157">
+<soap:operation soapAction="http://tempuri.org/ManualSend_157" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_58">
+<soap:operation soapAction="http://tempuri.org/ManualSend_58" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_158">
+<soap:operation soapAction="http://tempuri.org/ManualSend_158" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_59">
+<soap:operation soapAction="http://tempuri.org/ManualSend_59" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_159">
+<soap:operation soapAction="http://tempuri.org/ManualSend_159" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_60">
+<soap:operation soapAction="http://tempuri.org/ManualSend_60" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_160">
+<soap:operation soapAction="http://tempuri.org/ManualSend_160" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07ALJ">
+<soap:operation soapAction="http://tempuri.org/ManualSend_07ALJ" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:binding name="MailSoap12" type="tns:MailSoap">
+<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="ResendMail">
+<soap12:operation soapAction="http://tempuri.org/ResendMail" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ResendMailForClient">
+<soap12:operation soapAction="http://tempuri.org/ResendMailForClient" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="RunJob">
+<soap12:operation soapAction="http://tempuri.org/RunJob" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CallSend">
+<soap12:operation soapAction="http://tempuri.org/CallSend" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetDDRSQLQueryResult">
+<soap12:operation soapAction="http://tempuri.org/GetDDRSQLQueryResult" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetMailRecipient">
+<soap12:operation soapAction="http://tempuri.org/GetMailRecipient" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetRecipientDetail">
+<soap12:operation soapAction="http://tempuri.org/GetRecipientDetail" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetMailSentLog">
+<soap12:operation soapAction="http://tempuri.org/GetMailSentLog" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetMailSentLogBySentId">
+<soap12:operation soapAction="http://tempuri.org/GetMailSentLogBySentId" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_00">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_00" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_04">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_04" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_06">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_06" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_07" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_107">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_107" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07A">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_07A" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_107A">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_107A" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_08">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_08" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_108">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_108" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_08A">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_08A" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_108A">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_108A" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_15">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_15" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_115">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_115" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_23">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_23" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_123">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_123" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_31">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_31" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_131">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_131" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_39">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_39" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_139">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_139" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_40">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_40" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_140">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_140" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_47">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_47" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_147">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_147" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_48">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_48" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_148">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_148" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_57">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_57" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_157">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_157" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_58">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_58" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_158">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_158" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_59">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_59" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_159">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_159" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_60">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_60" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_160">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_160" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07ALJ">
+<soap12:operation soapAction="http://tempuri.org/ManualSend_07ALJ" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:binding name="MailHttpGet" type="tns:MailHttpGet">
+<http:binding verb="GET"/>
+<wsdl:operation name="ResendMail">
+<http:operation location="/ResendMail"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ResendMailForClient">
+<http:operation location="/ResendMailForClient"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="RunJob">
+<http:operation location="/RunJob"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CallSend">
+<http:operation location="/CallSend"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetDDRSQLQueryResult">
+<http:operation location="/GetDDRSQLQueryResult"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetMailRecipient">
+<http:operation location="/GetMailRecipient"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetRecipientDetail">
+<http:operation location="/GetRecipientDetail"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetMailSentLogBySentId">
+<http:operation location="/GetMailSentLogBySentId"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_00">
+<http:operation location="/ManualSend_00"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_04">
+<http:operation location="/ManualSend_04"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_06">
+<http:operation location="/ManualSend_06"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07">
+<http:operation location="/ManualSend_07"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_107">
+<http:operation location="/ManualSend_107"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07A">
+<http:operation location="/ManualSend_07A"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_107A">
+<http:operation location="/ManualSend_107A"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_08">
+<http:operation location="/ManualSend_08"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_108">
+<http:operation location="/ManualSend_108"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_08A">
+<http:operation location="/ManualSend_08A"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_108A">
+<http:operation location="/ManualSend_108A"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_15">
+<http:operation location="/ManualSend_15"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_115">
+<http:operation location="/ManualSend_115"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_23">
+<http:operation location="/ManualSend_23"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_123">
+<http:operation location="/ManualSend_123"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_31">
+<http:operation location="/ManualSend_31"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_131">
+<http:operation location="/ManualSend_131"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_39">
+<http:operation location="/ManualSend_39"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_139">
+<http:operation location="/ManualSend_139"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_40">
+<http:operation location="/ManualSend_40"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_140">
+<http:operation location="/ManualSend_140"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_47">
+<http:operation location="/ManualSend_47"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_147">
+<http:operation location="/ManualSend_147"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_48">
+<http:operation location="/ManualSend_48"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_148">
+<http:operation location="/ManualSend_148"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_57">
+<http:operation location="/ManualSend_57"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_157">
+<http:operation location="/ManualSend_157"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_60">
+<http:operation location="/ManualSend_60"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_160">
+<http:operation location="/ManualSend_160"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ManualSend_07ALJ">
+<http:operation location="/ManualSend_07ALJ"/>
+<wsdl:input>
+<http:urlEncoded/>
+</wsdl:input>
+<wsdl:output>
+<mime:mimeXml part="Body"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="Mail">
+<wsdl:port name="MailSoap" binding="tns:MailSoap">
+<soap:address location="http://ids.cdn.corpnet.auo.com/IDS_WS/Mail.asmx"/>
+</wsdl:port>
+<wsdl:port name="MailSoap12" binding="tns:MailSoap12">
+<soap12:address location="http://ids.cdn.corpnet.auo.com/IDS_WS/Mail.asmx"/>
+</wsdl:port>
+<wsdl:port name="MailHttpGet" binding="tns:MailHttpGet">
+<http:address location="http://ids.cdn.corpnet.auo.com/IDS_WS/Mail.asmx"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
