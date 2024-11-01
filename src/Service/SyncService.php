@@ -12,7 +12,7 @@ class SyncService
 {
 	private $syncId;  // 宣告變數
 	private $auo_token;
-    private $test = true;
+    private $test = false;
     private $timeout = 3600;
 
     public function doSync($data=array(), $emUid=false){
@@ -41,8 +41,10 @@ class SyncService
                 }else{
                     $err_datas = array();
                     $err_datas = $this->do_sync_api($syncJobs);
+                    // 統整所有同步錯誤訊息
+                    $this->sendMail($err_datas, true);
                     $status = 'success';
-                    if(!empty($user_update) && !empty($department_update) && $this->countFuc($err_datas['user']) ==  $user_update && $this->countFuc($err_datas['dep']) ==  $department_update){
+                    if((!empty($user_update) && $this->countFuc($err_datas['user']) ==  $user_update) || (!empty($department_update) &&  $this->countFuc($err_datas['dep']) ==  $department_update)){
                         $status = 'error';
                     }else if(!empty($err_datas['user']) || !empty($err_datas['dep'])){
                         $status = 'warning';
@@ -213,6 +215,7 @@ class SyncService
             if(!empty($syncAPI[$key]) && !empty($job)){
                 list($res ,$err_msg) = $this->requestFemas($syncAPI[$key], ['datas' => $job]);
                 $total_count = $this->countFuc($job);
+                Log::error(var_export(array($syncAPI[$key] ,$job), true));
                 if(empty($err_msg)){
                     $res_err = $res['err_datas'];
                     if(!empty($res_err)){
@@ -276,7 +279,6 @@ class SyncService
                 $this->save_sync_log($record);
             }
         }
-        $this->generateTable($err_datas);
         return $err_datas;
     }
 
@@ -294,55 +296,61 @@ class SyncService
         $chk_dep = true;
         $chk_user = true;
         if(!empty($diff_dep)){
-            $record = array('sync_records_id' => $this->syncId, 'api_host' => 'Femas', 'action' => '部門異動閾值檢查', 'total_count' => $diff_user, 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
+            $record = array('sync_records_id' => $this->syncId, 'api_host' => 'Femas', 'action' => '部門異動閥值檢查', 'total_count' => $diff_user, 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
             if($diff_dep > $depRef){
-                $status = 'error';
                 $record['status'] = 'error';
                 $record['error_count'] = $diff_dep;
-                $record['msg'] = '異動數大於閾值設定：'.$depRef;
+                $record['msg'] = '異動數大於閥值設定：'.$depRef;
                 $chk_dep = false;
             }else{
-                $status = 'error';
                 $record['success_count'] = $diff_dep;
             }
-            $this->save_sync_log($record);
+            $this->save_sync_log($record, true);
         }
 
         if(!empty($diff_user)){
-            $record = array('sync_records_id' => $this->syncId, 'api_host' => 'Femas', 'action' => '員工異動閾值檢查', 'total_count' => $diff_user, 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
+            $record = array('sync_records_id' => $this->syncId, 'api_host' => 'Femas', 'action' => '員工異動閥值檢查', 'total_count' => $diff_user, 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
             if($diff_user > $userRef){
-                $status = 'error';
                 $record['status'] = 'error';
                 $record['error_count'] = $diff_user;
-                $record['msg'] = '異動數大於閾值設定：'.$userRef;
+                $record['msg'] = '異動數大於閥值設定：'.$userRef;
                 $chk_user = false;
             }else{
-                $status = 'error';
                 $record['success_count'] = $diff_user;
             }
-            $this->save_sync_log($record);
+            $this->save_sync_log($record, true);
         }
 
         return array($chk_dep, $chk_user);
     }
 
-    public function generateTable($data) {
+
+
+    public function genHtml($data) {
         $html = '';
-        foreach ($data['dep'] as $depId => $records) {
+
+        if(!empty($data['dep'])){
             $html .= "<table>";
-            $html .= "<tr><th>部門編號ORGID</th><th>執行動作</th><th>錯誤訊息</th><th>值</th></tr>";
-            foreach ($records as $record) {
-                $html .= "<tr>";
-                $html .= "<td>{$depId}</td>";
-                $html .= "<td>{$record['action']}</td>";
-                $html .= "<td>{$record['msg']}</td>";
-                $html .= "<td>{$record['value']}</td>";
-                $html .= "</tr>";
+            $html .= "<tr><th>序</th><th>部門編號ORGID</th><th>執行動作</th><th>錯誤訊息</th><th>值</th></tr>";
+            $k = 1;
+            foreach ($data['dep'] as $depId => $records) {
+                foreach ($records as $record) {
+                    $html .= "<tr>";
+                    $html .= "<td>{$k}</td>";
+                    $html .= "<td>{$depId}</td>";
+                    $html .= "<td>{$record['action']}</td>";
+                    $html .= "<td>{$record['msg']}</td>";
+                    $html .= "<td>{$record['value']}</td>";
+                    $html .= "</tr>";
+                    $k+=1;
+                }
             }
+            $html .= "</table>";
         }
+
         if(!empty($data['user'])){
             $html .= "<table>";
-            $html .= "<tr><th>排序</th><th>員編EMPNO</th><th>執行動作</th><th>錯誤訊息</th><th>值</th></tr>";
+            $html .= "<tr><th>序</th><th>員編EMPNO</th><th>執行動作</th><th>錯誤訊息</th><th>值</th></tr>";
             $k = 1;
             foreach ($data['user'] as $userId => $records) {
                 foreach ($records as $record) {
@@ -356,8 +364,40 @@ class SyncService
                     $k+=1;
                 }
             }
+            $html .= "</table>";
         }
-        $html .= "</table>";
+
+        return $html;
+    }
+
+    public function genHtml2($data) {
+        $html = '';
+        $k = 1;
+        if(!empty($data)){
+            $type = (!empty($data['type']))? '資料同步':'資料撈取';
+            $api_host = (!empty($api_host))? 'AUO':'Femas';
+            $typeText = array('scan' => '資料撈取', 'sync' => '資料同步');
+            $html .= "<h4 style='margin-top:50px'>檢測到異常錯誤，同步執行中斷</h4>";
+            $html .= "<table>";
+            $html .= "<tr><th>序</th><th>執行類型</th><th>API類別</th><th>執行動作</th><th>錯誤訊息</th></tr>";
+            $html .= "<tr>";
+            $html .= "<td>{$k}</td>";
+            $html .= "<td>{$type}</td>";
+            $html .= "<td>{$api_host}</td>";
+            $html .= "<td>{$data['action']}</td>";
+            $html .= "<td>{$data['msg']}</td>";
+            $html .= "</tr>";
+            $html .= "</table>";
+        }
+        return $html;
+    }
+
+    public function generateTable($data, $do_sync = false) {
+        if(!empty($do_sync)){
+            $html = $this->genHtml($data);
+        }else{
+            $html = $this->genHtml2($data);
+        }
 
         $SyncRecords = TableRegistry::getTableLocator()->get('SyncRecords');
         if(!empty($this->syncId)){
@@ -376,18 +416,19 @@ class SyncService
         $emailContent = "
         <html>
         <head>
-            <meta charset='UTF-8'>
+            <meta charset='UTF-8' />
             <title>使用者資料表格</title>
             <style>
-                table{border-collapse: collapse;border: 1px solid #ddd;margin-bottom:20px}
+                table{border-collapse: collapse;border: 1px solid #ddd;margin-bottom:20px;font-size:14px;}
+                table.scan th{background-color: #f5dcdc}
                 th{background-color: beige;}
                 th,td{border: 1px solid #ddd; padding: 4px 8px;}
                 *{font-family: Arial, sans-serif;}
             </style>
         </head>
         <body>
-            <h2>同步執行結果</h2>
-            <table>
+            <h3>同步執行結果</h3>
+            <table class='scan'>
                 <tr><th>類型</th><th>AUO掃描總數</th><th>異動數</th><th>失敗數</th></tr>
                 <tr>
                     <td>部門</td>
@@ -405,6 +446,51 @@ class SyncService
             " . $html . "
         </body>
         </html>";
+
+        return $emailContent;
+    }
+
+    public function sendMail($data, $do_sync){
+        $SaasSettings = TableRegistry::getTableLocator()->get('SaasSettings');
+        $host = $SaasSettings->getSys('mail_host');
+        $mailCode = $SaasSettings->getSys('email_code');
+        $recipients = $SaasSettings->getSys('email_address');
+        $subject = 'test';
+        $emailContent = $this->generateTable($data, $do_sync);
+
+        $record = array('sync_records_id' => $this->syncId, 'api_host' => 'AUO', 'action' => 'AUI IDS(ManualSend_07)', 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
+        Log::error($emailContent);
+        $http = new Client();
+        $headers = [
+          'Content-Type' => 'application/xml'
+        ];
+
+        $body = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+           <soapenv:Header/>
+           <soapenv:Body>
+              <tem:ManualSend_07>
+                 <!--Optional:-->
+                 <tem:strMailCode>'.$mailCode.'</tem:strMailCode>
+                 <!--Optional:-->
+                 <tem:strRecipients>'.$recipients.'</tem:strRecipients>
+                 <!--Optional:-->
+                 <tem:strSubject>'.$subject.'</tem:strSubject>
+                 <!--Optional:-->
+                 <tem:strBody>'.$emailContent.'</tem:strBody>
+              </tem:ManualSend_07>
+           </soapenv:Body>
+        </soapenv:Envelope>';
+
+        try {
+            $response = $http->post($host, $body, ['headers' => $headers]);
+            if ($response->isOk()) {
+                $status = 'success';
+            }else{
+                $err_msg = 'statusCode：'. $response->getStatusCode();
+            }
+        } catch (Exception $e) {
+            $err_msg = "發生錯誤：" . $e->getMessage();
+        }
     }
 
     public function add_dep($syncJobs, $auo_deps, $auoDids, $fsDids, $auoAllUids){
@@ -988,7 +1074,7 @@ class SyncService
             $record['status'] = 'error';
             $record['msg'] = $err_msg;
         }
-        $this->save_sync_log($record);
+        $this->save_sync_log($record, true);
         return array($depIds, $deps, $err_msg);
     }
 
@@ -1031,7 +1117,7 @@ class SyncService
             $record['status'] = 'error';
             $record['msg'] = $err_msg;
         }
-        $this->save_sync_log($record);
+        $this->save_sync_log($record, true);
         return array($userIds, $users, $err_msg);
     }
 
@@ -1088,7 +1174,7 @@ class SyncService
             $record['status'] = 'error';
             $record['msg'] = $err_msg;
         }
-        $this->save_sync_log($record);
+        $this->save_sync_log($record, true);
         return array($userIds, $users, $err_msg);
     }
 
@@ -1176,7 +1262,7 @@ class SyncService
             $record['status'] = 'error';
             $record['msg'] = $err_msg;
         }
-        $this->save_sync_log($record);
+        $this->save_sync_log($record, true);
         return array($userIds, $users, $err_msg);
     }
 
@@ -1341,9 +1427,9 @@ class SyncService
                         $tmp_chg['employ_sta_name'] = $chg['employ_sta_name'];
 
                         if($chg['employ_sta_name'] == 'Withdrawn'){
-                            $chg['action'] = 'LeaveUser';
+                            $tmp_chg['action'] = 'LeaveUser';
                         }elseif($chg['employ_sta_name'] == 'Inactive'){
-                            $chg['action'] = 'UnpaidLeaveUser';
+                            $tmp_chg['action'] = 'UnpaidLeaveUser';
                         }
                         $chgs[$chg['emp_no']][$date] = $tmp_chg;
                     }
@@ -1393,7 +1479,7 @@ class SyncService
             $record['status'] = 'error';
             $record['msg'] = $err_msg;
         }
-        $this->save_sync_log($record);
+        $this->save_sync_log($record, true);
         return array($userIds, $users, $err_msg);
     }
 
@@ -1420,7 +1506,7 @@ class SyncService
             $record['status'] = 'error';
             $record['msg'] = $err_msg;
         }
-        $this->save_sync_log($record);
+        $this->save_sync_log($record, true);
         return array($depIds, $deps, $err_msg);
     }
 
@@ -1635,11 +1721,16 @@ class SyncService
         }
     }
 
-    public function save_sync_log($data){
+    public function save_sync_log($data, $sendMail = false){
     	$SyncLogs = TableRegistry::getTableLocator()->get('SyncLogs');
         $syncLog = $SyncLogs->newEmptyEntity();
         $syncLog = $SyncLogs->patchEntity($syncLog, $data);
         $SyncLogs->save($syncLog);
+
+        if(!empty($sendMail) && !empty($data['msg']) && $data['status'] == 'error'){
+            $msg = $data['msg'];
+            $this->sendMail($data, false);
+        }
     }
 
     public function countFuc($data){

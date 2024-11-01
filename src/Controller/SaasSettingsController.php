@@ -32,18 +32,14 @@ class SaasSettingsController extends AppController
         $this->viewBuilder()->setLayout('sidebar');
         $show_expire_extension = $this->SaasSettings->find()->where(['`key`' => 'show_expire_extension'])->first();
         $showExpireExtension = $show_expire_extension->value;
-        $fonsen_email = $this->SaasSettings->find()->where(['`key`' => 'fonsen_email'])->first();
-        $fonsenMailSettings = explode(',', $fonsen_email->value);
-        foreach($fonsenMailSettings as $tmail){
-            $fonsenMails[$tmail] = $tmail;
-        }        
+
         $SaasSetting = $this->SaasSettings->find('list', [
             'keyField' => 'key',
             'valueField' => 'value'
         ])
         ->where(['`type`' => 'S'])
         ->toArray();
-        $this->set(compact('SaasSetting', 'fonsenMails', 'showExpireExtension'));
+        $this->set(compact('SaasSetting', 'showExpireExtension'));
     }
 
     public function settingForm(){

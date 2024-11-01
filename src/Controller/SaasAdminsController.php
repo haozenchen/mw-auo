@@ -684,7 +684,6 @@ class SaasAdminsController extends AppController
                 }
             }
         }
-        $this->log(var_export($isMfa, true));
         if(!empty($mfaCheck)){
             return $isMfa;
         }else{
@@ -700,7 +699,7 @@ class SaasAdminsController extends AppController
         }
         $this->loadModel('SaasSettings');
         $mfaKey = '';
-        $isMfaPass = 1;
+        $isMfaPass = 0;
         if(!empty($this->request->getData('data.mfaKey'))) {
             $hash = hash('SHA384', (string)$this->hashStr, true);
             $key = substr($hash, 0, 32);

@@ -109,22 +109,24 @@
                             <div><?php echo $this->Form->control('SaasSetting.Reinstate', ['label'=> __('復職', true).'：', 'type'=>'text' , 'value' => $SaasSetting['Reinstate']]); ?></div>
                         </td>
                     </tr>
+
                     <tr>
-                        <td class="title right">
-                            <?php echo __('同步訊息發送信箱', true); ?><br>
-                            <?php echo __('(多筆逗點分隔)', true); ?>
+                        <td rowspan="3" class="title right">
+                            <?php echo __('同步訊息寄信設定', true); ?>
                         </td>
                         <td class="content left">
-                            <?php
-                                echo $this->Form->textarea('SaasSetting.fonsen_email', [
-                                    'class' => 'textBlack',
-                                    'label' => false,
-                                    'cols' => '100',
-                                    'style' => 'height:50px',
-                                    'value' => $SaasSetting['fonsen_email'] , 
-                                ]);
-                                ?>
-                            
+                            <div><?php echo $this->Form->control('SaasSetting.mail_host', ['label'=> __('發信伺服器網域：', true), 'type'=>'text','size' => 100, 'value' => $SaasSetting['mail_host']]); ?></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content left">
+                            <div><?php echo $this->Form->control('SaasSetting.email_code', ['label'=> __('MailCode：', true), 'type'=>'text','size' => 100, 'value' => $SaasSetting['email_code']]); ?></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content left">
+                            <div><?php echo $this->Form->control('SaasSetting.email_address', ['label'=> __('收件者：', true), 'type'=>'text','size' => 100, 'value' => $SaasSetting['email_address']]); ?></div>
+                            <div><?php echo __('(多筆分號";"間隔)', true)?></div>
                         </td>
                     </tr>
 
