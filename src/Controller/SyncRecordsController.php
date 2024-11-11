@@ -45,10 +45,12 @@ class SyncRecordsController extends AppController
 
     public function do_list($paginate = true){
         $w2Params = json_decode($this->request->getQuery('request'), true);
+        $this->loadModel('SaasAdmins');
+        $this->SaasAdmins->showAll = true;
         $this->SyncRecords->hasOne('SaasAdmins', [
             'foreignKey' => false,
             'joinType' => 'LEFT', // 可根據需求調整
-            'conditions' => ['SaasAdmins.id = SyncRecords.saas_admin_id'],
+            'conditions' => ['SyncRecords.saas_admin_id = SaasAdmins.id'],
             'fields' => ['SaasAdmins.id', 'SaasAdmins.username', 'SaasAdmins.name']
         ]);
         $findOpt = [

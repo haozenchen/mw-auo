@@ -41,6 +41,7 @@ class SyncService
                 }else{
                     $err_datas = array();
                     $err_datas = $this->do_sync_api($syncJobs);
+                    // Log::error(var_export($err_datas, true));
                     // 統整所有同步錯誤訊息
                     $this->sendMail($err_datas, true);
                     $status = 'success';
@@ -161,7 +162,7 @@ class SyncService
             $params['uids'] = $uids;
             $auo_users = $this->AuoUserIntegrate($params); //統整AUO員工資料
         }
-
+        // Log::error(var_export($auo_users, true));
         if(!empty($data['user'])){
             $syncJobs = $this->add_user($syncJobs, $auo_users, $auoUids, $fsAllUids);
         }
@@ -215,7 +216,6 @@ class SyncService
             if(!empty($syncAPI[$key]) && !empty($job)){
                 list($res ,$err_msg) = $this->requestFemas($syncAPI[$key], ['datas' => $job]);
                 $total_count = $this->countFuc($job);
-                Log::error(var_export(array($syncAPI[$key] ,$job), true));
                 if(empty($err_msg)){
                     $res_err = $res['err_datas'];
                     if(!empty($res_err)){
@@ -455,11 +455,11 @@ class SyncService
         $host = $SaasSettings->getSys('mail_host');
         $mailCode = $SaasSettings->getSys('email_code');
         $recipients = $SaasSettings->getSys('email_address');
-        $subject = 'test';
+        $subject = '同步執行結果 '.date('Y-m-d H:i:s');
         $emailContent = $this->generateTable($data, $do_sync);
 
-        $record = array('sync_records_id' => $this->syncId, 'api_host' => 'AUO', 'action' => 'AUI IDS(ManualSend_07)', 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
-        Log::error($emailContent);
+        $record = array('sync_records_id' => $this->syncId, 'type' => 'sync', 'api_host' => 'AUO', 'action' => 'AUI IDS(ManualSend_07)', 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
+        // Log::error($emailContent);
         $http = new Client();
         $headers = [
           'Content-Type' => 'application/xml'
@@ -484,13 +484,18 @@ class SyncService
         try {
             $response = $http->post($host, $body, ['headers' => $headers]);
             if ($response->isOk()) {
-                $status = 'success';
+
             }else{
                 $err_msg = 'statusCode：'. $response->getStatusCode();
+                $record['status'] = 'error';
+                $record['msg'] = $err_msg;
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $err_msg = "發生錯誤：" . $e->getMessage();
+            $record['status'] = 'error';
+            $record['msg'] = $err_msg;
         }
+        $this->save_sync_log($record, false);
     }
 
     public function add_dep($syncJobs, $auo_deps, $auoDids, $fsDids, $auoAllUids){
@@ -616,6 +621,7 @@ class SyncService
             if(empty($appover) && !empty($auo_users[$id]['salary'])){//簽核主管新進，不需執行薪資步驟
                 $salary = $auo_users[$id]['salary'];
                 $salary['salary_group'] = '全體員工';
+                $salary['start_date'] = $auo_users[$id]['arrivedate'];
                 $salary['reason'] = '新進';
             }else{
                 $salary = array('pass' => true);
@@ -755,6 +761,7 @@ class SyncService
                             $LeaveUser[$id]['type'] = 1;
                             $LeaveUser[$id]['reason'] = '其他';//待討論
                             $LeaveUser[$id]['remarks'] = $chg['reason'];
+                            $LeaveUser[$id]['update_salary_insur'] = true;
 
                             if(!empty($chg_user[$id])){
                                 $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $chg_user[$id]): $chg_user[$id];
@@ -766,6 +773,7 @@ class SyncService
                             $UnpaidLeaveUser[$id]['start_date'] = $chg['date'];
                             $UnpaidLeaveUser[$id]['estimated_end'] = date('Y-m-d', strtotime('+1 year', strtotime($chg['date'])));//待討論
                             $UnpaidLeaveUser[$id]['remarks'] = $chg['reason'];
+                            $UnpaidLeaveUser[$id]['update_salary_insur'] = true;
 
                             if(!empty($chg_user[$id])){
                                 $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $chg_user[$id]): $chg_user[$id];
@@ -796,6 +804,7 @@ class SyncService
                             $Reinstate[$id]['org_name'] = $auo_users[$id]['base']['org_name'];
                             $Reinstate[$id]['dept_name'] = $auo_users[$id]['base']['department_name'];
                             $Reinstate[$id]['user_type_name'] = $auo_users[$id]['base']['user_type_name'];
+                            $Reinstate[$id]['update_salary_insur'] = true;
                             if(!empty($chg_user[$id])){
                                 $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $chg_user[$id]): $chg_user[$id];
                                 unset($chg_user[$id]);
@@ -910,12 +919,10 @@ class SyncService
                 $tmp_fs[$date] = $exp;
             }
         }
-        // $this->log(var_export(array($fs_exp ,$tmp_fs, $tmp_auo), true));
 
         $delIds = array_diff(array_keys($tmp_fs), array_keys($tmp_auo));
         $addIds = array_diff(array_keys($tmp_auo), array_keys($tmp_fs));
         $int_exps = array_intersect_assoc($tmp_auo, $tmp_fs);
-
 
         foreach ($delIds as $date) {
             $del_exp = array();
@@ -1630,7 +1637,7 @@ class SyncService
                 }else{
                     $err_msg = 'statusCode：'. $response->getStatusCode();
                 }
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $res['Result'] = false;
                 $err_msg = "發生錯誤：" . $e->getMessage();
             }
@@ -1666,7 +1673,7 @@ class SyncService
                 $token['Message'] = 'statusCode：'. $response->getStatusCode();
                 $token['status'] = 'err';
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $token['Message'] = "發生錯誤：" . $e->getMessage();
             $token['status'] = 'err';
         }
@@ -1695,7 +1702,7 @@ class SyncService
             }else{
                 $err_msg = 'statusCode：'. $response->getStatusCode();
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $res['response'] = false;
             $err_msg = "發生錯誤：" . $e->getMessage();
         }
@@ -1763,7 +1770,7 @@ class SyncService
 	            if ($datetime) {
 	                $format_date = $datetime->format('Y-m-d');
 	            }
-	        } catch (Exception $e) {
+	        } catch (\Exception $e) {
 	            // 可以記錄錯誤或處理例外狀況
 	        }
 	    }

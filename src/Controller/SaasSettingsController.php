@@ -67,7 +67,58 @@ class SaasSettingsController extends AppController
         $this->render('/element/in_json');
         $this->set(compact('autoMailOpts', 'templeteOpts', 'fonsenMails', 'autoMailStatusOpts'));
     }
+    public function auoIdsTest(){
+        $this->viewBuilder()->setLayout('ajax');
+        if($this->request->is('post')) {
+            $host = $this->request->getData('SaasSetting.mail_host');
+            $mailCode = $this->request->getData('SaasSetting.email_code');
+            $recipients = $this->request->getData('SaasSetting.email_address');
+            $subject = 'test';
+            $emailContent = 'test';
 
+            $http = new Client();
+            $headers = [
+              'Content-Type' => 'application/xml'
+            ];
+
+            $body = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+               <soapenv:Header/>
+               <soapenv:Body>
+                  <tem:ManualSend_07>
+                     <!--Optional:-->
+                     <tem:strMailCode>'.$mailCode.'</tem:strMailCode>
+                     <!--Optional:-->
+                     <tem:strRecipients>'.$recipients.'</tem:strRecipients>
+                     <!--Optional:-->
+                     <tem:strSubject>'.$subject.'</tem:strSubject>
+                     <!--Optional:-->
+                     <tem:strBody>'.$emailContent.'</tem:strBody>
+                  </tem:ManualSend_07>
+               </soapenv:Body>
+            </soapenv:Envelope>';
+
+            $res = array();
+            try {
+                $response = $http->post($host, $body, ['headers' => $headers]);
+
+
+            $this->log(var_export($response->getBody(), true));
+                if ($response->isOk()) {
+                    $res['status'] = 'ok';
+                    $res['data'] = $response->getBody()->getContents();
+                }else{
+                    $res['status'] = 'err';
+                    $res['msg'] = 'statusCode：'. $response->getStatusCode();
+                }
+            } catch (\Exception $e) {
+                $res['status'] = 'err';
+                $res['msg'] = "發生錯誤：" . $e->getMessage();
+            }
+            $this->viewBuilder()->setLayout('txt');
+            $this->set('jsonData', $res);
+            $this->render('/element/in_json');
+        }
+    }
     public function femasTest(){
         $this->viewBuilder()->setLayout('ajax');
         if($this->request->is('post')) {
@@ -80,15 +131,19 @@ class SaasSettingsController extends AppController
                 'Authorization' => $token,  // 添加你的 token
                 'Content-Type' => 'application/json'        // 設定內容類型
             ];
-            $response = $http->post($url, json_encode([]), ['headers' => $headers]);
             $res = array();
-            $this->log(var_export($response, true));
-            if ($response->isOk()) {
-                $res['data'] = $response->getJson();
-                $res['status'] = 'ok';
-            } else {
-                $res['statusCode'] = $response->getStatusCode();
+            try {
+                $response = $http->post($url, json_encode([]), ['headers' => $headers]);
+                if ($response->isOk()) {
+                    $res['status'] = 'ok';
+                    $res['data'] = $response->getJson();
+                } else {
+                    $res['status'] = 'err';
+                    $res['msg'] = 'statusCode：'. $response->getStatusCode();
+                }
+            } catch (\Exception $e) {
                 $res['status'] = 'err';
+                $res['msg'] = "發生錯誤：" . $e->getMessage();
             }
             $this->viewBuilder()->setLayout('txt');
             $this->set('jsonData', $res);
@@ -132,13 +187,14 @@ class SaasSettingsController extends AppController
                     $res['data'] = $response->getJson();
                     $res['status'] = 'ok';
                 } else {
-                    $res['Message'] = 'statusCode：'. $response->getStatusCode();
+                    $res['msg'] = 'statusCode：'. $response->getStatusCode();
                     $res['status'] = 'err';
                 }
             }else{
                 $res['status'] = 'err';
-                $res['Message'] = $getToken['Message'];
+                $res['msg'] = $getToken['msg'];
             }
+
             $this->viewBuilder()->setLayout('txt');
             $this->set('jsonData', $res);
             $this->render('/element/in_json');
@@ -155,21 +211,27 @@ class SaasSettingsController extends AppController
             'pwd' => $pwd,
             'Content-Type' => 'application/json'
         ];
-        $response = $http->get($host.'GetApiToken', [], ['headers' => $headers]);
-        $token = array();
-        if ($response->isOk()) {
-            $res = $response->getJson();
-            if($res['Code'] == '1'){
-                $token['token'] = $res['Result']['Token'];
-                $token['status'] = 'ok';
-            }else{
-                $token['Message'] = $res['Message'];
-                $token['status'] = 'err';
-            }
 
-        } else {
-            $res['Message'] = 'statusCode：'. $response->getStatusCode();
-            $token['status'] = 'err';
+        $token = array();
+
+        try {
+            $response = $http->get($host.'GetApiToken', [], ['headers' => $headers]);
+            if ($response->isOk()) {
+                $res = $response->getJson();
+                if($res['Code'] == '1'){
+                    $token['status'] = 'ok';
+                    $token['token'] = $res['Result']['Token'];
+                }else{
+                    $token['status'] = 'err';
+                    $token['msg'] = $res['Message'];
+                }
+            } else {
+                $token['status'] = 'err';
+                $res['msg'] = 'statusCode：'. $response->getStatusCode();
+            }
+        } catch (\Exception $e) {
+            $res['status'] = 'err';
+            $res['msg'] = "發生錯誤：" . $e->getMessage();
         }
         return $token;
     }

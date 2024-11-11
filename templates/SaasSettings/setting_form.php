@@ -48,12 +48,12 @@
     .Classical label{
         margin: 5px 0px;
     }
-    div#femas_test, div#auo_test{
+    div#femas_test, div#auo_test, div#auo_ids_test{
         cursor: pointer;
         color: blue;
         padding: 5px 10px;
     }
-    div#femas_test:hover, div#auo_test:hover{
+    div#femas_test:hover, div#auo_test:hover, div#auo_ids_test:hover{
         color: #8a8af9;
     }
 
@@ -109,10 +109,10 @@
                             <div><?php echo $this->Form->control('SaasSetting.Reinstate', ['label'=> __('復職', true).'：', 'type'=>'text' , 'value' => $SaasSetting['Reinstate']]); ?></div>
                         </td>
                     </tr>
-
                     <tr>
                         <td rowspan="3" class="title right">
                             <?php echo __('同步訊息寄信設定', true); ?>
+                            <div><?php echo __('(收件者多筆用分號間隔)', true)?></div>
                         </td>
                         <td class="content left">
                             <div><?php echo $this->Form->control('SaasSetting.mail_host', ['label'=> __('發信伺服器網域：', true), 'type'=>'text','size' => 100, 'value' => $SaasSetting['mail_host']]); ?></div>
@@ -124,9 +124,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="content left">
+                        <td class="content left  d-flex">
                             <div><?php echo $this->Form->control('SaasSetting.email_address', ['label'=> __('收件者：', true), 'type'=>'text','size' => 100, 'value' => $SaasSetting['email_address']]); ?></div>
-                            <div><?php echo __('(多筆分號";"間隔)', true)?></div>
+                            <div id="auo_ids_test"><?php echo __('測試', true); ?></div>
                         </td>
                     </tr>
 
@@ -314,7 +314,7 @@
                     if(response.status == 'ok'){
                         text = JSON.stringify(response.data);
                     }else{
-                        text = JSON.stringify(response.Message);
+                        text = response.msg;
                     }
                     w2popup.open({
                         width: 750, height: 400,
@@ -340,7 +340,33 @@
                     if(response.status == 'ok'){
                         text = JSON.stringify(response.data);
                     }else{
-                        text = JSON.stringify(response.Message);
+                        text = response.msg;
+                    }
+                    w2popup.open({
+                        width: 750, height: 400,
+                        title: 'Response',
+                        body: text
+                    });
+                }
+            });
+        });
+
+       jQuery(document).on('click', '#auo_ids_test', function(e) {
+            e.preventDefault();
+            w2utils.lock('body', '測試中...', true);
+            jQuery.ajax({
+                data: jQuery('#SettingForm').serialize(),
+                type: 'POST',
+                dataType: 'json',
+                url: '<?php echo $this->Url->build(['controller' => 'SaasSettings', 'action' => 'auo_ids_test']); ?>',
+                success: function(response) {
+                    w2utils.unlock('body');
+                    var text = '';
+                    var title = '';
+                    if(response.status == 'ok'){
+                        text = response.data;
+                    }else{
+                        text = response.msg;
                     }
                     w2popup.open({
                         width: 750, height: 400,

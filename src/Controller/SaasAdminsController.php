@@ -5,6 +5,13 @@ namespace App\Controller;
 use Cake\Event\EventInterface;
 use Cake\I18n\FrozenDate;
 use Cake\Database\Log\QueryLogger;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\Label\LabelAlignment;
+use Endroid\QrCode\Label\Font\OpenSans;
+use Endroid\QrCode\RoundBlockSizeMode;
+use Endroid\QrCode\Writer\PngWriter;
 /**
  * SaasAdmins Controller
  *
@@ -380,12 +387,10 @@ class SaasAdminsController extends AppController
         $isMfa = $accountData['is_mfa'];
         if(!empty($accountData['mfa_key'])) {
             $mfaStatus = 'have_mfa';
-            $qrCodeUrl = $ga->getQRCodeGoogleUrl('FemasHr', $accountData['SaasAdmin']['mfa_key'], null, array('width'=>'100px', 'height'=>'100px'));
-            $imgStr = '<img src="'.$qrCodeUrl.'">';
         } else {
             $mfaStatus = 'not_gen';
         }
-        $this->set('jsonData', compact(array('mfaStatus', 'imgStr', 'isMfa')));
+        $this->set('jsonData', compact(array('mfaStatus', 'isMfa')));
         $this->render('/element/in_json');
     }
 
@@ -644,8 +649,6 @@ class SaasAdminsController extends AppController
         require_once ROOT . DS . 'vendor' . DS . 'GoogleAuthenticator' . DS . 'PHPGangsta' . DS . 'GoogleAuthenticator.php';
         $ga = new \PHPGangsta_GoogleAuthenticator();
         $secret = $ga->createSecret();
-        $qrCodeUrl = $ga->getQRCodeGoogleUrl('Femas_mw-auo', $secret, 'fonsen femas hr', array('width'=>'100px', 'height'=>'100px'));
-        $imgStr = '<img src="'.$qrCodeUrl.'">';
 
         $hash = hash('SHA384', (string)$this->hashStr, true);
         $key = substr($hash, 0, 32);
@@ -655,8 +658,45 @@ class SaasAdminsController extends AppController
         $encrypt = openssl_encrypt($secret, 'AES-128-CBC', $key, 0, $iv);
         $secret = base64_encode($encrypt);
 
-        $this->set('jsonData', compact(array('imgStr', 'secret')));
+        $this->set('jsonData', compact(array('secret')));
         $this->render('/element/in_json');
+    }
+
+    public function createQrCode($secret){
+        $name = 'Femas_mw-auo';
+
+        $hash = hash('SHA384', (string)$this->hashStr, true);
+        $key = substr($hash, 0, 32);
+        $iv = substr($hash, 32, 16);
+        $data = openssl_decrypt(
+            base64_decode($secret),
+            'AES-128-CBC',
+            $key,
+            0,
+            $iv
+        );
+        $padding = ord($data[strlen($data) - 1]);
+        $mfaKey = substr($data, 0, -$padding);
+
+
+        $builder = new Builder(
+            writer: new PngWriter(),
+            writerOptions: [],
+            validateResult: false,
+            data: "otpauth://totp/{$name}?secret={$mfaKey}&issuer=fonsen femas hr",
+            errorCorrectionLevel: ErrorCorrectionLevel::High,
+            size: 100,
+            margin: 0
+        );
+
+        $this->log('otpauth://totp/'.$name.'?secret='.$secret.'&issuer=fonsen femas hr');
+
+        $result = $builder->build();
+
+        $this->response = $this->response->withType($result->getMimeType());
+        $this->response = $this->response->withStringBody($result->getString());
+
+        return $this->response;
     }
 
     public function checkMfa($mfaCheck = false) {
@@ -720,7 +760,6 @@ class SaasAdminsController extends AppController
             $forceMfa = $this->SaasSettings->find()->where(['`key`' => 'forceMfa'])->first();
             $mfaKey = !empty($mfaKey)? $mfaKey : $this->request->getData('data.mfaCode');
         }
-
         require_once ROOT . DS . 'vendor' . DS . 'GoogleAuthenticator' . DS . 'PHPGangsta' . DS . 'GoogleAuthenticator.php';
         $ga = new \PHPGangsta_GoogleAuthenticator();
 

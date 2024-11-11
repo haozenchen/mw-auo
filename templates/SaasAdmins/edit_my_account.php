@@ -2,6 +2,7 @@
 <?php echo $this->Html->script('screen') ?>
 <?php echo $this->Html->css('classical') ?>
 <?php echo $this->Html->css('emma.advance') ?>
+
 <style type="text/css">
 	.w2ui-buttons{
 		position: fixed;
@@ -221,7 +222,9 @@
 				success: function(response) {
 					jQuery('#loading').hide();
 					secret = response.secret;
-					jQuery('#mfaImg').html(response.imgStr);
+					var img = '<img src="<?php echo $this->Url->build(['controller' => 'SaasAdmins', 'action' => 'create_qr_code']); ?>/'+secret+'">';
+					jQuery('#mfaImg').html(img);
+					// jQuery('#mfaImg').html(response.imgStr);
 					jQuery('#mfaImg').find('img').load(function() {
 						jQuery('#mfaImgLoad').hide();
 						jQuery('#mfaImg').css({'display': 'inline-block'});

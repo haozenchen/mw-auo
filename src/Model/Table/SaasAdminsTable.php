@@ -43,6 +43,9 @@ class SaasAdminsTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
+
+    var $showAll = false;
+
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -152,7 +155,7 @@ class SaasAdminsTable extends Table
         $session = new Session();
         if($session->check('EmmaApp.UserInfo')){
             $userInfo = unserialize($session->read('EmmaApp.UserInfo'));
-            if($userInfo['Uid'] != 1){
+            if(($userInfo['Uid'] != 1 && $this->showAll == false)){
                 $query->where(['id not IN(1)']);
             }
         }
