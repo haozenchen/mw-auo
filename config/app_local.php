@@ -37,39 +37,39 @@ return [
      */
 
     'Datasources' => [
-        'default' => [
-            'host' => 'localhost',
-            /*
-             * CakePHP will use the default DB port based on the driver selected
-             * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
-             * the following line and set the port accordingly
-             */
-            'port' => '3307',
-
-            'username' => 'root',
-            'password' => '',
-
-            'database' => 'mw-auo',
-            /*
-             * If not using the default 'public' schema with the PostgreSQL driver
-             * set it here.
-             */
-            //'schema' => 'myapp',
-
-            /*
-             * You can use a DSN string to set the entire configuration
-             */
-            'url' => env('DATABASE_URL', null),
-        ],
-
         // 'default' => [
-        //     'host' => 'wamp64-db-1',
-        //     'port' => '3306',
+        //     'host' => 'localhost',
+        //     /*
+        //      * CakePHP will use the default DB port based on the driver selected
+        //      * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
+        //      * the following line and set the port accordingly
+        //      */
+        //     'port' => '3307',
+
         //     'username' => 'root',
-        //     'password' => 'fonsen',
+        //     'password' => '',
+
         //     'database' => 'mw-auo',
+        //     /*
+        //      * If not using the default 'public' schema with the PostgreSQL driver
+        //      * set it here.
+        //      */
+        //     //'schema' => 'myapp',
+
+        //     /*
+        //      * You can use a DSN string to set the entire configuration
+        //      */
         //     'url' => env('DATABASE_URL', null),
         // ],
+
+        'default' => [
+            'host' => 'wamp64-db-1',
+            'port' => '3306',
+            'username' => 'root',
+            'password' => 'fonsen',
+            'database' => 'mw-auo',
+            'url' => env('DATABASE_URL', null),
+        ],
     ],
 
     /*

@@ -72,37 +72,32 @@ class SaasSettingsController extends AppController
         if($this->request->is('post')) {
             $host = $this->request->getData('SaasSetting.mail_host');
             $mailCode = $this->request->getData('SaasSetting.email_code');
+            $ssl_crt = $this->request->getData('SaasSetting.email_crt');
             $recipients = $this->request->getData('SaasSetting.email_address');
             $subject = 'test';
             $emailContent = 'test';
 
-            $http = new Client();
+            $http = new Client([
+                'ssl_cafile' => $ssl_crt
+            ]);
             $headers = [
-              'Content-Type' => 'application/xml'
+              'Content-Type' => 'text/xml; charset=utf-8'
             ];
 
-            $body = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
-               <soapenv:Header/>
-               <soapenv:Body>
-                  <tem:ManualSend_07>
-                     <!--Optional:-->
-                     <tem:strMailCode>'.$mailCode.'</tem:strMailCode>
-                     <!--Optional:-->
-                     <tem:strRecipients>'.$recipients.'</tem:strRecipients>
-                     <!--Optional:-->
-                     <tem:strSubject>'.$subject.'</tem:strSubject>
-                     <!--Optional:-->
-                     <tem:strBody>'.$emailContent.'</tem:strBody>
-                  </tem:ManualSend_07>
-               </soapenv:Body>
-            </soapenv:Envelope>';
-
+            $body = '<?xml version="1.0" encoding="utf-8"?>
+                <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                <soap:Body><ManualSend_07 xmlns="http://tempuri.org/">
+                <strMailCode>'.$mailCode.'</strMailCode>
+                <strRecipients>'.$recipients.'</strRecipients>
+                <strCopyRecipients>'.$recipients.'</strCopyRecipients>
+                <strSubject>'.$subject.'</strSubject>
+                <strBody>'.$emailContent.'</strBody>
+                </ManualSend_07>
+            </soap:Body></soap:Envelope>';
             $res = array();
             try {
                 $response = $http->post($host, $body, ['headers' => $headers]);
 
-
-            $this->log(var_export($response->getBody(), true));
                 if ($response->isOk()) {
                     $res['status'] = 'ok';
                     $res['data'] = $response->getBody()->getContents();

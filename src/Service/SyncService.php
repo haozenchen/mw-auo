@@ -1,5 +1,6 @@
 <?php
 // src/Service/SyncService.php
+// 20241128
 namespace App\Service;
 
 use Cake\ORM\TableRegistry;
@@ -10,19 +11,19 @@ use Exception;
 
 class SyncService
 {
-	private $syncId;  // 宣告變數
-	private $auo_token;
+    private $syncId;  // 宣告變數
+    private $auo_token;
     private $test = false;
     private $timeout = 3600;
 
     public function doSync($data=array(), $emUid=false){
-    	date_default_timezone_set('Asia/Taipei'); // 設定為台北時區
+        date_default_timezone_set('Asia/Taipei'); // 設定為台北時區
         if(!empty($data)){
-        	$SyncRecords = TableRegistry::getTableLocator()->get('SyncRecords');
-        	$ip = false;
-        	if(!empty($emUid)){
-        		$ip = $SyncRecords->getClientIP();
-        	}
+            $SyncRecords = TableRegistry::getTableLocator()->get('SyncRecords');
+            $ip = false;
+            if(!empty($emUid)){
+                $ip = $SyncRecords->getClientIP();
+            }
             $record = array(
                 'saas_admin_id' => $emUid,
                 'ip_address_ip' => $ip,
@@ -41,7 +42,6 @@ class SyncService
                 }else{
                     $err_datas = array();
                     $err_datas = $this->do_sync_api($syncJobs);
-                    // Log::error(var_export($err_datas, true));
                     // 統整所有同步錯誤訊息
                     $this->sendMail($err_datas, true);
                     $status = 'success';
@@ -81,6 +81,7 @@ class SyncService
             'upd_dep_dir' => array(), //部門主管更新
             'del_user' => array(), //員工刪除
             'del_dep' => array(), //部門裁撤
+            'upd_cost_center' => array(),
             'trans_count' => array(
                 'dep'=> 0,
                 'user'=> 0
@@ -107,11 +108,16 @@ class SyncService
         //------------------------------------------------------------
         if(!empty($data['dep'])){
             list($fsDids, $fs_deps, $err) = $this->FemasDep();
+            $fs_cost_center = $this->FemasCostCenter();
             if(!empty($err)){return false;}
+            $add_dep_params = array('syncJobs' => $syncJobs, 'auo_deps' => $auo_deps, 'auoDids' => $auoDids, 'fsDids' => $fsDids, 'auoAllUids' => $auoAllUids, 'fs_cost_center' => $fs_cost_center);
+            $syncJobs = $this->add_dep($add_dep_params);
 
-            $syncJobs = $this->add_dep($syncJobs, $auo_deps, $auoDids, $fsDids, $auoAllUids);
-            $syncJobs = $this->upd_dep($syncJobs, $auo_deps, $fs_deps, $auoDids, $fsDids, $auoAllUids);
-            $syncJobs = $this->del_dep($syncJobs, $auoDids, $fsDids);
+            $upd_dep_params = array('syncJobs' => $syncJobs, 'auo_deps' => $auo_deps, 'fs_deps' => $fs_deps, 'auoDids' => $auoDids, 'fsDids' => $fsDids, 'auoAllUids' => $auoAllUids, 'fs_cost_center' => $fs_cost_center);
+            $syncJobs = $this->upd_dep($upd_dep_params);
+
+            $del_dep_params = array('syncJobs' => $syncJobs, 'auoDids' => $auoDids, 'fsDids' => $fsDids, 'fs_cost_center' => $fs_cost_center);
+            $syncJobs = $this->del_dep($del_dep_params);
         }
         //------------------------------------------------------------
         $fsAllUids = array();
@@ -162,7 +168,6 @@ class SyncService
             $params['uids'] = $uids;
             $auo_users = $this->AuoUserIntegrate($params); //統整AUO員工資料
         }
-        // Log::error(var_export($auo_users, true));
         if(!empty($data['user'])){
             $syncJobs = $this->add_user($syncJobs, $auo_users, $auoUids, $fsAllUids);
         }
@@ -175,11 +180,12 @@ class SyncService
             $syncJobs = $this->del_user($syncJobs, $auoAllUids, $fsAllUids);
         }
         //------------------------------------------------------------
-        // Log::error(var_export($syncJobs, true));
+        Log::error(var_export($syncJobs, true));
         return $syncJobs;
     }
 
     public function do_sync_api($syncJobs){
+        set_time_limit(3600);
         $err_datas = array('dep' => array(), 'user' => array());
         $syncAPI = array(
             'add_dep' => 'su_department_update.json',
@@ -193,7 +199,8 @@ class SyncService
             'upd_user' => 'su_user_update.json',
             'upd_dep_dir' => 'su_department_update.json',
             'del_user' => 'su_user_update.json',
-            'del_dep' => 'su_department_update.json.json'
+            'del_dep' => 'su_department_update.json',
+            'upd_cost_center' => 'su_cost_center_update.json',
         );
 
         $syncName = array(
@@ -208,9 +215,9 @@ class SyncService
             'upd_user' => '員工批量更新',
             'upd_dep_dir' => '部門主管更新',
             'del_user' => '員工刪除',
-            'del_dep' => '部門刪除'
+            'del_dep' => '部門刪除',
+            'upd_cost_center' => '成本中心批量更新',
         );
-
 
         foreach ($syncJobs as $key => $job) {
             if(!empty($syncAPI[$key]) && !empty($job)){
@@ -239,6 +246,7 @@ class SyncService
                                 case 'del_dep':
                                 case 'upd_dep_dir':
                                 case 'upd_dep_name':
+                                case 'upd_cost_center':
                                     $err_datas['dep'][$err['sn']][] = array('action' => $syncName[$key], 'msg' => $err['msg'], 'value' => $err_val);
                                     break;
                                 default:
@@ -323,8 +331,6 @@ class SyncService
 
         return array($chk_dep, $chk_user);
     }
-
-
 
     public function genHtml($data) {
         $html = '';
@@ -454,32 +460,31 @@ class SyncService
         $SaasSettings = TableRegistry::getTableLocator()->get('SaasSettings');
         $host = $SaasSettings->getSys('mail_host');
         $mailCode = $SaasSettings->getSys('email_code');
+        $ssl_crt = $SaasSettings->getSys('email_crt');
         $recipients = $SaasSettings->getSys('email_address');
         $subject = '同步執行結果 '.date('Y-m-d H:i:s');
         $emailContent = $this->generateTable($data, $do_sync);
 
+        $emailContent = htmlspecialchars($emailContent, ENT_QUOTES | ENT_XML1, 'UTF-8');
+
         $record = array('sync_records_id' => $this->syncId, 'type' => 'sync', 'api_host' => 'AUO', 'action' => 'AUI IDS(ManualSend_07)', 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
-        // Log::error($emailContent);
-        $http = new Client();
+        $http = new Client([
+            'ssl_cafile' => $ssl_crt
+        ]);
         $headers = [
-          'Content-Type' => 'application/xml'
+          'Content-Type' => 'text/xml; charset=utf-8'
         ];
 
-        $body = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
-           <soapenv:Header/>
-           <soapenv:Body>
-              <tem:ManualSend_07>
-                 <!--Optional:-->
-                 <tem:strMailCode>'.$mailCode.'</tem:strMailCode>
-                 <!--Optional:-->
-                 <tem:strRecipients>'.$recipients.'</tem:strRecipients>
-                 <!--Optional:-->
-                 <tem:strSubject>'.$subject.'</tem:strSubject>
-                 <!--Optional:-->
-                 <tem:strBody>'.$emailContent.'</tem:strBody>
-              </tem:ManualSend_07>
-           </soapenv:Body>
-        </soapenv:Envelope>';
+        $body = '<?xml version="1.0" encoding="utf-8"?>
+            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body><ManualSend_07 xmlns="http://tempuri.org/">
+            <strMailCode>'.$mailCode.'</strMailCode>
+            <strRecipients>'.$recipients.'</strRecipients>
+            <strCopyRecipients>'.$recipients.'</strCopyRecipients>
+            <strSubject>'.$subject.'</strSubject>
+            <strBody>'.$emailContent.'</strBody>
+            </ManualSend_07>
+        </soap:Body></soap:Envelope>';
 
         try {
             $response = $http->post($host, $body, ['headers' => $headers]);
@@ -498,11 +503,14 @@ class SyncService
         $this->save_sync_log($record, false);
     }
 
-    public function add_dep($syncJobs, $auo_deps, $auoDids, $fsDids, $auoAllUids){
+    public function add_dep($params){
+        extract($params);
         $addDepIds = array_diff($auoDids, $fsDids);
         $add_dep = array();
         $upd_dep = array();
         $upd_dep_dir = array();
+        $upd_cost_center = array();
+        $fs_c_ids = array_keys($fs_cost_center);
         foreach ($addDepIds as $id) {
             $add_dep[$id]['sn'] = $id;
             $add_dep[$id]['name'] = $auo_deps[$id]['org_id'].' '.$auo_deps[$id]['name'];
@@ -516,23 +524,33 @@ class SyncService
                 $upd_dep_dir[$id]['sn'] = $id;
                 $upd_dep_dir[$id]['manager_sn'] = $auo_deps[$id]['manager_sn'];
             }
+            if(!in_array($id, $fs_c_ids)){
+                $upd_cost_center[$id]['sn'] = $id;
+                $upd_cost_center[$id]['name'] = $auo_deps[$id]['cost_center'];
+            }
         }
+
         $syncJobs['add_dep'] = array_merge($syncJobs['add_dep'], array_values($add_dep));
         $syncJobs['upd_dep'] = array_merge($syncJobs['upd_dep'], array_values($upd_dep));
         $syncJobs['upd_dep_dir'] = array_merge($syncJobs['upd_dep_dir'], array_values($upd_dep_dir));
+        $syncJobs['upd_cost_center'] = array_merge($syncJobs['upd_cost_center'], array_values($upd_cost_center));
         $syncJobs['trans_count']['dep'] += $this->countFuc($add_dep);
         return $syncJobs;
     }
 
-    public function upd_dep($syncJobs, $auo_deps, $fs_deps, $auoDids, $fsDids, $auoAllUids){
+    public function upd_dep($params){
+        extract($params);
         $intDepIds = array_intersect_assoc($fsDids, $auoDids);
         $upd_dep = array();
         $upd_dep_name = array();
         $upd_dep_dir = array();
+
+        $upd_cost_center = array();
+        $fs_c_ids = array_keys($fs_cost_center);
         foreach ($intDepIds as $id) {
             $diff_dep = array();
             foreach ($auo_deps[$id] as $key => $value) {
-                if($auo_deps[$id][$key] != $fs_deps[$id][$key]){
+                if(isset($fs_deps[$id][$key]) && $auo_deps[$id][$key] != $fs_deps[$id][$key]){
                     if($key == 'manager_sn'){
                         if(empty($value) || (!empty($value) && in_array($value, $auoAllUids))){
                             $diff_dep[$key] = $auo_deps[$id][$key];
@@ -560,6 +578,7 @@ class SyncService
                         case 'org_id':
                             $upd_dep[$id]['sn'] = $id;
                             $upd_dep[$id]['name'] = $value.' '.$auo_deps[$id]['name'];
+                            $upd_dep[$id]['brief_name'] = $value;
                             break;
                         case 'manager_sn':
                             $upd_dep_dir[$id]['sn'] = $id;
@@ -577,23 +596,45 @@ class SyncService
                 }
                 $syncJobs['trans_count']['dep'] += 1;
             }
+
+            if(!in_array($id, $fs_c_ids) || $auo_deps[$id]['cost_center'] != $fs_cost_center[$id]){
+                $upd_cost_center[$id]['sn'] = $id;
+                $upd_cost_center[$id]['name'] = $auo_deps[$id]['cost_center'];
+            }
         }
+
+        $del_c_ids = array_diff($fs_c_ids, $intDepIds);
+        foreach ($del_c_ids as $id) {
+           $upd_cost_center[$id]['sn'] = $id;
+           $upd_cost_center[$id]['deleted'] = true;
+        }
+
         $syncJobs['upd_dep'] = array_merge($syncJobs['upd_dep'], array_values($upd_dep));
         $syncJobs['upd_dep_name'] = array_values($upd_dep_name);
         $syncJobs['upd_dep_dir'] = array_merge($syncJobs['upd_dep_dir'], array_values($upd_dep_dir));
+        $syncJobs['upd_cost_center'] = array_merge($syncJobs['upd_cost_center'], array_values($upd_cost_center));
         return $syncJobs;
     }
 
-    public function del_dep($syncJobs, $auoDids, $fsDids){
+    public function del_dep($params){
+        extract($params);
         $delDepIds = array_diff($fsDids, $auoDids);
         $del_dep = array();
+        $upd_cost_center = array();
+        $fs_c_ids = array_keys($fs_cost_center);
         foreach ($delDepIds as $id) {
             if($id != 'AUHQ'){ //簽核主管部門排除
                 $del_dep[$id]['sn'] = $id;
                 $del_dep[$id]['deleted'] = true;
+
+                if(in_array($id, $fs_c_ids)){
+                    $upd_cost_center[$id]['sn'] = $id;
+                    $upd_cost_center[$id]['deleted'] = true;
+                }
             }
         }
         $syncJobs['del_dep'] = array_values($del_dep);
+        $syncJobs['upd_cost_center'] = array_merge($syncJobs['upd_cost_center'], array_values($upd_cost_center));
         $syncJobs['trans_count']['dep'] += $this->countFuc($del_dep);
         return $syncJobs;
     }
@@ -838,7 +879,6 @@ class SyncService
                             $UserChange[$id]['user_type_name'] = $auo_users[$id]['base']['user_type_name'];
                             $UserChange[$id]['dept_name'] = $auo_users[$id]['base']['department_name'];
                             $UserChange[$id]['update_user'] = true;
-                            // Log::error(var_export(array($id, $auo_users[$id]), true));
                         }else{
                             $upd_user[$id]['sn'] = $id;
                             $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
@@ -1064,6 +1104,7 @@ class SyncService
                 $deps[$dep['ORGID']]['brief_name'] = $dep['org_eshortname'];
                 $deps[$dep['ORGID']]['start_date'] = date('Y-m-d', strtotime(array_shift($start_date)));
                 $deps[$dep['ORGID']]['manager_sn'] = $dep['boss_emp_no'];
+                $deps[$dep['ORGID']]['cost_center'] = $dep['cost_center'];
                 if(!empty($dep['parent_orgid']) && in_array($dep['parent_orgid'], $depIds)){
                     $deps[$dep['ORGID']]['superior_dp_sn'] = $dep['parent_orgid'];
                 }
@@ -1101,7 +1142,7 @@ class SyncService
                 $base['name'] = $user['emp_name'];
                 $base['sex'] = $user['sex'];
                 $base['en_name'] = $user['eng_name'];
-                $base['user_grade'] = $user['emp_kind'];
+                // $base['user_grade'] = $user['emp_kind'];
                 $base['job_grade'] = $user['job_idl'];
                 $base['boss_sn'] = $user['boss_no'];
                 $base['user_title_name'] = $user['title'];
@@ -1208,7 +1249,8 @@ class SyncService
                 $base['passport_number'] = $user['PASSPORT_NO'];
                 $base['passport_name'] = $user['PASSPORT_NAME'];
                 $base['user_grade'] = $user['GRADE'];
-                $base['back_seniority'] = (!empty($user['BEFORE_YEAR']))? ceil(floatval($user['BEFORE_YEAR'])):0;
+                $base['back_seniority'] = (!empty($user['BEFORE_YEAR']))? ceil(floatval($user['BEFORE_YEAR'])*12):0;
+
                 $addr = array_filter([
                     isset($user['PER_ADD1']) ? $user['PER_ADD1'] : '',
                     isset($user['PER_ADD2']) ? $user['PER_ADD2'] : '',
@@ -1217,10 +1259,10 @@ class SyncService
                 ]);
                 $base['addr'] = implode('', $addr);
                 $cont_addr = array_filter([
-                    isset($user['NOWADD1']) ? $user['PER_ADD1'] : '',
-                    isset($user['NOWADD2']) ? $user['PER_ADD2'] : '',
-                    isset($user['NOWADD3']) ? $user['PER_ADD3'] : '',
-                    isset($user['NOWADD4']) ? $user['PER_ADD4'] : ''
+                    isset($user['NOWADD1']) ? $user['NOWADD1'] : '',
+                    isset($user['NOWADD2']) ? $user['NOWADD2'] : '',
+                    isset($user['NOWADD3']) ? $user['NOWADD3'] : '',
+                    isset($user['NOWADD4']) ? $user['NOWADD4'] : ''
                 ]);
                 $base['cont_addr'] = implode('', $cont_addr);
                 $base['homephone'] = $user['PER_TEL'];
@@ -1517,6 +1559,25 @@ class SyncService
         return array($depIds, $deps, $err_msg);
     }
 
+    public function FemasCostCenter(){
+        $action = 'su_cost_center.json';
+        $request = [];
+        list($res, $err_msg)  = $this->requestFemas($action, $request);
+        $femas_cost_center = $res['datas'];
+        $record = array('sync_records_id' => $this->syncId, 'action' => '成本中心資料(su_cost_center)', 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
+        $country = array();
+        if(empty($err_msg)){
+            $cost_center = Hash::combine($femas_cost_center, '{n}.sn', '{n}.name');
+            $record['total_count'] = $this->countFuc($cost_center);
+            $record['success_count'] = $this->countFuc($cost_center);
+        }else{
+            $record['status'] = 'error';
+            $record['msg'] = $err_msg;
+        }
+        $this->save_sync_log($record);
+        return $cost_center;
+    }
+
     public function FemasCountry(){
         $action = 'su_countrys.json';
         $request = [];
@@ -1606,11 +1667,11 @@ class SyncService
     public function requestAUO($function, $dep=false){
         $err_msg = false;
         if($this->test){
-        	$filePath = WWW_ROOT . 'js' . DS . 'api' . DS;
+            $filePath = WWW_ROOT . 'js' . DS . 'api' . DS;
             $response = file_get_contents($filePath.$function['name'].'.json');
             $res = json_decode($response, true);
         }else{
-        	$SaasSettings = TableRegistry::getTableLocator()->get('SaasSettings');
+            $SaasSettings = TableRegistry::getTableLocator()->get('SaasSettings');
             $host = $SaasSettings->getSys('AUOHost');
             $guid = $SaasSettings->getSys('AUOguid');
             $CompanyId = $SaasSettings->getSys('AUOCompanyId');
@@ -1711,7 +1772,7 @@ class SyncService
     }
 
     public function save_sync_record($data){
-    	$SyncRecords = TableRegistry::getTableLocator()->get('SyncRecords');
+        $SyncRecords = TableRegistry::getTableLocator()->get('SyncRecords');
         if(!empty($data['id'])){
             $syncRecord = $SyncRecords->get($data['id'], [
                 'contain' => [],
@@ -1729,7 +1790,7 @@ class SyncService
     }
 
     public function save_sync_log($data, $sendMail = false){
-    	$SyncLogs = TableRegistry::getTableLocator()->get('SyncLogs');
+        $SyncLogs = TableRegistry::getTableLocator()->get('SyncLogs');
         $syncLog = $SyncLogs->newEmptyEntity();
         $syncLog = $SyncLogs->patchEntity($syncLog, $data);
         $SyncLogs->save($syncLog);
@@ -1748,34 +1809,34 @@ class SyncService
         }
     }
 
-	public function dateFormat($date) {
-	    $format_date = null;
-	    if (!empty($date)) {
-	        try {
-	            $new_date = explode(" ", $date);
+    public function dateFormat($date) {
+        $format_date = null;
+        if (!empty($date)) {
+            try {
+                $new_date = explode(" ", $date);
 
-	            // 支援多種日期格式，避免格式錯誤
-	            $formats = ['Y/n/j', 'Y-m-d'];
-	            $datetime = false;
+                // 支援多種日期格式，避免格式錯誤
+                $formats = ['Y/n/j', 'Y-m-d'];
+                $datetime = false;
 
-	            // 嘗試不同格式直到成功解析
-	            foreach ($formats as $format) {
-	                $datetime = \DateTime::createFromFormat($format, $new_date[0]);
-	                if ($datetime !== false) {
-	                    break;
-	                }
-	            }
+                // 嘗試不同格式直到成功解析
+                foreach ($formats as $format) {
+                    $datetime = \DateTime::createFromFormat($format, $new_date[0]);
+                    if ($datetime !== false) {
+                        break;
+                    }
+                }
 
-	            // 如果解析成功，格式化為 'Y-m-d'
-	            if ($datetime) {
-	                $format_date = $datetime->format('Y-m-d');
-	            }
-	        } catch (\Exception $e) {
-	            // 可以記錄錯誤或處理例外狀況
-	        }
-	    }
-	    return $format_date;
-	}
+                // 如果解析成功，格式化為 'Y-m-d'
+                if ($datetime) {
+                    $format_date = $datetime->format('Y-m-d');
+                }
+            } catch (\Exception $e) {
+                // 可以記錄錯誤或處理例外狀況
+            }
+        }
+        return $format_date;
+    }
 
 }
 

@@ -110,7 +110,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td rowspan="3" class="title right">
+                        <td rowspan="4" class="title right">
                             <?php echo __('同步訊息寄信設定', true); ?>
                             <div><?php echo __('(收件者多筆用分號間隔)', true)?></div>
                         </td>
@@ -121,6 +121,11 @@
                     <tr>
                         <td class="content left">
                             <div><?php echo $this->Form->control('SaasSetting.email_code', ['label'=> __('MailCode：', true), 'type'=>'text','size' => 100, 'value' => $SaasSetting['email_code']]); ?></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content left">
+                            <div><?php echo $this->Form->control('SaasSetting.email_crt', ['label'=> __('憑證檔：', true), 'type'=>'text','size' => 100, 'value' => $SaasSetting['email_crt']]); ?></div>
                         </td>
                     </tr>
                     <tr>
