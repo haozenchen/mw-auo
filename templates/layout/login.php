@@ -16,38 +16,6 @@
 <?php echo $this->Html->script('bootstrap-typeahead') ?>
 <?php echo $this->Html->script('toastr.min') ?>
 
-<?php
-
-// $ch = curl_init();
-// curl_setopt($ch, CURLOPT_URL, "https://www.google.com");
-// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-// curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-
-// $response = curl_exec($ch);
-
-// if (curl_errno($ch)) {
-//     echo 'cURL Error: ' . curl_error($ch);
-// } else {
-//     echo 'SSL certificate verification succeeded!';
-// }
-
-use Cake\Http\Client;
-
-$http = new Client([
-	'ssl_cafile' => 'C:\wamp64\bin\php\php8.2.18\extras\ssl\cacert-2024-09-24.crt'
-]);
-
-try {
-    $response = $http->get('https://incomplete-chain.badssl.com/');
-    echo $response->getStringBody();
-} catch (\Exception $e) {
-    echo 'SSL Error: ' . $e->getMessage();
-}
-
-
-?>
-
-
 <style type="text/css">
 	body {
 		margin-left: 0px;

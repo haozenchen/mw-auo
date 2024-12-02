@@ -40,7 +40,6 @@ class SyncService
                 if(empty($chk_dep) || empty($chk_user)){
                     $status = 'error';
                 }else{
-                    $err_datas = array();
                     $err_datas = $this->do_sync_api($syncJobs);
                     // 統整所有同步錯誤訊息
                     $this->sendMail($err_datas, true);
@@ -85,7 +84,8 @@ class SyncService
             'trans_count' => array(
                 'dep'=> 0,
                 'user'=> 0
-            )
+            ),
+            'chg_err' => array() // 異動資料與人員資料不一致
         );
 
         list($auoDids, $auo_deps, $err) = $this->AuoDep();
@@ -180,13 +180,16 @@ class SyncService
             $syncJobs = $this->del_user($syncJobs, $auoAllUids, $fsAllUids);
         }
         //------------------------------------------------------------
-        Log::error(var_export($syncJobs, true));
+        // Log::error(var_export($syncJobs, true));
         return $syncJobs;
     }
 
     public function do_sync_api($syncJobs){
         set_time_limit(3600);
         $err_datas = array('dep' => array(), 'user' => array());
+        if(!empty($syncJobs['chg_err'])){
+            $err_datas['user'] = $syncJobs['chg_err']['user'];
+        }
         $syncAPI = array(
             'add_dep' => 'su_department_update.json',
             'upd_dep_name' => 'su_department_order.json',
@@ -464,7 +467,6 @@ class SyncService
         $recipients = $SaasSettings->getSys('email_address');
         $subject = '同步執行結果 '.date('Y-m-d H:i:s');
         $emailContent = $this->generateTable($data, $do_sync);
-
         $emailContent = htmlspecialchars($emailContent, ENT_QUOTES | ENT_XML1, 'UTF-8');
 
         $record = array('sync_records_id' => $this->syncId, 'type' => 'sync', 'api_host' => 'AUO', 'action' => 'AUI IDS(ManualSend_07)', 'status' => 'success' ,'created' => date('Y-m-d H:i:s'));
@@ -662,7 +664,7 @@ class SyncService
             if(empty($appover) && !empty($auo_users[$id]['salary'])){//簽核主管新進，不需執行薪資步驟
                 $salary = $auo_users[$id]['salary'];
                 $salary['salary_group'] = '全體員工';
-                $salary['start_date'] = $auo_users[$id]['arrivedate'];
+                $salary['start_date'] = $auo_users[$id]['base']['arrivedate'];
                 $salary['reason'] = '新進';
             }else{
                 $salary = array('pass' => true);
@@ -689,10 +691,21 @@ class SyncService
         $lv_fields = array('leavedate');
         $chg_fields = array('department_name', 'user_title_name', 'user_type_name', 'user_grade');
         $array_fields = array('advanced_fields', 'military_service_record', 'education_record', 'work_experience');
+
+
+        $field_map = array(
+            'leavedate' => 'HR_paitw01_o1.quit_date',
+            'department_name' => 'HR_paitw01_o1.org_id',
+            'user_title_name' => 'HR_paitw01_o1.title',
+            'user_type_name' => 'HR_paitw01_o1.emp_type',
+            'user_grade' => 'HR_paitw05_o7.GRADE',
+        );
         $lv_user = array();
         $re_user = array();
         $chg_user = array();
         $upd_user = array();
+
+        $chg_err = array();
         /**
             規則說明：
             針對AUO與鋒形員工的欄位比對差異，針對部分欄位判斷預執行動作
@@ -718,7 +731,7 @@ class SyncService
                                 }else{
                                     $upd_user[$id][$key] = $value;
                                 }
-                            }elseif(isset($auo_users[$id]['base']['leavedate']) && empty($auo_users[$id]['base']['leavedate']) && in_array($key, $chg_fields)){ //調派
+                            }elseif(array_key_exists('leavedate', $auo_users[$id]['base']) && empty($auo_users[$id]['base']['leavedate']) && in_array($key, $chg_fields)){ //調派
                                 $chg_user[$id][$key] = $value;
                             }else{ //其餘欄位視為人員批量更新
                                 $upd_user[$id][$key] = $value;
@@ -808,6 +821,9 @@ class SyncService
                                 $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $chg_user[$id]): $chg_user[$id];
                                 unset($chg_user[$id]);
                             }
+                            if($chg['date'] != $user['leavedate']){
+                                $err_datas['user'][$id][] = array('action' => '員工離退作業', 'msg' => '人員離職日('.$field_map['leavedate'].')更新，與對應異動紀錄(HR_paitw05_act)不一致');
+                            }
                         }elseif(!empty($chg) && $chg['action'] == 'UnpaidLeaveUser'){
                             $UnpaidLeaveUser[$id]['document_number'] = $chg['date'];
                             $UnpaidLeaveUser[$id]['sn'] = $id;
@@ -820,9 +836,13 @@ class SyncService
                                 $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $chg_user[$id]): $chg_user[$id];
                                 unset($chg_user[$id]);
                             }
+                            if($chg['date'] != $user['leavedate']){
+                                $err_datas['user'][$id][] = array('action' => '員工離退作業', 'msg' => '人員離職日('.$field_map['leavedate'].')更新，與對應異動紀錄(HR_paitw05_act)不一致');
+                            }
                         }else{
                             $upd_user[$id]['sn'] = $id;
                             $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
+                            $err_datas['user'][$id][] = array('action' => '員工離退作業', 'msg' => '人員離職日('.$field_map['leavedate'].')更新，無對應異動紀錄(HR_paitw05_act)');
                         }
                     }
                 }
@@ -837,22 +857,30 @@ class SyncService
                         $upd_user[$id]['sn'] = $id;
                         $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
                     }else{
-                        $chk = $this->diff_chg($fs_chgs[$id], $auo_chgs[$id]);
+                        $chg = $this->diff_chg($fs_chgs[$id], $auo_chgs[$id]);
                         if(!empty($chg) && $chg['action'] == 'Reinstate'){
                             $Reinstate[$id]['document_number'] = $chg['date'];
                             $Reinstate[$id]['sn'] = $id;
                             $Reinstate[$id]['reinstate_date'] = $chg['date'];
-                            $Reinstate[$id]['org_name'] = $auo_users[$id]['base']['org_name'];
-                            $Reinstate[$id]['dept_name'] = $auo_users[$id]['base']['department_name'];
-                            $Reinstate[$id]['user_type_name'] = $auo_users[$id]['base']['user_type_name'];
+                            $Reinstate[$id]['dept_name'] = $user['department_name'];
                             $Reinstate[$id]['update_salary_insur'] = true;
                             if(!empty($chg_user[$id])){
                                 $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $chg_user[$id]): $chg_user[$id];
                                 unset($chg_user[$id]);
                             }
+
+                            foreach ($chg_fields as $chg_field) {
+                                if(str_replace(' ', '', $chg[$chg_field]) != str_replace(' ', '', $user[$chg_field])){
+                                    $chg_err[$id]['field'][] = $chg_field;
+                                }
+                            }
+                            if(!empty($chg_err[$id])){
+                                $err_datas['user'][$id][] = array('action' => '員工回任/復職作業', 'msg' => '人員回任/復職欄位('.implode('、', $chg_err[$id]['field']).')更新，與對應異動紀錄(HR_paitw05_act)不一致');
+                            }
                         }else{
                             $upd_user[$id]['sn'] = $id;
                             $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
+                            $err_datas['user'][$id][] = array('action' => '員工回任/復職作業', 'msg' => '人員離職日('.$field_map['leavedate'].')更新，無對應回任復職紀錄(HR_paitw05_act)');
                         }
                     }
                 }
@@ -867,6 +895,7 @@ class SyncService
                         $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
                     }else{
                         $chg = $this->diff_chg($fs_chgs[$id], $auo_chgs[$id]);
+
                         if(!empty($chg) && $chg['action'] == 'UserChange'){
                             $UserChange[$id] = $user;
                             $UserChange[$id]['document_number'] = $chg['date'].' '.$id;
@@ -876,19 +905,40 @@ class SyncService
                             $UserChange[$id]['property'] = 1;
                             $UserChange[$id]['type'] = 1;
                             $UserChange[$id]['reason'] = $chg['reason'];;
-                            $UserChange[$id]['user_type_name'] = $auo_users[$id]['base']['user_type_name'];
-                            $UserChange[$id]['dept_name'] = $auo_users[$id]['base']['department_name'];
+                            $UserChange[$id]['dept_name'] = $user['department_name'];
                             $UserChange[$id]['update_user'] = true;
+
+                            foreach ($chg_fields as $chg_field) {
+                                if(str_replace(' ', '', $chg[$chg_field]) != str_replace(' ', '', $user[$chg_field])){
+                                    $chg_err[$id]['field'][] = $field_map[$chg_field];
+                                }
+                            }
+                            if(!empty($chg_err[$id])){
+                                $err_datas['user'][$id][] = array('action' => '員工調派作業', 'msg' => '人員調派欄位('.implode('、', $chg_err[$id]['field']).')更新，與對應異動紀錄(HR_paitw05_act)不一致');
+                            }
                         }else{
                             $upd_user[$id]['sn'] = $id;
                             $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
+                            foreach ($chg_fields as $chg_field) {
+                                if(!empty($user[$chg_field])){
+                                    $chg_err[$id]['field'][] = $field_map[$chg_field];
+                                }
+                            }
+                            if(!empty($chg_err[$id]['field'])){
+                                $err_datas['user'][$id][] = array('action' => '員工調派作業', 'msg' => '人員調派欄位('.implode('、', $chg_err[$id]['field']).')更新，無對應異動紀錄(HR_paitw05_act)');
+                            }
                         }
                     }
                 }
                 $syncJobs['chg_user'] = array_values($UserChange);
             }
+
+            if(!empty($err_datas)){
+                $syncJobs['chg_err'] = $err_datas;
+            }
         }
         $syncJobs['upd_user'] = array_merge($syncJobs['upd_user'], array_values($upd_user));
+
         return $syncJobs;
     }
 
@@ -1293,6 +1343,7 @@ class SyncService
 
                 }
                 $users[$user['EMP_NO']]['base'] = $base;
+                $salary = array();
                 if(!empty($user['BANK_KEY']) && !empty($user['BANK_NUMBER'])){
                     $salary['tmp_Payment1'] = '轉帳/'.$user['BANK_KEY'].'/'.$user['BANK_NUMBER']; //待確認
                 }
@@ -1331,6 +1382,7 @@ class SyncService
                             $users[$id]['base'] = array_merge($user['base'], $auo_user2s[$id]['base']);
                             $users[$id]['base']['advanced_fields'] = $advanced_fields;
                         }
+                        $users[$id]['salary'] = $auo_user2s[$id]['salary'];
                     }else{
                         $users[$id]['base'] = $user['base'];
                     }
@@ -1339,7 +1391,6 @@ class SyncService
                         unset($users[$id]['base']['boss_sn']);
                     }
                 }
-
 
                 if(!empty($auo_edu[$id])){
                     $users[$id]['base']['education_record'] = $auo_edu[$id];
@@ -1473,6 +1524,10 @@ class SyncService
                         $tmp_chg['action'] = $action[$chg['action_type']];
                         $tmp_chg['date'] = $date;
                         $tmp_chg['reason'] = $chg['reason'];
+                        $tmp_chg['user_title_name'] = $chg['title'];
+                        $tmp_chg['user_type_name'] = $chg['emp_type'];
+                        $tmp_chg['department_name'] = $chg['org_name'];
+                        $tmp_chg['user_grade'] = $chg['grade'];
                         $tmp_chg['employ_sta_name'] = $chg['employ_sta_name'];
 
                         if($chg['employ_sta_name'] == 'Withdrawn'){
