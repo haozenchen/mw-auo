@@ -8,13 +8,13 @@
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <?php echo $this->Html->meta('charset', 'UTF-8'); ?>
-<?php echo $this->Html->css('bootstrap') ?>
-<?php echo $this->Html->css('login') ?>
-<?php echo $this->Html->css('toastr.min') ?>
-<?php echo $this->Html->script('jquery-2.1.0') ?>
-<?php echo $this->Html->script('prototype') ?>
-<?php echo $this->Html->script('bootstrap-typeahead') ?>
-<?php echo $this->Html->script('toastr.min') ?>
+<?php echo $this->App->safeCss('bootstrap') ?>
+<?php echo $this->App->safeCss('login') ?>
+<?php echo $this->App->safeCss('toastr.min') ?>
+<?php echo $this->App->safeScript('jquery-2.1.0') ?>
+<?php echo $this->App->safeScript('prototype') ?>
+<?php echo $this->App->safeScript('bootstrap-typeahead') ?>
+<?php echo $this->App->safeScript('toastr.min') ?>
 
 <style type="text/css">
 	body {
@@ -41,5 +41,10 @@
 		$this->request->getSession()->flash();
 	endif;
 ?>
+<script type="text/javascript">
+	if (window.top !== window.self) {
+	    window.top.location = window.self.location;
+	}
+</script>
 </body>
 </html>

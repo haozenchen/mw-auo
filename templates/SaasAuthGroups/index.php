@@ -1,7 +1,7 @@
-<?php echo $this->Html->script('div') ?>
-<?php echo $this->Html->script('screen') ?>
-<?php echo $this->Html->css('classical') ?>
-<?php echo $this->Html->css('emma.advance') ?>
+<?php echo $this->App->safeScript('div') ?>
+<?php echo $this->App->safeScript('screen') ?>
+<?php echo $this->App->safeCss('classical') ?>
+<?php echo $this->App->safeCss('emma.advance') ?>
 <style type="text/css">
 .w2ui-buttons{
     position: fixed;

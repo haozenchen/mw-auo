@@ -27,8 +27,6 @@ use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
-use Cake\Console\CommandCollection;
-use App\Command\SyncRecordsCommand;
 
 /**
  * Application setup class.
@@ -99,10 +97,12 @@ class Application extends BaseApplication
 
             // Cross Site Request Forgery (CSRF) Protection Middleware
             //https://book.cakephp.org/4/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
-            // ->add(new CsrfProtectionMiddleware([
-            //     'httponly' => true,
-            // ]))
+            ->add(new CsrfProtectionMiddleware([
+                'httpOnly' => true,
+                'secure' => true
+            ]))
             ;
+
 
         return $middlewareQueue;
     }
@@ -118,12 +118,6 @@ class Application extends BaseApplication
     {
     }
 
-
-    public function console(CommandCollection $commands): CommandCollection
-    {
-        $commands->add('sync_records', SyncRecordsCommand::class);
-        return $commands;
-    }
     /**
      * Bootstrapping for CLI application.
      *

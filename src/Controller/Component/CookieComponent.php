@@ -116,7 +116,7 @@ class CookieComponent extends Component {
  * @var string
  * @access private
  */
-	var $__expires = 0;
+	var $__expires = 86400;
 /**
  * Main execution method.
  *

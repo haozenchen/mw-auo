@@ -1,54 +1,9 @@
 {
     "Code": 1,
     "Message": "OK(DATA_HUB)",
-    "RequestId": "a76c32f516074c149affa30df6c5bf31",
-    "Bizid": "fa300a820b214512910d6b7d96f1fc21",
+    "RequestId": "9c0e80086264473d9b53fc5a38f975fa",
+    "Bizid": "06a13eb2103244e3ab8547c8f493c452",
     "Result": [
-        {
-            "BEGIN_DATE": "20180301",
-            "END_DATE": "20230401",
-            "TITLE": "資深處長",
-            "COMPANY": "仁寶",
-            "PRO_YEAR": "5.00",
-            "PERCENTAGE": "1.00",
-            "EMP_NO": "2305001"
-        },
-        {
-            "BEGIN_DATE": "19960101",
-            "END_DATE": "20180228",
-            "TITLE": "協理",
-            "COMPANY": "廣達",
-            "PRO_YEAR": "22.00",
-            "PERCENTAGE": "1.00",
-            "EMP_NO": "2305001"
-        },
-        {
-            "BEGIN_DATE": "20010129",
-            "END_DATE": "20040604",
-            "TITLE": "助理工程師",
-            "COMPANY": "華邦電子（股）公司",
-            "PRO_YEAR": "0.00",
-            "PERCENTAGE": "0.00",
-            "EMP_NO": "0405083"
-        },
-        {
-            "BEGIN_DATE": "19970203",
-            "END_DATE": "20010129",
-            "TITLE": "工程師",
-            "COMPANY": "新企工程（股）公司",
-            "PRO_YEAR": "0.00",
-            "PERCENTAGE": "0.00",
-            "EMP_NO": "0405083"
-        },
-        {
-            "BEGIN_DATE": "19960715",
-            "END_DATE": "19970203",
-            "TITLE": "助理工程師",
-            "COMPANY": "樂士電機（股）公司",
-            "PRO_YEAR": "0.00",
-            "PERCENTAGE": "0.00",
-            "EMP_NO": "0405083"
-        },
         {
             "BEGIN_DATE": "20011126",
             "END_DATE": "20090331",
@@ -77,13 +32,238 @@
             "EMP_NO": "1206034"
         },
         {
-            "BEGIN_DATE": "20230522",
-            "END_DATE": "20231101",
-            "TITLE": "ASSISTANT",
-            "COMPANY": "GOLDEN ARROW VIETNAM",
-            "PRO_YEAR": "0.60",
+            "BEGIN_DATE": "20080303",
+            "END_DATE": "20090803",
+            "TITLE": "業務",
+            "COMPANY": "恆祥龍",
+            "PRO_YEAR": "0.21",
+            "PERCENTAGE": "0.15",
+            "EMP_NO": "1108052"
+        },
+        {
+            "BEGIN_DATE": "19980901",
+            "END_DATE": "20130604",
+            "TITLE": "經理/廠長",
+            "COMPANY": "友達光電",
+            "PRO_YEAR": "14.77",
             "PERCENTAGE": "1.00",
-            "EMP_NO": "V2352013"
+            "EMP_NO": "2109004"
+        },
+        {
+            "BEGIN_DATE": "20130701",
+            "END_DATE": "20210601",
+            "TITLE": "協理",
+            "COMPANY": "達運精密",
+            "PRO_YEAR": "7.92",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2109004"
+        },
+        {
+            "BEGIN_DATE": "19970801",
+            "END_DATE": "20030301",
+            "TITLE": "經理",
+            "COMPANY": "巨齡企業",
+            "PRO_YEAR": "3.58",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2202095"
+        },
+        {
+            "BEGIN_DATE": "20050301",
+            "END_DATE": "20050801",
+            "TITLE": "主任工程師",
+            "COMPANY": "飛凱科技",
+            "PRO_YEAR": "0.42",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2202095"
+        },
+        {
+            "BEGIN_DATE": "20080602",
+            "END_DATE": "20220210",
+            "TITLE": "資深副理",
+            "COMPANY": "群創光電",
+            "PRO_YEAR": "13.41",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2202095"
+        },
+        {
+            "BEGIN_DATE": "20050901",
+            "END_DATE": "20080501",
+            "TITLE": "經理",
+            "COMPANY": "燁輝企業",
+            "PRO_YEAR": "2.67",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2202095"
+        },
+        {
+            "BEGIN_DATE": "20020429",
+            "END_DATE": "20030131",
+            "TITLE": "設計師",
+            "COMPANY": "合圃股份有限公司",
+            "PRO_YEAR": "0.08",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "0609190"
+        },
+        {
+            "BEGIN_DATE": "20030203",
+            "END_DATE": "20040531",
+            "TITLE": "設計師兼任組長",
+            "COMPANY": "高野景觀工程公司",
+            "PRO_YEAR": "0.26",
+            "PERCENTAGE": "0.20",
+            "EMP_NO": "0609190"
+        },
+        {
+            "BEGIN_DATE": "20180301",
+            "END_DATE": "20230401",
+            "TITLE": "資深處長",
+            "COMPANY": "仁寶",
+            "PRO_YEAR": "5.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2305001"
+        },
+        {
+            "BEGIN_DATE": "19960101",
+            "END_DATE": "20180228",
+            "TITLE": "協理",
+            "COMPANY": "廣達",
+            "PRO_YEAR": "22.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2305001"
+        },
+        {
+            "BEGIN_DATE": "20200217",
+            "END_DATE": "20200816",
+            "TITLE": "助理辦事員",
+            "COMPANY": "台灣土地銀行",
+            "PRO_YEAR": "0.49",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2009091"
+        },
+        {
+            "BEGIN_DATE": "20190314",
+            "END_DATE": "20191108",
+            "TITLE": "人事专员",
+            "COMPANY": "微盟电子",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "S2011160"
+        },
+        {
+            "BEGIN_DATE": "20191111",
+            "END_DATE": "20201015",
+            "TITLE": "招聘专员",
+            "COMPANY": "华天科技（昆山）电子有限公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "S2011160"
+        },
+        {
+            "BEGIN_DATE": "20110715",
+            "END_DATE": "20160131",
+            "TITLE": "硫化工",
+            "COMPANY": "三角轮胎有限公司",
+            "PRO_YEAR": "4.32",
+            "PERCENTAGE": "0.09",
+            "EMP_NO": "S2305346"
+        },
+        {
+            "BEGIN_DATE": "20210701",
+            "END_DATE": "20220810",
+            "TITLE": "设备生计工程师",
+            "COMPANY": "江苏心力量智能科技有点公司",
+            "PRO_YEAR": "1.11",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "S2305346"
+        },
+        {
+            "BEGIN_DATE": "20190701",
+            "END_DATE": "20210628",
+            "TITLE": "设备组装工程师",
+            "COMPANY": "昆山嘉丽姆精密设备组装有限公司",
+            "PRO_YEAR": "1.99",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "S2305346"
+        },
+        {
+            "BEGIN_DATE": "20160215",
+            "END_DATE": "20190615",
+            "TITLE": "操机工",
+            "COMPANY": "株式会社ソミック石川",
+            "PRO_YEAR": "3.33",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "S2305346"
+        },
+        {
+            "BEGIN_DATE": "20230215",
+            "END_DATE": "20230503",
+            "TITLE": "售后工程师",
+            "COMPANY": "济南森峰激光科技股份有限公司",
+            "PRO_YEAR": "0.21",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "S2305346"
+        },
+        {
+            "BEGIN_DATE": "20150701",
+            "END_DATE": "20170731",
+            "TITLE": "渠道经理",
+            "COMPANY": "中国联通扬州分公司",
+            "PRO_YEAR": "2.08",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "S1902006"
+        },
+        {
+            "BEGIN_DATE": "20170815",
+            "END_DATE": "20190123",
+            "TITLE": "技术支持工程师",
+            "COMPANY": "利福广场（苏州）有限公司",
+            "PRO_YEAR": "1.44",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "S1902006"
+        },
+        {
+            "BEGIN_DATE": "20110715",
+            "END_DATE": "20120606",
+            "TITLE": "IE工程师",
+            "COMPANY": "台达电子",
+            "PRO_YEAR": "0.80",
+            "PERCENTAGE": "0.09",
+            "EMP_NO": "S1207755"
+        },
+        {
+            "BEGIN_DATE": "20180501",
+            "END_DATE": "20181015",
+            "TITLE": "技术部助理",
+            "COMPANY": "陕西通用润滑科技有限公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "S2011010"
+        },
+        {
+            "BEGIN_DATE": "20120401",
+            "END_DATE": "20121030",
+            "TITLE": "产品PM",
+            "COMPANY": "北京润泽汇通",
+            "PRO_YEAR": "0.17",
+            "PERCENTAGE": "0.03",
+            "EMP_NO": "X1726007"
+        },
+        {
+            "BEGIN_DATE": "20090921",
+            "END_DATE": "20120309",
+            "TITLE": "管理师",
+            "COMPANY": "福清冠捷",
+            "PRO_YEAR": "1.48",
+            "PERCENTAGE": "0.06",
+            "EMP_NO": "X1726007"
+        },
+        {
+            "BEGIN_DATE": "20130108",
+            "END_DATE": "20170315",
+            "TITLE": "主任管理师",
+            "COMPANY": "厦门冠捷",
+            "PRO_YEAR": "2.93",
+            "PERCENTAGE": "0.07",
+            "EMP_NO": "X1726007"
         },
         {
             "BEGIN_DATE": "20061120",
@@ -93,6 +273,69 @@
             "PRO_YEAR": "1.88",
             "PERCENTAGE": "0.30",
             "EMP_NO": "1305431"
+        },
+        {
+            "BEGIN_DATE": "20120701",
+            "END_DATE": "20160415",
+            "TITLE": "研发工程师",
+            "COMPANY": "宸鸿科技（TPK）",
+            "PRO_YEAR": "3.79",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "X2329010"
+        },
+        {
+            "BEGIN_DATE": "20110630",
+            "END_DATE": "20120630",
+            "TITLE": "技术员",
+            "COMPANY": "东金电子",
+            "PRO_YEAR": "0.30",
+            "PERCENTAGE": "0.03",
+            "EMP_NO": "X2329010"
+        },
+        {
+            "BEGIN_DATE": "20160601",
+            "END_DATE": "20170801",
+            "TITLE": "工艺工程师",
+            "COMPANY": "厦门天马微电子有限公司(模组二厂贴合科)",
+            "PRO_YEAR": "1.17",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "X2329010"
+        },
+        {
+            "BEGIN_DATE": "20170927",
+            "END_DATE": "20230906",
+            "TITLE": "新产品工程师",
+            "COMPANY": "厦门达运精密电子",
+            "PRO_YEAR": "5.95",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "X2329010"
+        },
+        {
+            "BEGIN_DATE": "20050601",
+            "END_DATE": "20051101",
+            "TITLE": "技术员",
+            "COMPANY": "上海矽魁电子",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "S0616571"
+        },
+        {
+            "BEGIN_DATE": "20150901",
+            "END_DATE": "20170925",
+            "TITLE": "文书",
+            "COMPANY": "武警甘肃森林总队兰州大队",
+            "PRO_YEAR": "0.41",
+            "PERCENTAGE": "0.02",
+            "EMP_NO": "S2011004"
+        },
+        {
+            "BEGIN_DATE": "20180413",
+            "END_DATE": "20200801",
+            "TITLE": "PE工程师",
+            "COMPANY": "辅讯光电工业(苏州)有限公司",
+            "PRO_YEAR": "2.07",
+            "PERCENTAGE": "0.09",
+            "EMP_NO": "S2011004"
         },
         {
             "BEGIN_DATE": "20141127",
@@ -111,6 +354,276 @@
             "PRO_YEAR": "2.04",
             "PERCENTAGE": "1.00",
             "EMP_NO": "2108169"
+        },
+        {
+            "BEGIN_DATE": "20160517",
+            "END_DATE": "20170303",
+            "TITLE": "采购管理师",
+            "COMPANY": "苏州天禄光科技有限公司",
+            "PRO_YEAR": "0.32",
+            "PERCENTAGE": "0.04",
+            "EMP_NO": "S1704002"
+        },
+        {
+            "BEGIN_DATE": "20130713",
+            "END_DATE": "20160421",
+            "TITLE": "采购工程师",
+            "COMPANY": "辅讯光电工业有限公司",
+            "PRO_YEAR": "2.22",
+            "PERCENTAGE": "0.08",
+            "EMP_NO": "S1704002"
+        },
+        {
+            "BEGIN_DATE": "20190613",
+            "END_DATE": "20191230",
+            "TITLE": "跟单员",
+            "COMPANY": "山东东方华龙集团进出口贸易有限公司",
+            "PRO_YEAR": "0.55",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "X2327004"
+        },
+        {
+            "BEGIN_DATE": "20200301",
+            "END_DATE": "20211230",
+            "TITLE": "助教",
+            "COMPANY": "北京瑞塔优智教育科技有限公司",
+            "PRO_YEAR": "0.92",
+            "PERCENTAGE": "0.05",
+            "EMP_NO": "X2327004"
+        },
+        {
+            "BEGIN_DATE": "20220228",
+            "END_DATE": "20230302",
+            "TITLE": "采购员",
+            "COMPANY": "广州海鸥住宅工业股份有限公司",
+            "PRO_YEAR": "1.01",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "X2327004"
+        },
+        {
+            "BEGIN_DATE": "20060403",
+            "END_DATE": "20130928",
+            "TITLE": "课长",
+            "COMPANY": "友达光电(上海)有限公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "S2312054"
+        },
+        {
+            "BEGIN_DATE": "20131021",
+            "END_DATE": "20191011",
+            "TITLE": "生产总监",
+            "COMPANY": "合丰泰光电科技有限公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "S2312054"
+        },
+        {
+            "BEGIN_DATE": "20191107",
+            "END_DATE": "20230908",
+            "TITLE": "经理",
+            "COMPANY": "苏州市佳世达电子有限公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "S2312054"
+        },
+        {
+            "BEGIN_DATE": "20190421",
+            "END_DATE": "20210615",
+            "TITLE": "工業工程副理",
+            "COMPANY": "仁寶",
+            "PRO_YEAR": "2.17",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2307177"
+        },
+        {
+            "BEGIN_DATE": "20210622",
+            "END_DATE": "20220808",
+            "TITLE": "專案管理副理",
+            "COMPANY": "太古可口可樂",
+            "PRO_YEAR": "1.05",
+            "PERCENTAGE": "0.90",
+            "EMP_NO": "2307177"
+        },
+        {
+            "BEGIN_DATE": "20141006",
+            "END_DATE": "20170831",
+            "TITLE": "產品工程師",
+            "COMPANY": "華碩電腦",
+            "PRO_YEAR": "2.40",
+            "PERCENTAGE": "0.80",
+            "EMP_NO": "2307177"
+        },
+        {
+            "BEGIN_DATE": "20180116",
+            "END_DATE": "20190220",
+            "TITLE": "特助",
+            "COMPANY": "華儲物流設備",
+            "PRO_YEAR": "0.87",
+            "PERCENTAGE": "0.80",
+            "EMP_NO": "2307177"
+        },
+        {
+            "BEGIN_DATE": "20220822",
+            "END_DATE": "20230628",
+            "TITLE": "製造部副理",
+            "COMPANY": "鴻佰科技",
+            "PRO_YEAR": "0.64",
+            "PERCENTAGE": "0.90",
+            "EMP_NO": "2307177"
+        },
+        {
+            "BEGIN_DATE": "20050401",
+            "END_DATE": "20050723",
+            "TITLE": "助工",
+            "COMPANY": "塑華消防工程(股)",
+            "PRO_YEAR": "0.19",
+            "PERCENTAGE": "0.60",
+            "EMP_NO": "0528004"
+        },
+        {
+            "BEGIN_DATE": "20050801",
+            "END_DATE": "20060930",
+            "TITLE": "工程師",
+            "COMPANY": "廣輝電子",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "0528004"
+        },
+        {
+            "BEGIN_DATE": "20201214",
+            "END_DATE": "20240430",
+            "TITLE": "資深經理",
+            "COMPANY": "COMPAL ELECTRONI CS",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "2406138"
+        },
+        {
+            "BEGIN_DATE": "20180208",
+            "END_DATE": "20201208",
+            "TITLE": "資深副理",
+            "COMPANY": "HON HAI PRECISION IND.CO.LTD",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "2406138"
+        },
+        {
+            "BEGIN_DATE": "20170308",
+            "END_DATE": "20170908",
+            "TITLE": "副處長",
+            "COMPANY": "POWERTECH TECHNOLOGY INC",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "2406138"
+        },
+        {
+            "BEGIN_DATE": "20070601",
+            "END_DATE": "20091201",
+            "TITLE": "工程师",
+            "COMPANY": "友达光电(苏州)有限公司",
+            "PRO_YEAR": "2.50",
+            "PERCENTAGE": "0.10",
+            "EMP_NO": "S1007427"
+        },
+        {
+            "BEGIN_DATE": "20060705",
+            "END_DATE": "20070422",
+            "TITLE": "技术员",
+            "COMPANY": "洛阳隆惠石化工程有限公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "S1007427"
+        },
+        {
+            "BEGIN_DATE": "20140202",
+            "END_DATE": "20150701",
+            "TITLE": "品管组长",
+            "COMPANY": "福州吉田检品公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "X1651001"
+        },
+        {
+            "BEGIN_DATE": "20150801",
+            "END_DATE": "20161001",
+            "TITLE": "业务员",
+            "COMPANY": "厦门恒万兴贸易有限公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "X1651001"
+        },
+        {
+            "BEGIN_DATE": "20161124",
+            "END_DATE": "20181231",
+            "TITLE": "QE工程师",
+            "COMPANY": "达运精密",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "X1651001"
+        },
+        {
+            "BEGIN_DATE": "20221101",
+            "END_DATE": "20231201",
+            "TITLE": "生產部經理",
+            "COMPANY": "仁寶",
+            "PRO_YEAR": "1.08",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2409200"
+        },
+        {
+            "BEGIN_DATE": "20210301",
+            "END_DATE": "20220501",
+            "TITLE": "生產部副理",
+            "COMPANY": "希世比",
+            "PRO_YEAR": "0.99",
+            "PERCENTAGE": "0.85",
+            "EMP_NO": "2409200"
+        },
+        {
+            "BEGIN_DATE": "20170301",
+            "END_DATE": "20191101",
+            "TITLE": "特助",
+            "COMPANY": "和慶電子",
+            "PRO_YEAR": "2.27",
+            "PERCENTAGE": "0.85",
+            "EMP_NO": "2409200"
+        },
+        {
+            "BEGIN_DATE": "20050508",
+            "END_DATE": "20070914",
+            "TITLE": "OP",
+            "COMPANY": "上海永新彩色显象管股份有限公司",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "S0710601"
+        },
+        {
+            "BEGIN_DATE": "20230701",
+            "END_DATE": "20240616",
+            "TITLE": "專案經理",
+            "COMPANY": "富采控股",
+            "PRO_YEAR": "1.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2406002"
+        },
+        {
+            "BEGIN_DATE": "20071210",
+            "END_DATE": "20230630",
+            "TITLE": "經理",
+            "COMPANY": "隆達電子",
+            "PRO_YEAR": "15.60",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2406002"
+        },
+        {
+            "BEGIN_DATE": "20020801",
+            "END_DATE": "20070228",
+            "TITLE": "高級管理師",
+            "COMPANY": "達虹科技",
+            "PRO_YEAR": "4.60",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "2406002"
         },
         {
             "BEGIN_DATE": "20220401",
@@ -140,31 +653,13 @@
             "EMP_NO": "V2352006"
         },
         {
-            "BEGIN_DATE": "20200217",
-            "END_DATE": "20200816",
-            "TITLE": "助理辦事員",
-            "COMPANY": "台灣土地銀行",
-            "PRO_YEAR": "0.49",
-            "PERCENTAGE": "1.00",
-            "EMP_NO": "2009091"
-        },
-        {
-            "BEGIN_DATE": "19980901",
-            "END_DATE": "20130604",
-            "TITLE": "經理/廠長",
-            "COMPANY": "友達光電",
-            "PRO_YEAR": "14.77",
-            "PERCENTAGE": "1.00",
-            "EMP_NO": "2109004"
-        },
-        {
-            "BEGIN_DATE": "20130701",
-            "END_DATE": "20210601",
-            "TITLE": "協理",
-            "COMPANY": "達運精密",
-            "PRO_YEAR": "7.92",
-            "PERCENTAGE": "1.00",
-            "EMP_NO": "2109004"
+            "BEGIN_DATE": "20210901",
+            "END_DATE": "20231130",
+            "TITLE": "LOGISTIC",
+            "COMPANY": "ALPHA NETWORKS VIETNAM LTD CO.,",
+            "PRO_YEAR": "2.25",
+            "PERCENTAGE": "100.00",
+            "EMP_NO": "V2352007"
         },
         {
             "BEGIN_DATE": "20181201",
@@ -176,76 +671,220 @@
             "EMP_NO": "V2442007"
         },
         {
-            "BEGIN_DATE": "20210901",
-            "END_DATE": "20231130",
-            "TITLE": "LOGISTIC",
-            "COMPANY": "ALPHA NETWORKS VIETNAM LTD CO.,",
-            "PRO_YEAR": "2.25",
-            "PERCENTAGE": "100.00",
-            "EMP_NO": "V2352007"
-        },
-        {
-            "BEGIN_DATE": "20201019",
-            "END_DATE": "20230228",
-            "TITLE": "處長",
-            "COMPANY": "ACC",
-            "PRO_YEAR": "0.00",
-            "PERCENTAGE": "0.00",
-            "EMP_NO": "2303003"
-        },
-        {
-            "BEGIN_DATE": "20000724",
-            "END_DATE": "20201018",
-            "TITLE": "會計經理",
-            "COMPANY": "友達光電股份有限公司",
-            "PRO_YEAR": "20.25",
+            "BEGIN_DATE": "20200401",
+            "END_DATE": "20240330",
+            "TITLE": "NHÂN VIÊN IT",
+            "COMPANY": "GEMTEK",
+            "PRO_YEAR": "4.00",
             "PERCENTAGE": "1.00",
-            "EMP_NO": "2303003"
+            "EMP_NO": "V2444005"
         },
         {
-            "BEGIN_DATE": "19940718",
-            "END_DATE": "19980430",
-            "TITLE": "會計",
-            "COMPANY": "台灣科華(股)公司",
+            "BEGIN_DATE": "20210701",
+            "END_DATE": "20221130",
+            "TITLE": "CÔNG TY TNHH KOS HÀ NỘI",
+            "COMPANY": "CÔNG TY TNHH KOS HÀ NỘI",
+            "PRO_YEAR": "1.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "V2444007"
+        },
+        {
+            "BEGIN_DATE": "20221201",
+            "END_DATE": "20240330",
+            "TITLE": "CÔNG TY TNHH KỸ THUẬT GOLDEN AROW",
+            "COMPANY": "CÔNG TY TNHH KỸ THUẬT GOLDEN AROW",
+            "PRO_YEAR": "1.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "V2444007"
+        },
+        {
+            "BEGIN_DATE": "20190801",
+            "END_DATE": "20240201",
+            "TITLE": "QUẢN LÍ MUA HÀNG",
+            "COMPANY": "CÔNG TY TNHH ANTUNG",
+            "PRO_YEAR": "5.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2445005"
+        },
+        {
+            "BEGIN_DATE": "20240301",
+            "END_DATE": "20240501",
+            "TITLE": "QUẢN LÍ DỰ ÁN",
+            "COMPANY": "CÔNG TY TNHH KHOA HỌC VÀ KỸ THUẬT AVC (VN)",
             "PRO_YEAR": "0.00",
             "PERCENTAGE": "0.00",
-            "EMP_NO": "2303003"
+            "EMP_NO": "V2445005"
         },
         {
-            "BEGIN_DATE": "19980504",
-            "END_DATE": "20000724",
-            "TITLE": "會計",
-            "COMPANY": "華隆微電子(股)公司",
+            "BEGIN_DATE": "20200301",
+            "END_DATE": "20220501",
+            "TITLE": "QUẢN LÝ HÀNH CHÍNH NHÂN SỰ",
+            "COMPANY": "CÔNG TY TNHH VIETBRAND",
             "PRO_YEAR": "0.00",
             "PERCENTAGE": "0.00",
-            "EMP_NO": "2303003"
+            "EMP_NO": "V2445118"
         },
         {
-            "BEGIN_DATE": "20020429",
-            "END_DATE": "20030131",
-            "TITLE": "設計師",
-            "COMPANY": "合圃股份有限公司",
-            "PRO_YEAR": "0.08",
-            "PERCENTAGE": "0.10",
-            "EMP_NO": "0609190"
+            "BEGIN_DATE": "20220501",
+            "END_DATE": "20240501",
+            "TITLE": "QUẢN LÝ NHÂN SỰ",
+            "COMPANY": "CÔNG TY TNHH WING KWONG INDUSTRIAL VIỆT NAM",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2445118"
         },
         {
-            "BEGIN_DATE": "20030203",
-            "END_DATE": "20040531",
-            "TITLE": "設計師兼任組長",
-            "COMPANY": "高野景觀工程公司",
-            "PRO_YEAR": "0.26",
-            "PERCENTAGE": "0.20",
-            "EMP_NO": "0609190"
+            "BEGIN_DATE": "20190501",
+            "END_DATE": "20240322",
+            "TITLE": "MANAGER",
+            "COMPANY": "CÔNG TY TNHH KUROSU HÀ NAM",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2445120"
         },
         {
-            "BEGIN_DATE": "20080303",
-            "END_DATE": "20090803",
-            "TITLE": "業務",
-            "COMPANY": "恆祥龍",
-            "PRO_YEAR": "0.21",
-            "PERCENTAGE": "0.15",
-            "EMP_NO": "1108052"
+            "BEGIN_DATE": "20150701",
+            "END_DATE": "20190301",
+            "TITLE": "ACCOUNTANT",
+            "COMPANY": "CÔNG TY TNHH VIỆT NAM BYRON HOLDINGS",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2445120"
+        },
+        {
+            "BEGIN_DATE": "20110901",
+            "END_DATE": "20140801",
+            "TITLE": "KỸ SƯ LẮP ĐẶT",
+            "COMPANY": "CHILINE (VIETNAM) ENVIRONMENTAL ENGINEERING CO., L",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2446005"
+        },
+        {
+            "BEGIN_DATE": "20141001",
+            "END_DATE": "20240531",
+            "TITLE": "TRƯỞNG PHÒNG",
+            "COMPANY": "VIENERGY CO.,LTD",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2446005"
+        },
+        {
+            "BEGIN_DATE": "20240401",
+            "END_DATE": "20240510",
+            "TITLE": "",
+            "COMPANY": "WISTRON",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "V2446010"
+        },
+        {
+            "BEGIN_DATE": "20200501",
+            "END_DATE": "20240330",
+            "TITLE": "TRƯỞNG CA",
+            "COMPANY": "ZDL",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "V2446010"
+        },
+        {
+            "BEGIN_DATE": "20220601",
+            "END_DATE": "20230701",
+            "TITLE": "KỸ SƯ R&D",
+            "COMPANY": "A&G CERAMICS CO., LTD",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2447006"
+        },
+        {
+            "BEGIN_DATE": "20201201",
+            "END_DATE": "20220501",
+            "TITLE": "NHÂN VIÊN THIẾT KẾ PCB",
+            "COMPANY": "BEST BK CO., LTD",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2447006"
+        },
+        {
+            "BEGIN_DATE": "20230201",
+            "END_DATE": "20240630",
+            "TITLE": "PMC",
+            "COMPANY": "CÔNG TY TNHH GOLDEN ARROW VIET NAM",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2447007"
+        },
+        {
+            "BEGIN_DATE": "20170801",
+            "END_DATE": "20200101",
+            "TITLE": "MUA HÀNG",
+            "COMPANY": "PRETTY VINA",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2447007"
+        },
+        {
+            "BEGIN_DATE": "20200101",
+            "END_DATE": "20221030",
+            "TITLE": "QUẢN LÝ SX",
+            "COMPANY": "PRETTY VINA",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2447007"
+        },
+        {
+            "BEGIN_DATE": "20180801",
+            "END_DATE": "20240723",
+            "TITLE": "TRỢ LÝ TRƯỞNG PHÒNG",
+            "COMPANY": "SAMSUNG R&D VIỆT NAM",
+            "PRO_YEAR": "5.90",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "V2447008"
+        },
+        {
+            "BEGIN_DATE": "20221001",
+            "END_DATE": "20240731",
+            "TITLE": "採購",
+            "COMPANY": "CÔNG TY TNHH KỸ THUẬT ĐIỆN XÂY DỰNG FENG JIANG (VI",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2448005"
+        },
+        {
+            "BEGIN_DATE": "20170101",
+            "END_DATE": "20240801",
+            "TITLE": "NHÂN VIÊN",
+            "COMPANY": "VINAMILK",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2448011"
+        },
+        {
+            "BEGIN_DATE": "20210101",
+            "END_DATE": "20240801",
+            "TITLE": "MES IT",
+            "COMPANY": "WISTRON",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2448012"
+        },
+        {
+            "BEGIN_DATE": "20220601",
+            "END_DATE": "20240601",
+            "TITLE": "QA",
+            "COMPANY": "WNC",
+            "PRO_YEAR": "2.00",
+            "PERCENTAGE": "1.00",
+            "EMP_NO": "V2449007"
+        },
+        {
+            "BEGIN_DATE": "20150601",
+            "END_DATE": "20170101",
+            "TITLE": "KỸ SƯ ĐIỆN / BỘ PHẬN CÔNG TRÌNH",
+            "COMPANY": "CÔNG TY TNHH DỆT ĐÀI NGUYÊN",
+            "PRO_YEAR": "0.00",
+            "PERCENTAGE": "0.00",
+            "EMP_NO": "V2451048"
         }
     ]
 }

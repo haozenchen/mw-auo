@@ -1,5 +1,5 @@
 <div>
-<form id="formAdd">
+<?= $this->Form->create(null,['id'=>'formAdd']) ?>
 <div id="import_hint" class="content">
 	<table class="Classical" align="center" width="100%">
 		<tr>
@@ -25,14 +25,14 @@
 		</tr>
 	</table>
 </div>
-</form>
+<?= $this->Form->end() ?>
 </div>
 <script>
     function add(){
     	w2popup.close();
 		w2utils.lock('body', '同步中，請稍後...', true);
         jQuery.ajax({
-			url: '<?php echo $this->Url->build(['controller' => 'SyncRecords', 'action' => 'do_sync']); ?>',
+			url: '<?php echo $this->Url->build(['controller' => 'SyncRecords', 'action' => 'do_sync','fullBase' => true]); ?>',
 			type: 'POST',
 			dataType: 'json',
 			data: jQuery('#formAdd').serialize(),

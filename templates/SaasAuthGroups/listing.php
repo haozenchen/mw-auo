@@ -78,6 +78,9 @@ td[col="2"] div.w2ui-col-sorted{
                             jQuery.ajax({
 								url: 'delete/'+selected,
 								type: 'POST',
+								headers: {
+							        'X-CSRF-Token': jQuery('meta[name="csrfToken"]').attr('content')
+							    },
 								dataType: 'json',
 								success: function(data) {
 									//called when successful

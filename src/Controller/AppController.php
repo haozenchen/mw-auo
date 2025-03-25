@@ -197,6 +197,14 @@ class AppController extends Controller
 
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
+        $params = $this->request->getParam('pass');
+        foreach ($params as $param) {
+            if (!preg_match('/^[0-9a-zA-Z\-\_]+$/', $param)) {
+                return new Response(['body' => 'Invalid parameter format', 'status' => 400]);
+            }
+        }
+
+
        $auth_conf = array(
             'mode'  => 'oth',
             'login_page'  => EMMA_LOGIN,
@@ -221,7 +229,6 @@ class AppController extends Controller
         if($this->request->getSession()->read('EmmaApp.UserInfo')){
             $this->userInfo = unserialize($this->request->getSession()->read('EmmaApp.UserInfo'));
         }
-
         if(!empty($this->userInfo)){
             $this->emUid = $this->userInfo['Uid'];
             $this->emUserName = $this->userInfo['UserName'];

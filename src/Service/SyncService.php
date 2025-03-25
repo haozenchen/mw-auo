@@ -1,6 +1,6 @@
 <?php
 // src/Service/SyncService.php
-// 20241128
+// 20241203
 namespace App\Service;
 
 use Cake\ORM\TableRegistry;
@@ -177,7 +177,7 @@ class SyncService
         }
         //------------------------------------------------------------
         if(!empty($data['user']) || !empty($data['appover'])){
-            $syncJobs = $this->del_user($syncJobs, $auoAllUids, $fsAllUids);
+            $syncJobs = $this->del_user($syncJobs, $auoAllUids, $fsAllUids, $fs_users);
         }
         //------------------------------------------------------------
         // Log::error(var_export($syncJobs, true));
@@ -689,15 +689,13 @@ class SyncService
         $intUserIds = array_intersect_assoc($fsUids, $auoUids);
         $ing_fields = array('shift_type', 'holiday_calendar_name', 'card_number');//批次更新不處理欄位
         $lv_fields = array('leavedate');
-        $chg_fields = array('department_name', 'user_title_name', 'user_type_name', 'user_grade');
+        $chg_fields = array('department_name', 'user_title_name', 'user_grade');
         $array_fields = array('advanced_fields', 'military_service_record', 'education_record', 'work_experience');
-
 
         $field_map = array(
             'leavedate' => 'HR_paitw01_o1.quit_date',
             'department_name' => 'HR_paitw01_o1.org_id',
             'user_title_name' => 'HR_paitw01_o1.title',
-            'user_type_name' => 'HR_paitw01_o1.emp_type',
             'user_grade' => 'HR_paitw05_o7.GRADE',
         );
         $lv_user = array();
@@ -842,7 +840,7 @@ class SyncService
                         }else{
                             $upd_user[$id]['sn'] = $id;
                             $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
-                            $err_datas['user'][$id][] = array('action' => '員工離退作業', 'msg' => '人員離職日('.$field_map['leavedate'].')更新，無對應異動紀錄(HR_paitw05_act)');
+                            $err_datas['user'][$id][] = array('action' => '員工離退作業', 'msg' => '人員離職日('.$field_map['leavedate'].')更新，異動紀錄(HR_paitw05_act)與鋒形衝突或不存在');
                         }
                     }
                 }
@@ -870,7 +868,7 @@ class SyncService
                             }
 
                             foreach ($chg_fields as $chg_field) {
-                                if(str_replace(' ', '', $chg[$chg_field]) != str_replace(' ', '', $user[$chg_field])){
+                                if(!empty($user[$chg_field]) && str_replace(' ', '', $chg[$chg_field]) != str_replace(' ', '', $user[$chg_field])){
                                     $chg_err[$id]['field'][] = $chg_field;
                                 }
                             }
@@ -880,7 +878,7 @@ class SyncService
                         }else{
                             $upd_user[$id]['sn'] = $id;
                             $upd_user[$id] = (!empty($upd_user[$id]))? array_merge($upd_user[$id], $user): $user;
-                            $err_datas['user'][$id][] = array('action' => '員工回任/復職作業', 'msg' => '人員離職日('.$field_map['leavedate'].')更新，無對應回任復職紀錄(HR_paitw05_act)');
+                            $err_datas['user'][$id][] = array('action' => '員工回任/復職作業', 'msg' => '人員離職日('.$field_map['leavedate'].')更新，異動紀錄(HR_paitw05_act)與鋒形衝突或不存在');
                         }
                     }
                 }
@@ -909,7 +907,7 @@ class SyncService
                             $UserChange[$id]['update_user'] = true;
 
                             foreach ($chg_fields as $chg_field) {
-                                if(str_replace(' ', '', $chg[$chg_field]) != str_replace(' ', '', $user[$chg_field])){
+                                if(!empty($user[$chg_field]) && str_replace(' ', '', $chg[$chg_field]) != str_replace(' ', '', $user[$chg_field])){
                                     $chg_err[$id]['field'][] = $field_map[$chg_field];
                                 }
                             }
@@ -925,7 +923,7 @@ class SyncService
                                 }
                             }
                             if(!empty($chg_err[$id]['field'])){
-                                $err_datas['user'][$id][] = array('action' => '員工調派作業', 'msg' => '人員調派欄位('.implode('、', $chg_err[$id]['field']).')更新，無對應異動紀錄(HR_paitw05_act)');
+                                $err_datas['user'][$id][] = array('action' => '員工調派作業', 'msg' => '人員調派欄位('.implode('、', $chg_err[$id]['field']).')更新，異動紀錄(HR_paitw05_act)與鋒形衝突或不存在');
                             }
                         }
                     }
@@ -942,12 +940,14 @@ class SyncService
         return $syncJobs;
     }
 
-    public function del_user($syncJobs, $auoUids, $fsUids){
+    public function del_user($syncJobs, $auoUids, $fsUids, $fs_users){
         $delUserIds = array_diff($fsUids, $auoUids);
         $del_user = array();
         foreach ($delUserIds as $id) {
-            $del_user[$id]['sn'] = $id;
-            $del_user[$id]['deleted'] = true;
+            if($fs_users[$id]['job_status'] != 'unpaid_leave' && empty($fs_users[$id]['leavedate'])){
+                $del_user[$id]['sn'] = $id;
+                $del_user[$id]['deleted'] = true;
+            }
         }
         $syncJobs['del_user'] = array_merge($syncJobs['del_user'], array_values($del_user));
         $syncJobs['trans_count']['user'] += $this->countFuc($del_user);
@@ -1240,7 +1240,7 @@ class SyncService
                 $base['user_title_name'] = $user['title'];
                 $base['job_grade'] = $user['job_idl'];
                 $base['user_type_name'] = $user['emp_type'];
-                $base['card_number'] = $user['emp_card'];
+                // $base['card_number'] = $user['emp_card'];
                 $base['department_name'] =  $deps[$user['orgid']]['org_id'].' '.$deps[$user['orgid']]['name'];
                 $base['boss_sn'] = $user['boss_no'];
                 $base['shift_type'] = $user['class_id'];
@@ -1885,6 +1885,9 @@ class SyncService
                 // 如果解析成功，格式化為 'Y-m-d'
                 if ($datetime) {
                     $format_date = $datetime->format('Y-m-d');
+                }
+                if($format_date == '0000-00-00'){
+                    $format_date = null;
                 }
             } catch (\Exception $e) {
                 // 可以記錄錯誤或處理例外狀況

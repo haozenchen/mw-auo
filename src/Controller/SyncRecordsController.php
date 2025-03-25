@@ -220,6 +220,7 @@ class SyncRecordsController extends AppController
     }
 
     public function doSync(){
+        $this->log('123');
         $data = $this->request->getData();
         $syncService = new SyncService();
         $result = $syncService->doSync($data, $this->emUid);

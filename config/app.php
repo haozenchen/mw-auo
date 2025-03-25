@@ -437,9 +437,8 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
-        'ini' => [
-            'session.cookie_lifetime' => 86400, // 設定 session cookie 有效期（秒）
-            'session.gc_maxlifetime' => 86400,  // 設定 session 最大不活動時間（秒）
-        ],
+        'cookieTimeout' => 86400, // 1 天（以秒為單位）
+        'timeout' => 1440,        // Session 的有效分鐘數
+        'cookie' => 'my_app'
     ],
 ];

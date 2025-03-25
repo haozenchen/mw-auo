@@ -180,6 +180,7 @@ class SaasAdminsController extends AppController
             'keyField' => 'id',
             'valueField' => 'name'
         ]);
+
         if (!empty($this->request->getData())) {
             $reap_message = $this->reap(false, true);
             if(!empty($reap_message)) {
@@ -740,6 +741,7 @@ class SaasAdminsController extends AppController
         $this->loadModel('SaasSettings');
         $mfaKey = '';
         $isMfaPass = 0;
+
         if(!empty($this->request->getData('data.mfaKey'))) {
             $hash = hash('SHA384', (string)$this->hashStr, true);
             $key = substr($hash, 0, 32);
@@ -799,6 +801,8 @@ class SaasAdminsController extends AppController
                 }
             }
         }
+
+
         if(!empty($mfaCheck)){
             return $isMfaPass;
         }else{

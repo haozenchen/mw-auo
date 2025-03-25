@@ -5,26 +5,26 @@
 <meta http-equiv="description" content="鋒形科技人力資源管理系統">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
-
+<meta name="csrfToken" content="<?= $this->request->getAttribute('csrfToken'); ?>">
 <?php echo $this->Html->meta('charset', 'UTF-8'); ?>
-<?php echo $this->Html->css('jquery-ui-min/jquery-ui.min') ?>
-<?php echo $this->Html->css('w2ui-1.5.rc1') ?>
-<?php echo $this->Html->css('w3') ?>
-<?php echo $this->Html->css('bootstrap') ?>
+<?php echo $this->App->safeCss('jquery-ui-min/jquery-ui.min') ?>
+<?php echo $this->App->safeCss('w2ui-1.5.rc1') ?>
+<?php echo $this->App->safeCss('w3') ?>
+<?php echo $this->App->safeCss('bootstrap') ?>
 
-<?php echo $this->Html->css('toastr.min') ?>
-<?php echo $this->Html->css('fontawesome-free-5.13.1-web/css/all.css?123'); ?>
-<?php echo $this->Html->script('prototype') ?>
-<?php echo $this->Html->script('scriptaculous') ?>
-<?php echo $this->Html->script('cookie') ?>
-<?php echo $this->Html->script('hiddendiv') ?>
-<?php echo $this->Html->script('menu') ?>
-<?php echo $this->Html->script('jquery-2.1.0') ?>
-<?php echo $this->Html->script('jquery-ui-min/jquery-ui.min') ?>
-<?php echo $this->Html->script('jquery.ui.touch-punch.min') ?>
-<?php echo $this->Html->script('menu') ?>
-<?php echo $this->Html->script('toastr.min') ?>
-<?php echo $this->Html->script('w2ui-1.5.rc1') ?>
+<?php echo $this->App->safeCss('toastr.min') ?>
+<?php echo $this->App->safeCss('fontawesome-free-5.13.1-web/css/all.css?123'); ?>
+<?php echo $this->App->safeScript('prototype') ?>
+<?php echo $this->App->safeScript('scriptaculous') ?>
+<?php echo $this->App->safeScript('cookie') ?>
+<?php echo $this->App->safeScript('hiddendiv') ?>
+<?php echo $this->App->safeScript('menu') ?>
+<?php echo $this->App->safeScript('jquery-2.1.0') ?>
+<?php echo $this->App->safeScript('jquery-ui-min/jquery-ui.min') ?>
+<?php echo $this->App->safeScript('jquery.ui.touch-punch.min') ?>
+<?php echo $this->App->safeScript('menu') ?>
+<?php echo $this->App->safeScript('toastr.min') ?>
+<?php echo $this->App->safeScript('w2ui-1.5.rc1') ?>
 <script>
 	<?php if(!empty($mfaAlert)){
 		echo 'alert("'.$mfaAlert.'");';
@@ -330,7 +330,7 @@ function w3_close() {
 			onClick: function (event) {
 				if(event.node.link){
 					//Cookie.set('setTopMenu', event.target);
-					document.cookie = 'setMenu='+event.target+'; path=/';
+					document.cookie = 'setMenu='+event.target+'; path=/'+'	;';
 					window.location.href = event.node.link;
 				}else if(expandMenu.include(event.target)){
 					if(w2ui['sidebar'].flat){
@@ -394,14 +394,14 @@ function w3_close() {
 	session_life_time = Math.floor(new Date().getTime() / 1000) + parseInt(session_life_time);
 	var urlCode = jQuery(location).attr('href').split('/')[3];
 	$j(function () {
-		document.cookie = 'lifeTimePoint' + urlCode + '=' + session_life_time + ((protocol === 'https:') ? ';secure' : '') + '; Path=/;';
+		document.cookie = 'lifeTimePoint' + urlCode + '=' + session_life_time + ((protocol === 'https:') ? ';secure' : '') + '; Path=/' +
+    '	;';
 		function session_timer() {
 			jQuery.each(document.cookie.split(';'), function (key, val) {
 				if (jQuery.trim(val.split('=')[0]) == ('lifeTimePoint' + urlCode)) {
 					lifeTimePoint = val.split('=')[1];
 				}
 			});
-
 			sur_life_time = lifeTimePoint - Math.floor(new Date().getTime() / 1000);
 			if (sur_life_time < 120) {
 
@@ -431,7 +431,8 @@ function w3_close() {
 	function resetLifeTime() {
 		var session_life_time = <?php echo $sessionMaxLifeTime; ?>;
 		session_life_time = Math.floor(new Date().getTime() / 1000) + parseInt(session_life_time);
-		document.cookie = 'lifeTimePoint' + urlCode + '=' + session_life_time + ((protocol === 'https:') ? ';secure' : '') + '; Path=/;';
+		document.cookie = 'lifeTimePoint' + urlCode + '=' + session_life_time + ((protocol === 'https:') ? ';secure' : '') + '; Path=/' +
+    '	;';
 		$j('#popup').hide();
 	}
 </script>

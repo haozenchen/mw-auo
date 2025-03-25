@@ -1,8 +1,8 @@
 {
     "Code": 1,
     "Message": "OK(DATA_HUB)",
-    "RequestId": "7a62ca58506343cc804c66de050ba9a5",
-    "Bizid": "d05c2634a9244e8e985e7a3e6f4bb00f",
+    "RequestId": "6a74df65beb04de29785cbe2b8b8e9cd",
+    "Bizid": "cd1beb01acb94e089dcc7d254ab5a9c6",
     "Result": [
         {
             "action_type": "任用",
@@ -48,6 +48,21 @@
             "grade": "A7",
             "employ_sta_name": "Active",
             "emp_no": "0609190"
+        },
+        {
+            "action_type": "人事異動",
+            "trans_date": "20241202",
+            "reason": "Transfer Department",
+            "action_code": "Z3",
+            "trans_edate": "20241202",
+            "org_name": "AS21M1製造課",
+            "title": "Technician",
+            "emp_type": "Technology",
+            "employ_sta_code": "3",
+            "reason_code": "10",
+            "grade": "M7",
+            "employ_sta_name": "Active",
+            "emp_no": "V2451048"
         },
         {
             "action_type": "人事異動",
@@ -5825,51 +5840,6 @@
             "emp_no": "V2444070"
         },
         {
-            "action_type": "離職",
-            "trans_date": "20240831",
-            "reason": "pers-career planning",
-            "action_code": "Z4",
-            "trans_edate": "99991231",
-            "org_name": "AS21M2物料課",
-            "title": "",
-            "emp_type": "Technology",
-            "employ_sta_code": "0",
-            "reason_code": "13",
-            "grade": "Z1",
-            "employ_sta_name": "Withdrawn",
-            "emp_no": "V2444073"
-        },
-        {
-            "action_type": "人事異動",
-            "trans_date": "20240501",
-            "reason": "Transfer Department",
-            "action_code": "Z3",
-            "trans_edate": "20240830",
-            "org_name": "AS21M2物料課",
-            "title": "Technician",
-            "emp_type": "Technology",
-            "employ_sta_code": "3",
-            "reason_code": "10",
-            "grade": "Z1",
-            "employ_sta_name": "Active",
-            "emp_no": "V2444073"
-        },
-        {
-            "action_type": "任用",
-            "trans_date": "20240409",
-            "reason": "New Hired",
-            "action_code": "Z1",
-            "trans_edate": "20240430",
-            "org_name": "AS21M1製造課",
-            "title": "Technician",
-            "emp_type": "Technology",
-            "employ_sta_code": "3",
-            "reason_code": "01",
-            "grade": "Z1",
-            "employ_sta_name": "Active",
-            "emp_no": "V2444073"
-        },
-        {
             "action_type": "任用",
             "trans_date": "20240410",
             "reason": "New Hired",
@@ -11286,36 +11256,6 @@
         },
         {
             "action_type": "離職",
-            "trans_date": "20240831",
-            "reason": "Pers-Abnormal termination",
-            "action_code": "Z4",
-            "trans_edate": "99991231",
-            "org_name": "AS21M1製造課",
-            "title": "",
-            "emp_type": "Technology",
-            "employ_sta_code": "0",
-            "reason_code": "41",
-            "grade": "Z1",
-            "employ_sta_name": "Withdrawn",
-            "emp_no": "V2448114"
-        },
-        {
-            "action_type": "任用",
-            "trans_date": "20240827",
-            "reason": "New Hired",
-            "action_code": "Z1",
-            "trans_edate": "20240830",
-            "org_name": "AS21M1製造課",
-            "title": "Technician",
-            "emp_type": "Technology",
-            "employ_sta_code": "3",
-            "reason_code": "01",
-            "grade": "Z1",
-            "employ_sta_name": "Active",
-            "emp_no": "V2448114"
-        },
-        {
-            "action_type": "離職",
             "trans_date": "20241008",
             "reason": "pers-health issue",
             "action_code": "Z4",
@@ -11358,36 +11298,6 @@
             "grade": "Z1",
             "employ_sta_name": "Active",
             "emp_no": "V2448116"
-        },
-        {
-            "action_type": "離職",
-            "trans_date": "20240831",
-            "reason": "pers-family issue",
-            "action_code": "Z4",
-            "trans_edate": "99991231",
-            "org_name": "AS21M1製造課",
-            "title": "",
-            "emp_type": "Technology",
-            "employ_sta_code": "0",
-            "reason_code": "14",
-            "grade": "Z1",
-            "employ_sta_name": "Withdrawn",
-            "emp_no": "V2448117"
-        },
-        {
-            "action_type": "任用",
-            "trans_date": "20240828",
-            "reason": "New Hired",
-            "action_code": "Z1",
-            "trans_edate": "20240830",
-            "org_name": "AS21M1製造課",
-            "title": "Technician",
-            "emp_type": "Technology",
-            "employ_sta_code": "3",
-            "reason_code": "01",
-            "grade": "Z1",
-            "employ_sta_name": "Active",
-            "emp_no": "V2448117"
         },
         {
             "action_type": "任用",

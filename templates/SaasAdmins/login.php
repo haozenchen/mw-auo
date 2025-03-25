@@ -1,4 +1,4 @@
-<?php echo $this->Html->script('cookie') ?>
+<?php echo $this->App->safeScript('cookie') ?>
 
 <?php
 	$loginAutoFill = empty($loginAutoFill)? 0:1;
@@ -10,6 +10,7 @@
 ?>
 
 <script language="JavaScript">
+
     var isForceMfa = '<?= h($forceMfa->value) ?>';
 
     function clear_login() {
@@ -174,7 +175,15 @@
             </div>
         </div>
         <div class="col m-auto d-flex justify-content-center align-items-center">
-            <form id="login" class="loginForm" action="<?php echo $this->Url->build(['controller' => 'SaasAdmins', 'action' => 'login', 'admin' => false]); ?>" method="post" <?php echo $autocomplete; ?>>
+
+
+                <?php echo $this->Form->create(null, [
+                    'id' => 'login',
+                    'class' => 'loginForm',
+                    'url' => ['controller' => 'SaasAdmins', 'action' => 'login', 'admin' => false],
+                    'autocomplete' => $autocomplete
+                ]); ?>
+
                 <div id="orglogin" class="loginBox">
                     <div class="comName">鋒形科技</div>
                     <div class="dealerName">AUO同步資料平台</div>
@@ -309,7 +318,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            <?php echo $this->Form->end(); ?>
         </div>
     </div>
 </div>
